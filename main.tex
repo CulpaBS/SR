@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
+\usepackage{eso-pic} % \AddToShipoutPicture
+\usepackage{graphicx} % \includegraphics
+\usepackage{framed}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+%% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
+%% `natbio-farve` to use SCIENCE's new colors and logo.
+\def \ColourPDF {include/nat-farve}
+
+%% Change `ku-en` to `nat-en` to use the `Faculty of Science` header
+\def \TitlePDF   {include/nat-en}  % University of Copenhagen
+
+\title{
+  \vspace{3cm}
+  \Huge{Implementing Map-Scan Fusion in the Futhark Compiler} \\
+  \Large{Bachelor project}
+}
+
+\author{
+  \Large{Brian Spiegelhauer}
+  \\ \texttt{brianspieg@gmail.com} \\ \\
+   \Large{William Jack Lysgaard Sprent}
+  \\ \texttt{bsprent@gmail.com} \\
+}
+
+\date{
+    \today
+}
+
+\begin{document}
+
+
+\AddToShipoutPicture*{\put(0,0){\includegraphics*[viewport=0 0 700 600]{\ColourPDF}}}
+\AddToShipoutPicture*{\put(0,602){\includegraphics*[viewport=0 600 700 1600]{\ColourPDF}}}
+
+\AddToShipoutPicture*{\put(0,0){\includegraphics*{\TitlePDF}}}
+
+\clearpage\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Abstract}
+\section{Introduction}
+\textit{NOTE: the contents of this section is lifted from our synopsis and is probably placeholder}\\
+The Futhark language is a functional programming with which the main idea is to allow for the expression of sufficiently complex programs while keeping complexity to a level where programs can be aggressively optimised and have their parallelism exploited \cite{futharkdoc}.
+
+The Futhark compiler already supports a range of fusion optimisations \cite{T2Fusion}, but does not currently support fusion between \texttt{Map} and \texttt{Scan} statements.
+
+For our project we will explore the possibility of implementing Map-Scan fusion into the Futhark compiler, and will examine the performance benefits (if any) of performing such optimisations.
+
+\subsection{Motivation}
+Fusion has the ``[..] potential to optimize both the memory hierarchy time overhead and, sometimes asymptotically, the space requirement" \cite{T2Fusion}. Hence the main motivation for adding Map-Scan fusion capabilities to the optimiser of the Futhark compiler, is the potential for enabling performance increases for some Futhark programs.
+
+\subsection{Tasks}
+The project can be divided into three main tasks:
+\begin{enumerate}
+    \item Gain an understanding of logical reasoning behind fusion optimisations on Second Order Array Combinators.
+    \item Read and understand the relevant parts of the Futhark compiler required to make the necessary changes in the compiler.
+    \item Modify all modules of the Futhark compiler necessary to implement the Map-Scan fusion itself.
+\end{enumerate}
+At first sight, these tasks look fairly straight forward. However, we expect that the main difficulties of this project lie within unforeseen roadblocks we will run into when modifying the codebase.
+
+\section{Parallel Computation / Background info}
+Describe some relevant background info for how SOACS are parallelly computed - relevant to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
+
+\subsection{SOACS}
+Describe how SOACS - perhaps maps and scans - are computed sequentially vs. parallelly. \\
+
+
+As descriped in Troels Henriksens master thesis \cite{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACS) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACS will be explained by showing the difference in their computation when done sequentially vs. parallelly.
+
+\subsection{In Futhark}
+Describe how Futhark works with tuples of arrays.
+How Futhark splits lists into chunks and combines sequential and parallel methods to compute SOACS.
+\section{Map-Scan Fusion}
+Describe Map-Scan fusion on multiple levels.
+\subsection{Scanomap}
+What is the Scanomap construction. What are its semantics, and why is it used.
+Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
+\subsection{Necessary Conditions}
+What are the conditions for a scan map fusion. When can we fuse, and when can we not fuse.
+Our Scanomap supports carrying outputs from the map - explain why and how.
+\subsection{Fusing Scanomap}
+\subsection{The Fusion Process}
+Walk through the entire fusion process concisely - or similarly summarize the relevant T2 Graph reduction fusion paper rooted in scan.
+Show the fusion of an example instance of maps and scans through dependency graphs etc.
+
+\section{Implementation}
+What is the state of the Futhark codebase at project start. How is Scan currently handled. What is already there, and what do we need to implement.\\
+Our solution is closely related to how Redomap fusion is handled. How does it differ.\\
+What parts of the code have we touched and why.\\
+Describe how different parts of the Map-Scan fusion is done - e.g. describe how function composition is implemented and so on.
+
+\section{Benchmarking and Tests}
+How have we tested our implementation. Does it work? Why?\\
+How does the performance of a fused program compare with a non-fused program both sequentially and parallelly. Why?
+
+\section{Conclusion}
+\newpage
+
+\bibliographystyle{unsrt}
+\bibliography{lit}
+
+\end{document}
