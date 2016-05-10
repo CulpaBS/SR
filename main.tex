@@ -68,38 +68,71 @@ The project can be divided into three main tasks:
 \end{enumerate}
 At first sight, these tasks look fairly straight forward. However, we expect that the main difficulties of this project lie within unforeseen roadblocks we will run into when modifying the codebase.
 
-\section{Parallel Computation / Background info}
-Describe some relevant background info for how SOACS are parallelly computed - relevant to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
+\section{Background Information}
+Describe some relevant background info for how SOACs are parallelly computed - relevant to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
 
-\subsection{SOACS}
-Describe how SOACS - perhaps maps and scans - are computed sequentially vs. parallelly. \\
+\subsection{Futhark}
+As descriped in Troels Henriksens master thesis \cite{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
+%Chunking
+\subsection{SOACs}
+Describe how SOACs - perhaps maps and scans - are computed sequentially vs. parallelly. \\
+
+% Definition of SOACs
+
+% Why are they useful wrt. parallelisation
+
+% Soacs with tuples in Futhark
+\subsubsection{Map}
+% What is a map
+$$\mathtt{map :: } \: (\alpha \to \beta) \to [\alpha] \to [\beta]$$
+
+% How do we compute it parallely
+% Timecomplexity?
+
+\subsubsection{Scan}
+% what is a scan
+$$\mathtt{scan :: } \: (\alpha \to \alpha \to \alpha) \to \alpha \to [\alpha] \to [\alpha]$$
+
+% How do we compute it parallely
+
+% Timecomplexity?
+
+\subsection{Parallel Computations on GPGPUs}
+%% Spørg troels om baggrundsinfo
+
+\subsubsection{Memory Conditions}
+Small cache high miss penalty.
 
 
-As descriped in Troels Henriksens master thesis \cite{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACS) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACS will be explained by showing the difference in their computation when done sequentially vs. parallelly.
-
-\subsection{In Futhark}
-Describe how Futhark works with tuples of arrays.
-How Futhark splits lists into chunks and combines sequential and parallel methods to compute SOACS.
 \section{Map-Scan Fusion}
 Describe Map-Scan fusion on multiple levels.
+% Naive approach
+% Why?
 \subsection{Scanomap}
+% Why do we need the scanomap construction?
 What is the Scanomap construction. What are its semantics, and why is it used.
 Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
 \subsection{Necessary Conditions}
+% Copy from T2/Troels.
 What are the conditions for a scan map fusion. When can we fuse, and when can we not fuse.
 Our Scanomap supports carrying outputs from the map - explain why and how.
 \subsection{Fusing Scanomap}
-\subsection{The Fusion Process}
+% What can we not reduce with
+%horizontally
+%maposcanomap
+\subsection{Fusion Strategy/Example}
 Walk through the entire fusion process concisely - or similarly summarize the relevant T2 Graph reduction fusion paper rooted in scan.
 Show the fusion of an example instance of maps and scans through dependency graphs etc.
 
 \section{Implementation}
+
 What is the state of the Futhark codebase at project start. How is Scan currently handled. What is already there, and what do we need to implement.\\
 Our solution is closely related to how Redomap fusion is handled. How does it differ.\\
 What parts of the code have we touched and why.\\
 Describe how different parts of the Map-Scan fusion is done - e.g. describe how function composition is implemented and so on.
 
-\section{Benchmarking and Tests}
+
+\section{Benchmarking and Testing}
 How have we tested our implementation. Does it work? Why?\\
 How does the performance of a fused program compare with a non-fused program both sequentially and parallelly. Why?
 
