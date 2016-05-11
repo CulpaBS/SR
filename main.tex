@@ -75,25 +75,37 @@ Describe some relevant background info for how SOACs are parallelly computed - r
 As descriped in Troels Henriksens master thesis \cite{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
 %Chunking
 \subsection{SOACs}
-Describe how SOACs - perhaps maps and scans - are computed sequentially vs. parallelly. \\
+Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
+ functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some free assumptions to be made which turns out to be useful in regards to both parallisation and optimisation.
 
 % Definition of SOACs
-
 % Why are they useful wrt. parallelisation
-
 % Soacs with tuples in Futhark
 \subsubsection{Map}
-% What is a map
-$$\mathtt{map :: } \: (\alpha \to \beta) \to [\alpha] \to [\beta]$$
+The $\texttt{map} \: f \: a$ function, has the very simple definition of taking a function $f \: : \: \alpha \to \beta$ and returning a function $\mathtt{map} \:f \: : \: [\alpha] \to [\beta]$  which
+ applies $f$ to every element of an input array, $a$.  This gives us the type signature of \texttt{map},
+$$\mathtt{map} \: f \: a \: :  \: (\alpha \to \beta) \to [\alpha] \to [\beta]\mathnormal{.}$$
+And the semantic definition of \texttt{map},
+$$\mathtt{map} \: f \: a \: =  \: [f(a_0), f(a_1), ..., f(a_{n-1})]\mathnormal{.}$$
+Having no free variables, means that each result $f(a_i)$ \textit{only} depends on the corresponding element $a_i$. This makes \texttt{map}s fantastic for parallelisation as once the
+ degree of parallism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parrallel step, or $c$ steps for a chunk size of $c$.
 
+% INSERT COOL FIGURE OF MAP BEING COMPUTED 
 % How do we compute it parallely
 % Timecomplexity?
 
 \subsubsection{Scan}
 % what is a scan
-$$\mathtt{scan :: } \: (\alpha \to \alpha \to \alpha) \to \alpha \to [\alpha] \to [\alpha]$$
-
+$\texttt{scan} \: \odot \: e \: a$ takes the binary, associative function $\odot \: : \: \alpha \to \alpha \to \alpha$ and returns a function
+ $\mathtt{scan} \:\odot \: : \: \alpha \to [\alpha] \to [\alpha]$ which
+ computes the $\odot$ prefixes of an input array $a$ starting with a neutral element, $e$. Overall, \texttt{scan} has the type signature,
+$$\mathtt{scan} \: \odot \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to \alpha \to [\alpha] \to [\alpha]\mathnormal{.}$$
+And when computing \texttt{scan} with the function $\odot$, the array $a$, and neutral element $e$ we get,
+$$\mathtt{scan} \: \odot \: e \: a \: = [e \odot a_0, e \odot a_0 \odot a_1, ..., e \odot a_0 \odot ... \odot a_{n-1}]\mathnormal{.}$$
 % How do we compute it parallely
+Computing such a \texttt{scan} is not as simple as with a \texttt{map} as each prefix $a_0 \odot ... \odot a_i$ obviously depends on the previous prefix $a_0 \odot ... \odot a_{i-1}$. Hence, 
+the associativity of $\odot$ is vital as it means that this dependency does not force computation order, and partial results can be computed independently and combined.
+% How scan is computed in Futhark with fancy diagram 
 
 % Timecomplexity?
 
