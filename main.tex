@@ -69,10 +69,15 @@ The project can be divided into three main tasks:
 At first sight, these tasks look fairly straight forward. However, we expect that the main difficulties of this project lie within unforeseen roadblocks we will run into when modifying the codebase.
 
 \section{Background Information}
-Describe some relevant background info for how SOACs are parallelly computed - relevant to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
+%Describe some relevant background info for how SOACs are parallelly computed - relevant %to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
+
+There are problems/calculations that gets to a size where normal sequential programming involving consecutive execution of processes, will reach a computation time unsatisfying for the intended users. In some cases these calculations can be done much faster with parallel programming. Parallel programming is where many calculations are carried out simultaneously, with the idea of dividing a problem into smaller sub problems solved at the same time. Parallel and sequential programming are not mutually exclusive, in the sense that if you use parallel programming, you cant use sequential programming, in many cases they are used together. Parallel programming can be done on the CPU with its multiple cores, but when possible and advantages it is much better to harness the thousands of cores in the GPU - graphics processing units. The GPU is no longer only used to do graphical calculations, but also General-purpose computing, GPGPU (General-purpose computing on graphics processing units). \\
+
+To do GPGPU, Hyperfit a joint research center addressing the simultaneous challenges of high transparency, high computational performance and high productivity in finance, employing an integrated approach of financial mathematics, domain specific languages, parallel functional programming, and high-performance systems \cite{Hyperfit} created Futhark. 
+
 
 \subsection{Futhark}
-As descriped in Troels Henriksens master thesis \cite{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
+As descriped in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ language, p. 8]{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
