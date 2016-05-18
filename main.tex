@@ -99,7 +99,8 @@ As described in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ langua
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
- functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some assumptions to be made which turn out to be useful in regards to both parallisation and optimisation.
+ functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some assumptions to be made which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
+ is used in Futhark to expedite loop-fusion. \cite[chap. 7]{MasterTroels}
 
 % Definition of SOACs
 % Why are they useful wrt. parallelisation
@@ -108,7 +109,7 @@ Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Arra
 The $\texttt{map} \: f \: a$ function, has the very simple definition of taking a function $f \: : \: \alpha \to \beta$ and returning a function $\mathtt{map} \:f \: : \: [\alpha] \to [\beta]$  which
  applies $f$ to every element of an input array, $a$.  This gives us the type signature of \texttt{map},
 $$\mathtt{map} \: f \: a \: :  \: (\alpha \to \beta) \to [\alpha] \to [\beta]\mathnormal{.}$$
-And the semantic definition of \texttt{map},
+bAnd the semantic definition of \texttt{map},
 $$\mathtt{map} \: f \: a \: =  \: [f(a_0), f(a_1), ..., f(a_{n-1})]\mathnormal{.}$$
 Having no free variables, means that each result $f(a_i)$ \textit{only} depends on the corresponding element $a_i$. This makes \texttt{map}s fantastic for parallelisation as once the
  degree of parallism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parrallel step, or $c$ steps for a chunk size of $c$.
@@ -141,9 +142,9 @@ Small cache high miss penalty.
 
 \section{Map-Scan Fusion}
 Describe Map-Scan fusion on multiple levels.
-% Naive approach
 % Why?
 \subsection{Scanomap}
+% Naive approach
 When looking to fuse a \texttt{map} into a \texttt{scan}, the most straight forward approach is to attempt to perform function
  composition on the input functions of the respective functions. Hence, turning the following
 \begin{align}
@@ -152,7 +153,7 @@ When looking to fuse a \texttt{map} into a \texttt{scan}, the most straight forw
 \intertext{into,}
   c &= \mathtt{scan} \: \odot_f \: e \: a
 \end{align}
-where, $$x \odot_f y = \odot \circ f = x \odot f(y)$$
+where, $$x \odot_f y = \odot \circ f = x \odot f(y)$$ would be the naive approach.
 However, the type signature of the resulting function $$\odot_f \: : \: \alpha \to \beta \to \alpha$$
  is not compatible with the Futhark definition of \texttt{scan}, and neither is it associative. Clearly, a different approach
  is needed.
@@ -195,6 +196,7 @@ Hence we can freely turn any regular \texttt{scan} into an equivalent \texttt{sc
  the intermediate $b$ list, to arrive at an equivalent \texttt{scanomap},}
   c &= \mathtt{scanomap} \: \odot \: \odot_f \: e \: a\mathnormal{.}
 \end{align*}
+Any producer \texttt{map} can be fused into a consuming \texttt{scan} in this manner.
 % Why do we need the scanomap construction?
 % What is the Scanomap construction. What are its semantics, and why is it used.
 % Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
