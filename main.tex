@@ -5,6 +5,24 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
+\usepackage{amsmath} % flere matematikkommandoer
+\usepackage{amssymb} % flere matematikkommandoer
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage[utf8]{inputenc} % æøå
+\usepackage[T1]{fontenc} % mere æøå
+\usepackage{verbatim} % så man kan skrive ren tekst
+\usepackage[all]{xy} % den sidste (avancerede) formel i dokumentet
+\usepackage{graphicx}              % to include figures
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{breqn}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,fit,positioning, shapes}
 
 %% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
 %% `natbio-farve` to use SCIENCE's new colors and logo.
@@ -77,11 +95,11 @@ To do GPGPU, Hyperfit a joint research center addressing the simultaneous challe
 
 
 \subsection{Futhark}
-As descriped in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ language, p. 8]{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
+As described in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ language, p. 8]{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
- functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some free assumptions to be made which turns out to be useful in regards to both parallisation and optimisation.
+ functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some assumptions to be made which turn out to be useful in regards to both parallisation and optimisation.
 
 % Definition of SOACs
 % Why are they useful wrt. parallelisation
@@ -105,10 +123,10 @@ $\texttt{scan} \: \odot \: e \: a$ takes the binary, associative function $\odot
  $\mathtt{scan} \:\odot \: : \: \alpha \to [\alpha] \to [\alpha]$ which
  computes the $\odot$ prefixes of an input array $a$ starting with a neutral element, $e$. Overall, \texttt{scan} has the type signature,
 $$\mathtt{scan} \: \odot \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to \alpha \to [\alpha] \to [\alpha]\mathnormal{.}$$
-And when computing \texttt{scan} with the function $\odot$, the array $a$, and neutral element $e$ we get,
+Computing \texttt{scan} with the function $\odot$, the array $a$, and neutral element $e$ gives us,
 $$\mathtt{scan} \: \odot \: e \: a \: = [e \odot a_0, e \odot a_0 \odot a_1, ..., e \odot a_0 \odot ... \odot a_{n-1}]\mathnormal{.}$$
 % How do we compute it parallely
-Computing such a \texttt{scan} is not as simple as with a \texttt{map} as each prefix $a_0 \odot ... \odot a_i$ obviously depends on the previous prefix $a_0 \odot ... \odot a_{i-1}$. Hence, 
+However, computing such a \texttt{scan} is not as simple as with a \texttt{map} as each prefix $a_0 \odot ... \odot a_i$ obviously depends on the previous prefix $a_0 \odot ... \odot a_{i-1}$. Hence, 
 the associativity of $\odot$ is vital as it means that this dependency does not force computation order, and partial results can be computed independently and combined.
 % How scan is computed in Futhark with fancy diagram 
 
@@ -126,9 +144,35 @@ Describe Map-Scan fusion on multiple levels.
 % Naive approach
 % Why?
 \subsection{Scanomap}
+When looking to fuse a \texttt{map} into a \texttt{scan}, the most straight forward approach is to attempt to perform function
+ composition on the input functions of the respective functions. Hence, turning the following
+\begin{align}
+  b &= \mathtt{map} \: f \: a \\
+  c &= \mathtt{scan} \: \odot \: e \: b
+\intertext{into,}
+  c &= \mathtt{scan} \: \odot_f \: e \: a
+\end{align}
+where, $$x \odot_f y = \odot \circ f = x \odot f(y)$$
+However, the type signature of the resulting function $$\odot_f \: : \: \alpha \to \beta \to \alpha$$
+ is not compatible with the Futhark definition of \texttt{scan}, and neither is it associative. Clearly, a different approach
+ is needed.
+
+The solution to this problem is to exploit how Futhark uses chunking. Since the associativity of the \texttt{scan} operator only
+ comes into play during the parallel phase of computation, we can distiguish between how each chunk is computed sequentially and
+ how chunks are joined.
+
+To do so, we must expand the list of SOACs with the internal \texttt{scanomap} function. \texttt{scanomap} is semantically similar
+ to \texttt{scan}, however it takes two function parameters -- an associatve scanning function meant for parallelly scanning across
+ chunks, and a sequential folding function meant for scanning within a chunk.
+$$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to (\alpha \to \beta \to \alpha)
+ \to \alpha \to [\beta] \to [\alpha]\mathnormal{.}$$
+
+$$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: =
+ [e \odot_f a_0, (e \odot_f a_0) \odot_f a_1, ..., ((e \odot_f a_0) \odot_f ...) \odot_f a_{n-1}]\mathnormal{.}$$
 % Why do we need the scanomap construction?
-What is the Scanomap construction. What are its semantics, and why is it used.
-Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
+% What is the Scanomap construction. What are its semantics, and why is it used.
+% Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
+
 \subsection{Necessary Conditions}
 % Copy from T2/Troels.
 What are the conditions for a scan map fusion. When can we fuse, and when can we not fuse.
