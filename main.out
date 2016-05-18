@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{Abstract}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Motivation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Tasks}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Background Information}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Futhark}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{SOACs}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Map}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Scan}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Parallel Computations on GPGPUs}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Memory Conditions}{subsection.3.3}% 11
+\BOOKMARK [1][-]{section.4}{Map-Scan Fusion}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{Scanomap}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Necessary Conditions}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Fusing Scanomap}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Fusion Strategy/Example}{section.4}% 16
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 17
+\BOOKMARK [1][-]{section.6}{Benchmarking and Testing}{}% 18
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 19

@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+
+\bibitem{futharkdoc}
+Futhark language documation.
+\newblock \url{http://futhark.readthedocs.org/en/latest/index.html}.
+\newblock Accessed: 02-03-2016.
+
+\bibitem{T2Fusion}
+Troels Henriksen and Cosmin~Eugen Oancea.
+\newblock A t2 graph-reduction approach to fusion.
+\newblock In {\em Proceedings of the 2Nd ACM SIGPLAN Workshop on Functional
+  High-performance Computing}, FHPC '13, pages 47--58, New York, NY, USA, 2013.
+  ACM.
+
+\bibitem{MasterTroels}
+Troels Henriksen.
+\newblock {Exploiting functional invariants to optimise parallelism: a dataflow
+  approach}.
+\newblock Master's thesis, DIKU, Denmark, 2014.
+
+\end{thebibliography}

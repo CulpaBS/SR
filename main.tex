@@ -23,7 +23,7 @@
 \usepackage{breqn}
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata,fit,positioning, shapes}
-
+\newcommand\doubleplus{+\kern-1.3ex+\kern0.8ex}
 %% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
 %% `natbio-farve` to use SCIENCE's new colors and logo.
 \def \ColourPDF {include/nat-farve}
@@ -163,12 +163,38 @@ The solution to this problem is to exploit how Futhark uses chunking. Since the 
 
 To do so, we must expand the list of SOACs with the internal \texttt{scanomap} function. \texttt{scanomap} is semantically similar
  to \texttt{scan}, however it takes two function parameters -- an associatve scanning function meant for parallelly scanning across
- chunks, and a sequential folding function meant for scanning within a chunk.
+ chunks, and a sequential folding function meant for scanning within a chunk. Scanomap has the following type signature,
 $$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to (\alpha \to \beta \to \alpha)
  \to \alpha \to [\beta] \to [\alpha]\mathnormal{.}$$
-
+and can be considered semantically similar to performing a left fold with the $\odot_f$ function
 $$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: =
- [e \odot_f a_0, (e \odot_f a_0) \odot_f a_1, ..., ((e \odot_f a_0) \odot_f ...) \odot_f a_{n-1}]\mathnormal{.}$$
+ [e \odot_f a_0, (e \odot_f a_0) \odot_f a_1, ..., ((e \odot_f a_0) \odot_f ...) \odot_f a_{n-1}]$$
+which also corresponds to the chuck-wise computation of \texttt{scanomap}. The scanning operator can then be used to
+ join two chunks,
+$$\mathtt{scanomap} \: \odot \: \odot_f \: e \: (a \doubleplus b) \: = 
+[a_0', a_1', ..., a_{n-1}'] \doubleplus [b_0' \odot a_{n-1}',b_1' \odot a_{n-1}', ...,b_{n-1}' \odot a_{n-1}']$$
+where 
+\begin{align*}
+  \mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: &= 
+[a_0', a_1', ..., a_{n-1}'] \\
+  \mathtt{scanomap} \: \odot \: \odot_f \: e \: b \: &= 
+[b_0', b_1', ..., b_{n-1}']\mathnormal{.}
+\end{align*}
+
+For \texttt{scanomap} to be used in facilitating \texttt{map}-\texttt{scan} fusion, we first observe that we have the
+ following equivalence,
+$$\mathtt{scan} \: \odot \: e \: a \equiv \mathtt{scanomap} \: \odot \: \odot \: e \: a \mathnormal{.}$$
+Hence we can freely turn any regular \texttt{scan} into an equivalent \texttt{scanomap}. If we once again take a look at our previous example
+ we can see how we can now fuse a \texttt{map} into a \texttt{scan} using the \texttt{scanomap} construction:
+\begin{align*}
+  b &= \mathtt{map} \: f \: a \\
+  c &= \mathtt{scan} \: \odot \: e \: b
+\intertext{Firstly, we turn the \texttt{scan} into an equivalent \texttt{scanomap},}
+  c &= \mathtt{scanomap} \: \odot \: \odot \: e \: b
+\intertext{and then compose a folding function, $\odot \circ f = \odot_f$, from the mapping function and the scanning operator and discard
+ the intermediate $b$ list, to arrive at an equivalent \texttt{scanomap},}
+  c &= \mathtt{scanomap} \: \odot \: \odot_f \: e \: a\mathnormal{.}
+\end{align*}
 % Why do we need the scanomap construction?
 % What is the Scanomap construction. What are its semantics, and why is it used.
 % Show equivalence between a Scanomap and a composition of a map and a scan - similar to showing redomap results from a reduce . map.
