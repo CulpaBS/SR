@@ -120,7 +120,7 @@ Having no free variables, means that each result $f(a_i)$ \textit{only} depends 
 
 \subsubsection{Scan}
 % what is a scan
-$\texttt{scan} \: \odot \: e \: a$ takes the binary, associative function $\odot \: : \: \alpha \to \alpha \to \alpha$ and returns a function
+$\texttt{scan} \: \odot \: e \: a$ takes a binary, associative function $\odot \: : \: \alpha \to \alpha \to \alpha$ and returns a function
  $\mathtt{scan} \:\odot \: : \: \alpha \to [\alpha] \to [\alpha]$ which
  computes the $\odot$ prefixes of an input array $a$ starting with a neutral element, $e$. Overall, \texttt{scan} has the type signature,
 $$\mathtt{scan} \: \odot \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to \alpha \to [\alpha] \to [\alpha]\mathnormal{.}$$
@@ -141,8 +141,25 @@ Small cache high miss penalty.
 
 
 \section{Map-Scan Fusion}
-Describe Map-Scan fusion on multiple levels.
 % Why?
+In a typical situation involving \texttt{map} and \texttt{scan}, we will have the \texttt{map} producing some array, which is subsequently
+ consumed by the \texttt{scan}:
+\begin{align*}
+  b &= \mathtt{map} \: f \: a \\
+  c &= \mathtt{scan} \: \odot \: e \: b\mathnormal{.}
+\end{align*}
+In this situation, the memory access pattern will look something like the following,
+\begin{align*}
+  \mathtt{load}[a_0]&, \mathtt{store}[b_0], \mathtt{load}[a_1], \mathtt{store}[b_1], ..., \mathtt{load}[a_{n-1}], \mathtt{store}[b_{n-1}] \\
+  \mathtt{load}[b_0]&, \mathtt{store}[c_0], \mathtt{load}[b_1], \mathtt{store}[c_1], ..., \mathtt{load}[b_{n-1}], \mathtt{store}[c_{n-1}]\mathnormal{.}
+\end{align*}
+Recalling that element of the scanned array $c$ depend only on the previous prefixes, we have that $c_i$ will only depend on $b_j$ for $j \leq i$ being calculated.
+ This means that, ideally, we can interleave this access pattern without breaking any dependencies -- giving us a pattern more like this:
+ $$\mathtt{load}[a_0], \mathtt{store}[b_0], \mathtt{load}[b_0], \mathtt{store}[c_0], ..., \mathtt{load}[a_{n-1}], \mathtt{store}[b_{n-1}], \mathtt{load}[b_{n-1}], \mathtt{store}[c_{n-1}]\mathnormal{.}$$
+In this case, all accesses to $b$ become wholly uneccessary and can be removed, giving us:
+ $$\mathtt{load}[a_0],  \mathtt{store}[c_0], ..., \mathtt{load}[a_{n-1}],  \mathtt{store}[c_{n-1}]\mathnormal{.}$$
+This is the goal of perfoming \texttt{map}-\texttt{scan} fusion. By fusing a \texttt{map} into a \texttt{scan} we can optimise a program by eliminating costly memory accesses.
+ Something which is even more useful when working on a GPGPU, which generally do not have the more forgiving memory hierarchy and caching system of a CPU.
 \subsection{Scanomap}
 % Naive approach
 When looking to fuse a \texttt{map} into a \texttt{scan}, the most straight forward approach is to attempt to perform function
