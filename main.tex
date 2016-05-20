@@ -267,7 +267,7 @@ and constant folding where the compiler evaluating constant expressions at compi
 \end{figure}
 
 \begin{itemize}
-\item[Case 1:] Fusion across a in-place update is not possible. (NOT SURE ATM WHY THIS COULD NOT WORK
+\item[Case 1:] Fusion across a in-place update is not possible. When fusing the producer array is not created as before, but a part of the computation in the resulting fused SOAC.
 \item[Case 2:] Not all combinations of SOACs are fusable.
 \item[Case 3:] Fusion across a loop or a SOAC lambda would duplicate the computation and potentially change the time complexity of the program. In this case instead of calculating variable x once, a fusion would result in x being calculated in each of the loops. 
 \item[Case 4:] When the array x produced by a SOAC is consumed by two other SOACs located on the same execution path, the computation will be duplicated.
