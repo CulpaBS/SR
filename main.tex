@@ -221,7 +221,63 @@ Any producer \texttt{map} can be fused into a consuming \texttt{scan} in this ma
 \subsection{Necessary Conditions}
 % Copy from T2/Troels.
 What are the conditions for a scan map fusion. When can we fuse, and when can we not fuse.
-Our Scanomap supports carrying outputs from the map - explain why and how.
+Our Scanomap supports carrying outputs from the map - explain why and how. \\
+
+The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
+
+\begin{itemize}
+\item No tuple type can appear in an array or tuple type, i.e., flat
+tuples,
+\item unzip has been eliminated, zip has been replaced with assertZip,
+which verifies either statically or at runtime that the outer size of zip’s input matches, and finally, the original SOACs (map)
+have been replaced with their tuple-of-array version,
+\item tuple expressions can appear only as the final result of a function,
+SOAC, or if expression, and similarly for the tuple pattern
+of a let binding, e.g., a formal argument cannot be a tuple,
+\item $\: e_1$ cannot be a let expression when used in let $\: p$ = $\: e_1$ in $\: e_2$,
+\item each if is bound to a corresponding let expression, and
+an if’s condition cannot be in itself an if expression, e.g., \\
+$\: a$ + if( if $\: c_1$ then $\: e_1$ else $\: e_2$ ) then $\: e_3$ else $\: e_4$ $\rightarrow$ \\
+let $\: c_2$ = if $\: c_1$ then $\: e_1$ else $\: e_2$ in \\
+let $\: b$ = if $\: c_2$ then $\: e_3$ else $\: e_4$ in $\: a+ \:b$ 
+\item function calls, including SOACs, have their own let binding, e.g., \\
+reduce2($\:f,\:a$) + $\:x$ $\Rightarrow$ let $\:y$ = reduce2($\:f,\:e,\:a$) in $\:y+\:x$,
+\item all actual arguments are vars, e.g., $\:f(\:a+\:b))$ $\Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$.
+\end{itemize}
+The properties listed above is reached by going through the different stages in the compiler pipeline, as shown in figure \ref{fig:pipeline}. Type checking first so that any errors will refer to the actual names given by the programmer, then moving on to tuple transformation that flattens all tuples and converts arrays of tuples to tuples of arrays. Tuple and let normalisation to optimise the code based on code recognition (e.g $\:f(\:a+\:b)) \Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$).
+
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/pipeline.jpg}
+  \caption{Compile pipeline \cite[page 4]{T2Fusion}}
+  \label{fig:pipeline}
+\end{figure}
+
+When the program has reached the properties mentioned it enters the enabling optimisations loop, with aggressive in lining (i.e., building the call-graph and moving non recursive functions into the function calling it.). Copy propagation e.g., 
+$$y = x $$
+$$z = 5 * y $$
+Would become
+$$z = 5 * x $$
+and constant folding where the compiler evaluating constant expressions at compile time. After dead code removal the process repeats unless a fixed point is reached, if the fixed point is reached the program is ready for possible fusion transformations. Reaching the fusion stage does not guarantee that a fusion transformation can be done, as shown in figure \ref{fig:cases} there are 6 cases where a fusion transformation should not happen.
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=0.6\textwidth]{images/cases.png}
+  \caption{Don't Fuse Cases \cite[page 6]{T2Fusion}}
+  \label{fig:cases}
+\end{figure}
+
+\begin{itemize}
+\item[Case 1:] Fusion across a in-place update is not possible. (NOT SURE ATM WHY THIS COULD NOT WORK
+\item[Case 2:] Not all combinations of SOACs are fusable.
+\item[Case 3:] Fusion across a loop or a SOAC lambda would duplicate the computation and potentially change the time complexity of the program. In this case instead of calculating variable x once, a fusion would result in x being calculated in each of the loops. 
+\item[Case 4:] When the array x produced by a SOAC is consumed by two other SOACs located on the same execution path, the computation will be duplicated.
+\item[Case 5:] If array x produced by SOAC is used other then input to another SOAC fusion is not allowed. (MAYBE OUR IMPLEMENTATION FIXED THIS ISSUE WITH SCANOMAP)
+\item[Case 6:] If two arrays created by a SOAC is used as input in more then one SOAC the computaion is duplicated, and fusion is therefore not allowed.
+\end{itemize}
+
+
+
+
 \subsection{Fusing Scanomap}
 % What can we not reduce with
 %horizontally
