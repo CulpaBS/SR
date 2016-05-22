@@ -275,7 +275,7 @@ and constant folding where the compiler evaluating constant expressions at compi
 \item[Case 6:] If two arrays created by a SOAC is used as input in more then one SOAC the computaion is duplicated, and fusion is therefore not allowed.
 \end{itemize}
 
-
+However there are special cases for scanomap, as the result array x of the producer SOAC in the scanomap transformation, also will be returned by the scanomap in cases where other SOACs consumes array x.
 
 
 \subsection{Fusing Scanomap}
