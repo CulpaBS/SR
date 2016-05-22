@@ -220,10 +220,7 @@ Any producer \texttt{map} can be fused into a consuming \texttt{scan} in this ma
 
 \subsection{Necessary Conditions}
 % Copy from T2/Troels.
-What are the conditions for a scan map fusion. When can we fuse, and when can we not fuse.
-Our Scanomap supports carrying outputs from the map - explain why and how. \\
-
-The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
+There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
 
 \begin{itemize}
 \item No tuple type can appear in an array or tuple type, i.e., flat
@@ -271,7 +268,7 @@ and constant folding where the compiler evaluating constant expressions at compi
 \item[Case 2:] Not all combinations of SOACs are fusable.
 \item[Case 3:] Fusion across a loop or a SOAC lambda would duplicate the computation and potentially change the time complexity of the program. In this case instead of calculating variable x once, a fusion would result in x being calculated in each of the loops. 
 \item[Case 4:] When the array x produced by a SOAC is consumed by two other SOACs located on the same execution path, the computation will be duplicated.
-\item[Case 5:] If array x produced by SOAC is used other then input to another SOAC fusion is not allowed. (MAYBE OUR IMPLEMENTATION FIXED THIS ISSUE WITH SCANOMAP)
+\item[Case 5:] If array x produced by SOAC is used other then input to another SOAC fusion is not allowed.
 \item[Case 6:] If two arrays created by a SOAC is used as input in more then one SOAC the computaion is duplicated, and fusion is therefore not allowed.
 \end{itemize}
 
