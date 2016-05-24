@@ -133,11 +133,6 @@ the associativity of $\odot$ is vital as it means that this dependency does not 
 
 % Timecomplexity?
 
-\subsection{Parallel Computations on GPGPUs}
-%% Spørg troels om baggrundsinfo
-
-\subsubsection{Memory Conditions}
-Small cache high miss penalty.
 
 
 \section{Map-Scan Fusion}
@@ -243,7 +238,7 @@ reduce2($\:f,\:a$) + $\:x$ $\Rightarrow$ let $\:y$ = reduce2($\:f,\:e,\:a$) in $
 \end{itemize}
 The properties listed above is reached by going through the different stages in the compiler pipeline, as shown in figure \ref{fig:pipeline}. Type checking first so that any errors will refer to the actual names given by the programmer, then moving on to tuple transformation that flattens all tuples and converts arrays of tuples to tuples of arrays. Tuple and let normalisation to optimise the code based on code recognition (e.g $\:f(\:a+\:b)) \Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$).
 
-\begin{figure}[hb]
+\begin{figure}[hb!]
   \centering
     \includegraphics[width=0.5\textwidth]{images/pipeline.jpg}
   \caption{Compile pipeline \cite[page 4]{T2Fusion}}
@@ -288,19 +283,32 @@ Fusing a \texttt{map} as a producer into a consumer \texttt{scanomap} is a simpl
   c &= \mathtt{scanomap} \: \odot \: \odot_{f\circ g} \: e \: a
 \end{align*}
 
-%horizontally
-%maposcanomap
+\paragraph{Scanomap-Scanomap fusion}
+% Tuples
+
 \subsection{Fusion Strategy/Example}
 Walk through the entire fusion process concisely - or similarly summarize the relevant T2 Graph reduction fusion paper rooted in scan.
 Show the fusion of an example instance of maps and scans through dependency graphs etc.
 
 \section{Implementation}
+% How does a futhark program look ~ absyn. As we need it.
+\subsection{Bottom Up Analysis}
+% How the fusion module analyses the program
+\subsection{Map-Scanomap Fusion}
+% Detail map and scanomap constructions incl. functions, order of parameter arrays, and map-out arrays
+% Go through how we disassemble their functions, and reassemble a new function:
+% - 
+% How is the new Scanomap construct formed.
+\subsection{Scanomap-Scanomap Fusion}
+% Conditions
+% Function composition
+\subsection{Other Fusion}
 
-What is the state of the Futhark codebase at project start. How is Scan currently handled. What is already there, and what do we need to implement.\\
-Our solution is closely related to how Redomap fusion is handled. How does it differ.\\
-What parts of the code have we touched and why.\\
-Describe how different parts of the Map-Scan fusion is done - e.g. describe how function composition is implemented and so on.
 
+
+
+% Algoritmical description of of the fusion process: function composition, determining input/outputs of fusion products.
+% Detailed descriptions of relevant parts.
 
 \section{Benchmarking and Testing}
 How have we tested our implementation. Does it work? Why?\\

@@ -7,14 +7,12 @@
 \contentsline {subsection}{\numberline {3.2}SOACs}{4}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}Map}{4}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Scan}{4}{subsubsection.3.2.2}
-\contentsline {subsection}{\numberline {3.3}Parallel Computations on GPGPUs}{5}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Memory Conditions}{5}{subsubsection.3.3.1}
 \contentsline {section}{\numberline {4}Map-Scan Fusion}{5}{section.4}
 \contentsline {subsection}{\numberline {4.1}Scanomap}{5}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Necessary Conditions}{6}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Fusing Scanomap}{8}{subsection.4.3}
 \contentsline {paragraph}{Map-Scanomap fusion}{8}{section*.4}
-\contentsline {subsection}{\numberline {4.4}Fusion Strategy/Example}{9}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.4}Fusion Strategy/Example}{8}{subsection.4.4}
 \contentsline {section}{\numberline {5}Implementation}{9}{section.5}
 \contentsline {section}{\numberline {6}Benchmarking and Testing}{9}{section.6}
 \contentsline {section}{\numberline {7}Conclusion}{9}{section.7}
