@@ -24,6 +24,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata,fit,positioning, shapes}
 \newcommand\doubleplus{+\kern-1.3ex+\kern0.8ex}
+\newcommand\lett{\phantom{-}\:\:\mathbf{let}\:\:}
+\newcommand\inn{\:\:\mathbf{in}\:\:}
 %% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
 %% `natbio-farve` to use SCIENCE's new colors and logo.
 \def \ColourPDF {include/nat-farve}
@@ -292,9 +294,52 @@ Show the fusion of an example instance of maps and scans through dependency grap
 
 \section{Implementation}
 % How does a futhark program look ~ absyn. As we need it.
+This section will detail the specifics of performing \texttt{map-scan}, and other \texttt{scanomap} fusions, as well as detailing the process of
+ analysing a program for valid fusions.
 \subsection{Bottom Up Analysis}
 % How the fusion module analyses the program
 \subsection{Map-Scanomap Fusion}
+\setcounter{equation}{0}
+Having identified a single \texttt{map} producer and a \texttt{scanomap} consumer to perform fusion on, the fusion itself may seem fairly simple.
+ However, this is not entirely the case in most situations, as especially function composition isn't as straight forward as it can seem. There are also two factors
+ which complicate this process:
+ \begin{itemize}
+ \item As previously mentioned, all SOACs in Futhark work with tuples of arrays. This means that a $b = \mathtt{map}\: f \: a$ is actually short hand for
+$(b0, b1, .. ,bn) = \mathtt{map} \: f \: (a0, a1, ..., an)$, and not all members of the same tuples are consumed, or produced, in the same place.
+ \item Certain SOACs in Futhark support map-out arrays -- i.e. array-outputs from a fused \texttt{map} which are still output after fusion. This is also
+ supported by \texttt{scanomap}. 
+ \end{itemize}
+This section will go through the algorithm for fusing a single \texttt{map} into a \texttt{scanomap} -- and by extension the algorithm for fusing a \texttt{map} into a \texttt{scan}.
+\paragraph{Function Composition} The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. When
+ looking to create a new folding function for the resulting \texttt{scanomap} construct, composed entirely from the functions found in the to-be-fused \texttt{map} and \texttt{scanomap}.
+\begin{figure}[h!]
+  \centering
+  \begin{align}
+    &f (a0, a1, a2, a3) = \\
+    &\lett (x1,x2) = g(a0, a1) \inn \\
+    &\lett y1 = a2 + a3 \inn \\
+    &(x1, x2, y1)
+  \end{align}
+  \caption{Example of a SOAC function.}
+\end{figure}
+Firstly, we will find the new parameter set for the new folding function. Given a program, wherein a \texttt{map} is to be fused with a \texttt{scanomap} into a new \texttt{scanomap}:
+\begin{align*}
+(b0, b1, ..., bn) &= \mathtt{map} \: f \: (a0, a1, ..., an) \\
+(d0, d1, ..., dn) &= \mathtt{scanomap} \: \odot \: \odot_g \: (ne_0, ne_1, ..., ne_n) \: (c0, c1, ..., cn) \mathnormal{.}  
+\end{align*}
+We have that \texttt{map} and \texttt{scanomap} are to be fused, so we must also have $(b0, b1, ...,bn) \cap (c0, c1, ..., cn) \neq \emptyset$. However
+ we do not neccessarily have $(b0, b1, ...,bn) = (c0, c1, ..., cn)$. Hence our new parameter set becomes,
+$$\mathnormal{New-Params} = ((a0, a1, ..., an) \cup (c0, c1,..., cn)) / (b0, b1, ..., bn) = (a0, a1,..., an, c0, c1, ..., ci)\mathnormal{.}$$
+Next is to find the map-out arrays. These are found by using the fusion environment -- which keeps track of where arrays are consumed -- through the \texttt{Unfus} function which
+ filters out any arrays which are not consumed later in the program.
+
+\setcounter{equation}{0}
+\begin{align*}
+  &\odot_{f \circ g} = \\
+  &\lett (x0, x1, ..., xn) = f(a0, a1, ..., an) \inn \\
+  &\left(\odot(ne_0, ne_1,.., ne_n x0, ..., xj, c0, ..., ci), x(j+1), ..., xn \right)
+\end{align*}
+
 % Detail map and scanomap constructions incl. functions, order of parameter arrays, and map-out arrays
 % Go through how we disassemble their functions, and reassemble a new function:
 % - 
