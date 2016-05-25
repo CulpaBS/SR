@@ -22,6 +22,7 @@
 \usepackage{enumitem}
 \usepackage{breqn}
 \usepackage{tikz}
+\usepackage{mdframed}
 \usetikzlibrary{arrows,automata,fit,positioning, shapes}
 \newcommand\doubleplus{+\kern-1.3ex+\kern0.8ex}
 \newcommand\lett{\phantom{-}\:\:\mathbf{let}\:\:}
@@ -51,7 +52,13 @@
 }
 
 \begin{document}
-
+\mdfdefinestyle{alignbox}{leftmargin=0.2cm,
+rightmargin=0.2cm,%
+innerleftmargin=1cm,
+innerrightmargin=1cm,
+innertopmargin=0.1pt,
+innerbottommargin=0.1cm,
+skipbelow=0.2cm}
 
 \AddToShipoutPicture*{\put(0,0){\includegraphics*[viewport=0 0 700 600]{\ColourPDF}}}
 \AddToShipoutPicture*{\put(0,602){\includegraphics*[viewport=0 600 700 1600]{\ColourPDF}}}
@@ -310,7 +317,8 @@ $(b0, b1, .. ,bn) = \mathtt{map} \: f \: (a0, a1, ..., an)$, and not all members
  supported by \texttt{scanomap}. 
  \end{itemize}
 This section will go through the algorithm for fusing a single \texttt{map} into a \texttt{scanomap} -- and by extension the algorithm for fusing a \texttt{map} into a \texttt{scan}.
-\paragraph{Function Composition} The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. When
+
+The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. When
  looking to create a new folding function for the resulting \texttt{scanomap} construct, composed entirely from the functions found in the to-be-fused \texttt{map} and \texttt{scanomap}.
 \begin{figure}[h!]
   \centering
@@ -320,25 +328,101 @@ This section will go through the algorithm for fusing a single \texttt{map} into
     &\lett y1 = a2 + a3 \inn \\
     &(x1, x2, y1)
   \end{align}
-  \caption{Example of a SOAC function.}
+  \caption{Example of a SOAC lambda function.}
 \end{figure}
 Firstly, we will find the new parameter set for the new folding function. Given a program, wherein a \texttt{map} is to be fused with a \texttt{scanomap} into a new \texttt{scanomap}:
 \begin{align*}
-(b0, b1, ..., bn) &= \mathtt{map} \: f \: (a0, a1, ..., an) \\
-(d0, d1, ..., dn) &= \mathtt{scanomap} \: \odot \: \odot_g \: (ne_0, ne_1, ..., ne_n) \: (c0, c1, ..., cn) \mathnormal{.}  
+b &= \mathtt{map} \: f \: a \\
+d &= \mathtt{scanomap} \: \odot \: \odot_g \: ne \: c \mathnormal{.}  
 \end{align*}
-We have that \texttt{map} and \texttt{scanomap} are to be fused, so we must also have $(b0, b1, ...,bn) \cap (c0, c1, ..., cn) \neq \emptyset$. However
- we do not neccessarily have $(b0, b1, ...,bn) = (c0, c1, ..., cn)$. Hence our new parameter set becomes,
-$$\mathnormal{New-Params} = ((a0, a1, ..., an) \cup (c0, c1,..., cn)) / (b0, b1, ..., bn) = (a0, a1,..., an, c0, c1, ..., ci)\mathnormal{.}$$
-Next is to find the map-out arrays. These are found by using the fusion environment -- which keeps track of where arrays are consumed -- through the \texttt{Unfus} function which
- filters out any arrays which are not consumed later in the program.
+Where $a, b, c, d$ are all tuples of arrays, and $ne$ is a tuple of neutral elements.
 
+Fusing these two SOACs into a \texttt{scanomap} becomes a three step process of
+\begin{enumerate}
+\item determining the parameter list of the output \texttt{scanomap},
+\item determining map-out arrays, and
+\item composing a new folding function.
+\end{enumerate}
+
+\paragraph{Parameters}
+
+We have that \texttt{map} and \texttt{scanomap} are to be fused, so we must also have $(b0, b1, ...,bn) \cap (c0, c1, ..., cn) \neq \emptyset$. However
+ we do not neccessarily have $(b0, b1, ...,bn) = (c0, c1, ..., cn)$. The parameters for our fused product must then become all of the array input parameters from the \texttt{map} as well as
+ the array input parameters from the \texttt{scanomap} which aren't produced by the \texttt{map}. Hence, our new list of parameters become,
+$$\text{New-Params} = (a \cup c) / b\mathnormal{.}$$
+
+
+\paragraph{Map-Out Arrays}
+Next is to find any map-out arrays which need to be returned. These can potentially consist of some subset of the output arrays of both the \texttt{map} and the \texttt{scanomap}. The map-out arrays
+ already carried by the input \texttt{scanomap} are by convention placed last in the list of outputs, so they correspond to the $\mathtt{len}(d) - \mathtt{len}(ne)$ last members of $d$.
+$$\text{map-out}_{scanomap} = \mathtt{drop}(\mathtt{len}(ne),d)$$
+
+The map-out arrays from the input \texttt{map} are found by using the fusion environment
+ -- which keeps track of where arrays are consumed -- through the \texttt{unfus} function which
+ filters out any arrays which are not consumed later in the program.
+$$\text{map-out}_{map} = \mathtt{unfus} (b)$$
+
+Combining these two tuples will then give us the full set of map-out arrays for the fused product,
+$$\text{map-out} = m_{out} = \mathtt{drop}(\mathtt{len}(ne),d) \doubleplus \mathtt{unfus} (b)\mathnormal{.}$$
+\paragraph{Function Composition}
 \setcounter{equation}{0}
-\begin{align*}
-  &\odot_{f \circ g} = \\
-  &\lett (x0, x1, ..., xn) = f(a0, a1, ..., an) \inn \\
-  &\left(\odot(ne_0, ne_1,.., ne_n x0, ..., xj, c0, ..., ci), x(j+1), ..., xn \right)
-\end{align*}
+Composing the folding function for the resulting \texttt{scanomap} from the input \texttt{map}'s $f$ function, and the input \texttt{scanomap}'s $\odot_g$ function is a question of combining their
+ bindings such that the result of the $f$ function is computed first and bound such that it can be used to compute $\odot_g$.
+
+
+ \begin{figure}[hb!]
+   \begin{mdframed}[style=alignbox]
+ \begin{minipage}{0.5\linewidth}
+     \centering
+       \begin{align*}
+         &f(a_i) = \\
+         &\lett x_1 = e_1 \inn\\
+         &\lett x_2 = e_2 \inn\\
+         &\phantom{----}\vdots\\
+         &\lett x_n = e_n \inn\\
+         &b_i
+       \end{align*}
+     \label{fig:mapf}
+ \end{minipage}
+ \begin{minipage}{0.5\linewidth}
+     \centering
+     \begin{align*}
+       &\odot_f(ne, c_i) = \\
+       &\lett y_1 = e_1 \inn\\
+       &\lett y_2 = e_2 \inn\\
+       &\phantom{----}\vdots\\
+       &\lett y_n = e_n \inn\\
+       &d_i
+     \end{align*}
+     \label{fig:odotg}
+   \end{minipage}
+
+     \end{mdframed}
+     \caption{The SOAC functions $f$ and $\odot_g$ from the input
+       \texttt{map} and \texttt{scanomap}.}
+\end{figure}
+
+\begin{figure}[h!]\centering
+  \begin{mdframed}[style=alignbox]
+    \begin{align*}
+      &\odot_{f \circ g}(ne, ((a \cup c) / b)_i) = \\
+      &\lett x_1 = e_1 \inn\\
+      &\lett x_2 = e_2 \inn\\
+      &\phantom{----}\vdots\\
+      &\lett x_n = e_n \inn\\
+      &\lett c_i = b_i \inn\\
+      &\lett y_1 = e_1 \inn\\
+      &\lett y_2 = e_2 \inn\\
+      &\phantom{----}\vdots\\
+      &\lett y_n = e_n \inn\\
+      &d_i \doubleplus m_{out}
+    \end{align*}
+  \end{mdframed}
+
+  \caption{Resulting function $\odot_{f \circ g}$.}
+  \label{fig:fusresfun}
+\end{figure}
+
 
 % Detail map and scanomap constructions incl. functions, order of parameter arrays, and map-out arrays
 % Go through how we disassemble their functions, and reassemble a new function:

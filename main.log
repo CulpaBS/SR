@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  24 MAY 2016 17:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  25 MAY 2016 13:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1228,6 +1228,139 @@ File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
 zlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.0 (rcs-revision 1.2)
 )))
+(/usr/share/texlive/texmf-dist/tex/latex/mdframed/mdframed.sty
+Package: mdframed 2013/07/01 1.9b: mdframed
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2015/06/15 v5630 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count194
+\l__xparse_m_args_int=\count195
+\l__xparse_mandatory_args_int=\count196
+\l__xparse_processor_int=\count197
+\l__xparse_v_nesting_int=\count198
+)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count199
+
+
+Package etoolbox Warning: Patching '\end' failed!
+(etoolbox)                '\AfterEndEnvironment' will not work.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-abspage.sty
+Package: zref-abspage 2012/04/04 v2.24 Module abspage for zref (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/zref-base.sty
+Package: zref-base 2012/04/04 v2.24 Module base for zref (HO)
+Package zref Info: New property list: main on input line 759.
+Package zref Info: New property: default on input line 760.
+Package zref Info: New property: page on input line 761.
+)
+\c@abspage=\count200
+Package zref Info: New property: abspage on input line 62.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/needspace/needspace.sty
+Package: needspace 2010/09/12 v1.3d reserve vertical space
+)
+\mdf@templength=\skip79
+\c@mdf@globalstyle@cnt=\count201
+\mdf@skipabove@length=\skip80
+\mdf@skipbelow@length=\skip81
+\mdf@leftmargin@length=\skip82
+\mdf@rightmargin@length=\skip83
+\mdf@innerleftmargin@length=\skip84
+\mdf@innerrightmargin@length=\skip85
+\mdf@innertopmargin@length=\skip86
+\mdf@innerbottommargin@length=\skip87
+\mdf@splittopskip@length=\skip88
+\mdf@splitbottomskip@length=\skip89
+\mdf@outermargin@length=\skip90
+\mdf@innermargin@length=\skip91
+\mdf@linewidth@length=\skip92
+\mdf@innerlinewidth@length=\skip93
+\mdf@middlelinewidth@length=\skip94
+\mdf@outerlinewidth@length=\skip95
+\mdf@roundcorner@length=\skip96
+\mdf@footenotedistance@length=\skip97
+\mdf@userdefinedwidth@length=\skip98
+\mdf@needspace@length=\skip99
+\mdf@frametitleaboveskip@length=\skip100
+\mdf@frametitlebelowskip@length=\skip101
+\mdf@frametitlerulewidth@length=\skip102
+\mdf@frametitleleftmargin@length=\skip103
+\mdf@frametitlerightmargin@length=\skip104
+\mdf@shadowsize@length=\skip105
+\mdf@extratopheight@length=\skip106
+\mdf@subtitleabovelinewidth@length=\skip107
+\mdf@subtitlebelowlinewidth@length=\skip108
+\mdf@subtitleaboveskip@length=\skip109
+\mdf@subtitlebelowskip@length=\skip110
+\mdf@subtitleinneraboveskip@length=\skip111
+\mdf@subtitleinnerbelowskip@length=\skip112
+\mdf@subsubtitleabovelinewidth@length=\skip113
+\mdf@subsubtitlebelowlinewidth@length=\skip114
+\mdf@subsubtitleaboveskip@length=\skip115
+\mdf@subsubtitlebelowskip@length=\skip116
+\mdf@subsubtitleinneraboveskip@length=\skip117
+\mdf@subsubtitleinnerbelowskip@length=\skip118
+
+(/usr/share/texlive/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
+File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
+)
+\mdf@frametitlebox=\box67
+\mdf@footnotebox=\box68
+\mdf@splitbox@one=\box69
+\mdf@splitbox@two=\box70
+\mdf@splitbox@save=\box71
+\mdfsplitboxwidth=\skip119
+\mdfsplitboxtotalwidth=\skip120
+\mdfsplitboxheight=\skip121
+\mdfsplitboxdepth=\skip122
+\mdfsplitboxtotalheight=\skip123
+\mdfframetitleboxwidth=\skip124
+\mdfframetitleboxtotalwidth=\skip125
+\mdfframetitleboxheight=\skip126
+\mdfframetitleboxdepth=\skip127
+\mdfframetitleboxtotalheight=\skip128
+\mdffootnoteboxwidth=\skip129
+\mdffootnoteboxtotalwidth=\skip130
+\mdffootnoteboxheight=\skip131
+\mdffootnoteboxdepth=\skip132
+\mdffootnoteboxtotalheight=\skip133
+\mdftotallinewidth=\skip134
+\mdfboundingboxwidth=\skip135
+\mdfboundingboxtotalwidth=\skip136
+\mdfboundingboxheight=\skip137
+\mdfboundingboxdepth=\skip138
+\mdfboundingboxtotalheight=\skip139
+\mdf@freevspace@length=\skip140
+\mdf@horizontalwidthofbox@length=\skip141
+\mdf@verticalmarginwhole@length=\skip142
+\mdf@horizontalspaceofbox=\skip143
+\mdfsubtitleheight=\skip144
+\mdfsubsubtitleheight=\skip145
+\c@mdfcountframes=\count202
+
+****** mdframed patching \endmdf@trivlist
+
+****** -- success******
+
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newmdtheoremenv with sig. 'O{} m o m o ' on line 601.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \mdtheorem with sig. ' O{} m o m o ' on line 701.
+.................................................
+\mdf@envdepth=\count203
+\c@mdf@env@i=\count204
+\c@mdf@env@ii=\count205
+\c@mdf@zref@counter=\count206
+Package zref Info: New property: mdf@pagevalue on input line 895.
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
@@ -1249,26 +1382,26 @@ File: tikzlibraryshapes.multipart.code.tex 2008/01/09 v3.0.0 (rcs-revision 1.1)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2010/01/07 v3.0.0 (rcs-revision 1.2)
-\pgfnodepartlowerbox=\box67
-\pgfnodeparttwobox=\box68
-\pgfnodepartthreebox=\box69
-\pgfnodepartfourbox=\box70
-\pgfnodeparttwentybox=\box71
-\pgfnodepartnineteenbox=\box72
-\pgfnodeparteighteenbox=\box73
-\pgfnodepartseventeenbox=\box74
-\pgfnodepartsixteenbox=\box75
-\pgfnodepartfifteenbox=\box76
-\pgfnodepartfourteenbox=\box77
-\pgfnodepartthirteenbox=\box78
-\pgfnodeparttwelvebox=\box79
-\pgfnodepartelevenbox=\box80
-\pgfnodeparttenbox=\box81
-\pgfnodepartninebox=\box82
-\pgfnodeparteightbox=\box83
-\pgfnodepartsevenbox=\box84
-\pgfnodepartsixbox=\box85
-\pgfnodepartfivebox=\box86
+\pgfnodepartlowerbox=\box72
+\pgfnodeparttwobox=\box73
+\pgfnodepartthreebox=\box74
+\pgfnodepartfourbox=\box75
+\pgfnodeparttwentybox=\box76
+\pgfnodepartnineteenbox=\box77
+\pgfnodeparteighteenbox=\box78
+\pgfnodepartseventeenbox=\box79
+\pgfnodepartsixteenbox=\box80
+\pgfnodepartfifteenbox=\box81
+\pgfnodepartfourteenbox=\box82
+\pgfnodepartthirteenbox=\box83
+\pgfnodeparttwelvebox=\box84
+\pgfnodepartelevenbox=\box85
+\pgfnodeparttenbox=\box86
+\pgfnodepartninebox=\box87
+\pgfnodeparteightbox=\box88
+\pgfnodepartsevenbox=\box89
+\pgfnodepartsixbox=\box90
+\pgfnodepartfivebox=\box91
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryfit.code.tex
@@ -1321,20 +1454,20 @@ zlibraryshapes.callouts.code.tex
 s.callouts.code.tex))) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1370,19 +1503,19 @@ LaTeX Font Info:    ... okay on input line 53.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box87
+\AtBeginShipoutBox=\box92
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count194
+\scratchcounter=\count207
 \scratchdimen=\dimen309
-\scratchbox=\box88
-\nofMPsegments=\count195
-\nofMParguments=\count196
+\scratchbox=\box93
+\nofMPsegments=\count208
+\nofMParguments=\count209
 \everyMPshowfont=\toks55
-\MPscratchCnt=\count197
+\MPscratchCnt=\count210
 \MPscratchDim=\dimen310
-\MPnumerator=\count198
-\makeMPintoPDFobject=\count199
+\MPnumerator=\count211
+\makeMPintoPDFobject=\count212
 \everyMPtoPDFconversion=\toks56
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1399,7 +1532,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 53.
+Package hyperref Info: Link coloring OFF on input line 54.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1407,34 +1540,34 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count200
+\c@section@level=\count213
 )
-LaTeX Info: Redefining \ref on input line 53.
-LaTeX Info: Redefining \pageref on input line 53.
-LaTeX Info: Redefining \nameref on input line 53.
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
 
 (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 53.
+LaTeX Font Info:    Try loading font information for U+msa on input line 54.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 53.
+LaTeX Font Info:    Try loading font information for U+msb on input line 54.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package xypdf Info: Line width: 0.43799pt on input line 53.
+Package xypdf Info: Line width: 0.43799pt on input line 54.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count201
+\c@lstlisting=\count214
 
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 62.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 69.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -1443,17 +1576,17 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 File: include/nat-farve.pdf Graphic file (type pdf)
 
 <use include/nat-farve.pdf>
-Package pdftex.def Info: include/nat-farve.pdf used on input line 64.
+Package pdftex.def Info: include/nat-farve.pdf used on input line 71.
 (pdftex.def)             Requested size: 702.625pt x 602.25pt.
 File: include/nat-farve.pdf Graphic file (type pdf)
  <use include/nat-farve.pdf>
-Package pdftex.def Info: include/nat-farve.pdf used on input line 64.
+Package pdftex.def Info: include/nat-farve.pdf used on input line 71.
 (pdftex.def)             Requested size: 702.625pt x 1003.75pt.
 
 <include/nat-en.pdf, id=94, 597.23125pt x 845.1575pt>
 File: include/nat-en.pdf Graphic file (type pdf)
  <use include/nat-en.pdf>
-Package pdftex.def Info: include/nat-en.pdf used on input line 64.
+Package pdftex.def Info: include/nat-en.pdf used on input line 71.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
 
 [1
@@ -1465,71 +1598,83 @@ Package pdftex.def Info: include/nat-en.pdf used on input line 64.
 \openout6 = `main.toc'.
 
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
 
-LaTeX Warning: Citation `Hyperfit' on page 3 undefined on input line 96.
+LaTeX Warning: Citation `Hyperfit' on page 3 undefined on input line 103.
 
 [3] [4] [5]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 223.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 230.
 
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 223.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 230.
  [6]
 <images/pipeline.jpg, id=198, 248.42813pt x 255.95625pt>
 File: images/pipeline.jpg Graphic file (type jpg)
 
 <use images/pipeline.jpg>
-Package pdftex.def Info: images/pipeline.jpg used on input line 245.
+Package pdftex.def Info: images/pipeline.jpg used on input line 252.
 (pdftex.def)             Requested size: 219.08614pt x 225.72647pt.
 
 <images/cases.png, id=202, 484.05844pt x 298.11375pt>
 File: images/cases.png Graphic file (type png)
  <use images/cases.png>
-Package pdftex.def Info: images/cases.png used on input line 258.
+Package pdftex.def Info: images/cases.png used on input line 265.
 (pdftex.def)             Requested size: 262.90604pt x 161.92064pt.
 
-[7 <./images/pipeline.jpg>] [8 <./images/cases.png>]
-Overfull \hbox (11.71634pt too wide) detected at line 332
-[] \OT1/cmr/m/n/10.95 = ((\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95 0\OML/cmm/m/i
-t/10.95 ; a\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; :::; an\OT1/cmr/m/n/10.95 
-) \OMS/cmsy/m/n/10.95 [ \OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 c\OT1/cmr/m/n/1
-0.95 0\OML/cmm/m/it/10.95 ; c\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; :::; cn\
-OT1/cmr/m/n/10.95 ))\OML/cmm/m/it/10.95 =\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.9
-5 b\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; b\OT1/cmr/m/n/10.95 1\OML/cmm/m/it
-/10.95 ; :::; bn\OT1/cmr/m/n/10.95 ) = (\OML/cmm/m/it/10.95 a\OT1/cmr/m/n/10.95
- 0\OML/cmm/m/it/10.95 ; a\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; :::; an; c\O
-T1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; c\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.9
-5 ; :::; ci\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 :
+[7 <./images/pipeline.jpg>] [8 <./images/cases.png>] [9]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 374.
+
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 375--399
+[]$[]$ $[]$ 
  []
 
-[9] [10] (./main.bbl) [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
+Package mdframed Info: mdframed inside float 
+ mdframed uses option nobreak mdframed on input line 400.
+Package mdframed Info: mdframed inside a box 
+ mdframed uses option nobreak mdframed on input line 400.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 406.
+Package mdframed Info: mdframed inside float 
+ mdframed uses option nobreak mdframed on input line 420.
+Package mdframed Info: mdframed inside a box 
+ mdframed uses option nobreak mdframed on input line 420.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[10] [11] (./main.bbl) [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 452.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 452.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 370.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 370.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 452.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 452.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A79E38F58B6D4B9CA2E02611F0D541A6;1241.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 370.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 452.
  ) 
 Here is how much of TeX's memory you used:
- 31495 strings out of 494430
- 589223 string characters out of 6165637
- 704788 words of memory out of 5000000
- 34175 multiletter control sequences out of 15000+600000
+ 32849 strings out of 494430
+ 615975 string characters out of 6165637
+ 754647 words of memory out of 5000000
+ 35495 multiletter control sequences out of 15000+600000
  22967 words of font info for 73 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
- 55i,13n,71p,10379b,442s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,15n,71p,10379b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home
 /william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/william/
 .texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/william/.texmf-va
@@ -1547,10 +1692,10 @@ s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmtt10.pfb>
-Output written on main.pdf (11 pages, 325808 bytes).
+Output written on main.pdf (12 pages, 330253 bytes).
 PDF statistics:
- 638 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
+ 653 PDF objects out of 1000 (max. 8388607)
+ 287 compressed objects within 3 object streams
+ 62 named destinations out of 1000 (max. 500000)
  219 words of extra memory for PDF output out of 10000 (max. 10000000)
 
