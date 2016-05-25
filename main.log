@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  25 MAY 2016 13:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  25 MAY 2016 15:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1602,9 +1602,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
-
-LaTeX Warning: Citation `Hyperfit' on page 3 undefined on input line 103.
-
 [3] [4] [5]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 230.
 
@@ -1614,14 +1611,14 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 230.
  [6]
-<images/pipeline.jpg, id=198, 248.42813pt x 255.95625pt>
+<images/pipeline.jpg, id=200, 248.42813pt x 255.95625pt>
 File: images/pipeline.jpg Graphic file (type jpg)
 
 <use images/pipeline.jpg>
 Package pdftex.def Info: images/pipeline.jpg used on input line 252.
 (pdftex.def)             Requested size: 219.08614pt x 225.72647pt.
 
-<images/cases.png, id=202, 484.05844pt x 298.11375pt>
+<images/cases.png, id=204, 484.05844pt x 298.11375pt>
 File: images/cases.png Graphic file (type png)
  <use images/cases.png>
 Package pdftex.def Info: images/cases.png used on input line 265.
@@ -1630,51 +1627,48 @@ Package pdftex.def Info: images/cases.png used on input line 265.
 [7 <./images/pipeline.jpg>] [8 <./images/cases.png>] [9]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 374.
+(mdframed)              on input line 375.
 
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 375--399
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 376--400
 []$[]$ $[]$ 
  []
 
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 400.
+ mdframed uses option nobreak mdframed on input line 401.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 400.
+ mdframed uses option nobreak mdframed on input line 401.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 406.
+(mdframed)              on input line 412.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 420.
+ mdframed uses option nobreak mdframed on input line 426.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 420.
+ mdframed uses option nobreak mdframed on input line 426.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [10] [11] (./main.bbl) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 452.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 452.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 460.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 460.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 452.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 452.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 460.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 460.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A79E38F58B6D4B9CA2E02611F0D541A6;1241.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 452.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 460.
  ) 
 Here is how much of TeX's memory you used:
- 32849 strings out of 494430
- 615975 string characters out of 6165637
- 754647 words of memory out of 5000000
- 35495 multiletter control sequences out of 15000+600000
+ 32851 strings out of 494430
+ 616002 string characters out of 6165637
+ 755781 words of memory out of 5000000
+ 35496 multiletter control sequences out of 15000+600000
  22967 words of font info for 73 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
- 55i,15n,71p,10379b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,16n,71p,10379b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home
 /william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/william/
 .texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home/william/.texmf-va
@@ -1692,10 +1686,10 @@ s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmtt10.pfb>
-Output written on main.pdf (12 pages, 330253 bytes).
+Output written on main.pdf (12 pages, 330591 bytes).
 PDF statistics:
- 653 PDF objects out of 1000 (max. 8388607)
- 287 compressed objects within 3 object streams
- 62 named destinations out of 1000 (max. 500000)
+ 655 PDF objects out of 1000 (max. 8388607)
+ 291 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

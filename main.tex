@@ -369,7 +369,8 @@ $$\text{map-out} = m_{out} = \mathtt{drop}(\mathtt{len}(ne),d) \doubleplus \math
 Composing the folding function for the resulting \texttt{scanomap} from the input \texttt{map}'s $f$ function, and the input \texttt{scanomap}'s $\odot_g$ function is a question of combining their
  bindings such that the result of the $f$ function is computed first and bound such that it can be used to compute $\odot_g$.
 
-
+The input functions will both consist of some amount of let bindings followed by a body which consists solely of the variables to be returned. Figure \ref{fig:bothfuns} shows generalized functions for both
+ inputs where $a_i$ is the tuple consisting of the $i$th elements of the arrays contained in the $a$ tuple. 
  \begin{figure}[hb!]
    \begin{mdframed}[style=alignbox]
  \begin{minipage}{0.5\linewidth}
@@ -400,12 +401,17 @@ Composing the folding function for the resulting \texttt{scanomap} from the inpu
      \end{mdframed}
      \caption{The SOAC functions $f$ and $\odot_g$ from the input
        \texttt{map} and \texttt{scanomap}.}
+     \label{fig:bothfuns}
 \end{figure}
+
+Combining these two functions into a single new folding function $\odot_g \circ f$ (or $\odot_{g \circ f}$) is then a question of first applying all of the bindings
+ from the $f$ function, creating a new binding which binds the body of $f$ to the corresponding parameters of $\odot_g$, and then on
+ to that appending the bindings of $\odot_g$.
 
 \begin{figure}[h!]\centering
   \begin{mdframed}[style=alignbox]
     \begin{align*}
-      &\odot_{f \circ g}(ne, ((a \cup c) / b)_i) = \\
+      &\odot_{g} \circ f(ne, ((a \cup c) / b)_i) = \\
       &\lett x_1 = e_1 \inn\\
       &\lett x_2 = e_2 \inn\\
       &\phantom{----}\vdots\\
@@ -415,13 +421,15 @@ Composing the folding function for the resulting \texttt{scanomap} from the inpu
       &\lett y_2 = e_2 \inn\\
       &\phantom{----}\vdots\\
       &\lett y_n = e_n \inn\\
-      &d_i \doubleplus m_{out}
+      &(d_i /m_{out}) \doubleplus m_{out}
     \end{align*}
   \end{mdframed}
 
   \caption{Resulting function $\odot_{f \circ g}$.}
   \label{fig:fusresfun}
 \end{figure}
+The body of $\odot_{f\circ g}$ then becomes the outputs of $\odot_g$ minus any map-out arrays appended with the new map-out arrays as
+ found above.
 
 
 % Detail map and scanomap constructions incl. functions, order of parameter arrays, and map-out arrays

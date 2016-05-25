@@ -20,7 +20,7 @@
 \contentsline {paragraph}{Parameters}{10}{section*.7}
 \contentsline {paragraph}{Map-Out Arrays}{10}{section*.8}
 \contentsline {paragraph}{Function Composition}{10}{section*.9}
-\contentsline {subsection}{\numberline {5.3}Scanomap-Scanomap Fusion}{10}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Other Fusion}{10}{subsection.5.4}
-\contentsline {section}{\numberline {6}Benchmarking and Testing}{10}{section.6}
+\contentsline {subsection}{\numberline {5.3}Scanomap-Scanomap Fusion}{11}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Other Fusion}{11}{subsection.5.4}
+\contentsline {section}{\numberline {6}Benchmarking and Testing}{11}{section.6}
 \contentsline {section}{\numberline {7}Conclusion}{11}{section.7}

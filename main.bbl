@@ -12,6 +12,11 @@ Troels Henriksen and Cosmin~Eugen Oancea.
   High-performance Computing}, FHPC '13, pages 47--58, New York, NY, USA, 2013.
   ACM.
 
+\bibitem{Hyperfit}
+Hyperfit.
+\newblock \url{http://hiperfit.dk/}.
+\newblock Accessed: 05-15-2016.
+
 \bibitem{MasterTroels}
 Troels Henriksen.
 \newblock {Exploiting functional invariants to optimise parallelism: a dataflow
