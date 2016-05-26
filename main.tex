@@ -305,6 +305,29 @@ This section will detail the specifics of performing \texttt{map-scan}, and othe
  analysing a program for valid fusions.
 \subsection{Bottom Up Analysis}
 % How the fusion module analyses the program
+Futhark's fusion module gathers fusible SOACs by using a bottom-up analysis pass of the program's AST. This is done by traversing the AST depth first, while using a set
+ of environments and data structures, to among other things keep track created kernels and the production and consumption of arrays. \cite{T2Fusion}
+
+These are structures and environments are filled out during the depth first traversal of the AST, such that when analysing a specfic SOAC in the program it is known which
+ SOACs consume its outputs, and whether in-place update in between and so on.
+
+For example, when analysing the program found in Figure \ref{fig:progsnip1} and the looking at the \texttt{map} statement, two simple look-ups will show that while $b$ is consumed by the
+ \texttt{scan}, it is consumed by an in-place updated previously. Hence, fusion is not possible.
+\begin{figure}[hb!]
+  \centering
+  \begin{mdframed}[style=alignbox]
+  \begin{align*}
+    &\phantom{---}\vdots\\
+    &\lett b = \mathtt{map} \: f \: a \inn\\
+    &\lett b[1] = 4 \inn\\
+    &\lett c = \mathtt{scan} \: \odot \: 0 \: b \inn\\
+    &\phantom{---}\vdots
+  \end{align*}
+\end{mdframed}
+
+  \caption{Infusible program snippet.}
+  \label{fig:progsnip1}
+\end{figure}
 \subsection{Map-Scanomap Fusion}
 \setcounter{equation}{0}
 Having identified a single \texttt{map} producer and a \texttt{scanomap} consumer to perform fusion on, the fusion itself may seem fairly simple.
@@ -421,7 +444,7 @@ Combining these two functions into a single new folding function $\odot_g \circ 
       &\lett y_2 = e_2 \inn\\
       &\phantom{----}\vdots\\
       &\lett y_n = e_n \inn\\
-      &(d_i /m_{out}) \doubleplus m_{out}
+      &(d_i /m_{out_i}) \doubleplus m_{out_i}
     \end{align*}
   \end{mdframed}
 
@@ -431,7 +454,8 @@ Combining these two functions into a single new folding function $\odot_g \circ 
 The body of $\odot_{f\circ g}$ then becomes the outputs of $\odot_g$ minus any map-out arrays appended with the new map-out arrays as
  found above.
 
-
+We can then replace the original \texttt{map} and \texttt{scanomap} with a new \texttt{scanomap},
+$$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \circ g} \: ne \: \left((a \cup c) / b \right)\mathnormal{.} $$
 % Detail map and scanomap constructions incl. functions, order of parameter arrays, and map-out arrays
 % Go through how we disassemble their functions, and reassemble a new function:
 % - 
