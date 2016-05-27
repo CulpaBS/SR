@@ -11,14 +11,14 @@
 \contentsline {subsection}{\numberline {4.1}Scanomap}{5}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Necessary Conditions}{6}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Fusing Scanomap}{8}{subsection.4.3}
-\contentsline {paragraph}{Map-Scanomap fusion}{8}{section*.4}
-\contentsline {paragraph}{Scanomap-Scanomap fusion}{8}{section*.5}
-\contentsline {subsection}{\numberline {4.4}Fusion Strategy/Example}{8}{subsection.4.4}
+\contentsline {paragraph}{Map-Scanomap Fusion}{8}{section*.4}
+\contentsline {paragraph}{Scanomap-Scanomap Fusion}{8}{section*.5}
+\contentsline {subsection}{\numberline {4.4}Fusion Strategy/Example}{9}{subsection.4.4}
 \contentsline {section}{\numberline {5}Implementation}{9}{section.5}
 \contentsline {subsection}{\numberline {5.1}Bottom Up Analysis}{9}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Map-Scanomap Fusion}{10}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.2}Map-Scanomap Fusion}{9}{subsection.5.2}
 \contentsline {paragraph}{Parameters}{10}{section*.8}
-\contentsline {paragraph}{Map-Out Arrays}{11}{section*.9}
+\contentsline {paragraph}{Map-Out Arrays}{10}{section*.9}
 \contentsline {paragraph}{Function Composition}{11}{section*.10}
 \contentsline {subsection}{\numberline {5.3}Scanomap-Scanomap Fusion}{12}{subsection.5.3}
 \contentsline {subsection}{\numberline {5.4}Other Fusion}{12}{subsection.5.4}
