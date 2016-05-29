@@ -11,11 +11,10 @@
 \BOOKMARK [2][-]{subsection.4.1}{Scanomap}{section.4}% 11
 \BOOKMARK [2][-]{subsection.4.2}{Necessary Conditions}{section.4}% 12
 \BOOKMARK [2][-]{subsection.4.3}{Fusing Scanomap}{section.4}% 13
-\BOOKMARK [2][-]{subsection.4.4}{Fusion Strategy/Example}{section.4}% 14
-\BOOKMARK [1][-]{section.5}{Implementation}{}% 15
-\BOOKMARK [2][-]{subsection.5.1}{Bottom Up Analysis}{section.5}% 16
-\BOOKMARK [2][-]{subsection.5.2}{Map-Scanomap Fusion}{section.5}% 17
-\BOOKMARK [2][-]{subsection.5.3}{Scanomap-Scanomap Fusion}{section.5}% 18
-\BOOKMARK [2][-]{subsection.5.4}{Other Fusion}{section.5}% 19
-\BOOKMARK [1][-]{section.6}{Benchmarking and Testing}{}% 20
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 21
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Bottom Up Analysis}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Map-Scanomap Fusion}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Scanomap-Scanomap Fusion}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.4}{Other Fusion}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Benchmarking and Testing}{}% 19
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 20

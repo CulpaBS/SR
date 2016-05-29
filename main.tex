@@ -293,18 +293,18 @@ Fusing a \texttt{map} as a producer into a consumer \texttt{scanomap} is a simpl
 \end{align*}
 
 \paragraph{Scanomap-Scanomap Fusion} Horizontally fusing a \texttt{scanomap} with another \texttt{scanomap}, requires that theres exists no dependency between the
- two SOACs -- i.e. there exists no producer-consumer relationship between the two.
+ two SOACs -- i.e. there exists no producer-consumer relationship between the two. In theses cases, it may still prove beneficial to perform fusion -- even though there is no direct
+ optimisation -- to enable more fusion.
 % Tuples
+This kind of fusion is performed by in a way concatenating input, output, and both functions for the input \texttt{scanomaps}, which gives the following,
 \begin{align*}
   c &= \mathtt{scanomap} \: \odot_1 \: {\odot_1}_f \: e_1 \: a \\
   d &= \mathtt{scanomap} \: \odot_2 \: {\odot_2}_g \: e_2 \: b \\
 \Downarrow \\
-  (c,d) &= \mathtt{scanomap} \: \odot \: \odot_{fg} \: (e_1, e_2) \: (a, b)
+  (c,d) &= \mathtt{scanomap} \: \odot' \: \odot'_{fg} \: (e_1, e_2) \: (a, b)\mathnormal{.}
 \end{align*}
-\subsection{Fusion Strategy/Example}
-Walk through the entire fusion process concisely - or similarly summarize the relevant T2 Graph reduction fusion paper rooted in scan.
-Show the fusion of an example instance of maps and scans through dependency graphs etc.
-
+Where $\odot'(e_1,e_2, x, y) = (e_1 \odot x, e_2 \odot y)$ and $\odot'_{fg}(e_1, e_2, x, y) = (e_1 \odot f(x), e_2 \odot f(y))$. In this way, the resulting \texttt{scanomap}
+ now describes the computations of both input \texttt{scanomap}s.
 \section{Implementation}
 % How does a futhark program look ~ absyn. As we need it.
 This section will detail the specifics of performing \texttt{map-scan}, and other \texttt{scanomap} fusions, as well as detailing the process of
@@ -334,6 +334,9 @@ For example, when analysing the program found in Figure \ref{fig:progsnip1} and 
   \caption{Infusible program snippet.}
   \label{fig:progsnip1}
 \end{figure}
+
+Fusion is then attempted along the way whenever the fusion module meets a new SOACs during its analysis. Consequently, we have that fusion is also performed bottom-up, such that
+ the compiler will prioritize potential fusion by how ``deep'' the candidates occur in the program.
 \subsection{Map-Scanomap Fusion}
 \setcounter{equation}{0}
 Having identified a single \texttt{map} producer and a \texttt{scanomap} consumer to perform fusion on, the fusion itself may seem fairly simple.
@@ -372,7 +375,7 @@ Fusing these two SOACs into a \texttt{scanomap} becomes a three step process of
 \item determining map-out arrays, and
 \item composing a new folding function.
 \end{enumerate}
-
+Afterwards a new \texttt{scanomap} can then be constructed which can replace the input \texttt{map} and \texttt{scanomap}.
 \paragraph{Parameters}
 
 We have that \texttt{map} and \texttt{scanomap} are to be fused, so we must also have $(b0, b1, ...,bn) \cap (c0, c1, ..., cn) \neq \emptyset$. However
