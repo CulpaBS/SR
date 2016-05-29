@@ -260,6 +260,8 @@ $$z = 5 * y $$
 Would become
 $$z = 5 * x $$
 and constant folding where the compiler evaluating constant expressions at compile time. After dead code removal the process repeats unless a fixed point is reached, if the fixed point is reached the program is ready for possible fusion transformations. Reaching the fusion stage does not guarantee that a fusion transformation can be done, as shown in figure \ref{fig:cases} there are 6 cases where a fusion transformation should not happen.
+
+\clearpage
 \begin{figure}[hb]
   \centering
     \includegraphics[width=0.6\textwidth]{images/cases.png}
@@ -445,6 +447,7 @@ Combining these two functions into a single new folding function $\odot_g \circ 
  from the $f$ function, creating a new binding which binds the body of $f$ to the corresponding parameters of $\odot_g$, and then on
  to that appending the bindings of $\odot_g$.
 
+
 \begin{figure}[h!]\centering
   \begin{mdframed}[style=alignbox]
     \begin{align*}
@@ -474,7 +477,91 @@ $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \ci
 % Go through how we disassemble their functions, and reassemble a new function:
 % - 
 % How is the new Scanomap construct formed.
+
 \subsection{Scanomap-Scanomap Fusion}
+Having two \texttt{scanomap} in a futhark program with no dependencies between the two SOACs, and equal length input, the program computation time can be optimised using horizontal fusion. 
+
+This section will go through the algorithm for fusing two \texttt{scanomap} into one \texttt{scanomap}. The fusion algorithm have two steps:
+\begin{enumerate}
+\item Composing a new assosiative operation
+\item Composing a new folding function.
+\end{enumerate}
+
+\begin{align*}
+  c &= \mathtt{scanomap} \: \odot_1 \: {\odot_1}_f \: e_1 \: a \\
+  d &= \mathtt{scanomap} \: \odot_2 \: {\odot_2}_g \: e_2 \: b \\
+\Downarrow \\
+  (c,d) &= \mathtt{scanomap} \: \odot' \: \odot'_{fg} \: (e_1, e_2) \: (a, b)\mathnormal{.}
+\end{align*}
+
+
+\paragraph{Parameters} With a two \texttt{scanomap} to be fused, the goal is to join the computations within the same loop. Hence $\: a$ does not have to equal $\: b$, but the amount of arrays in $\: a$ and $\:b$ must be the same, and with the same length. Hence our new list of parameters simply become:
+$$\text{New-Params} = (a,b)$$
+
+\paragraph{New folding function and associative operation} As the two \texttt{scanomap} are independent of each other the composition of the new fused folding function is fairly easy. Figure \ref{fig:pre-fusion} show the pre-fusion folding functions for both scanomap, running sequentially after each other. Fusing them is simply adding the additional parameters and adding the function body of one of them to the other as shown in figure \ref{fig:post-fusion}. 
+ \begin{figure}[hb!]
+
+   \begin{mdframed}
+ \begin{minipage}{0.5\linewidth}
+     \centering
+
+       \begin{align*}
+       &\odot_f(ne_1, a_i) = \\
+       &\lett x_1 = e_1 \inn\\
+       &\lett x_2 = e_2 \inn\\
+       &\phantom{----}\vdots\\
+       &\lett x_n = e_n \inn\\
+       &c_i
+       \end{align*}
+
+     \label{fig:mapf}
+ \end{minipage}
+ \begin{minipage}{0.5\linewidth}
+     \centering
+
+     \begin{align*}
+       &\odot_g(ne_2, b_i) = \\
+       &\lett y_1 = e_1 \inn\\
+       &\lett y_2 = e_2 \inn\\
+       &\phantom{----}\vdots\\
+       &\lett y_n = e_n \inn\\
+       &d_i
+     \end{align*}
+
+     \label{fig:odotg}
+   \end{minipage}
+
+     \end{mdframed}
+     \caption{The SOAC functions $\odot_f$ and $\odot_g$ from the two scanomap}
+     \label{fig:pre-fusion}
+\end{figure}
+
+\clearpage
+\begin{figure}[hb!]
+
+   \begin{mdframed}
+     \centering
+
+       \begin{align*}
+       &\odot'_{fg}(ne1, ne2, a_i, b_i ) = \\
+       &\lett x_1 = e_1 \inn\\
+       &\lett x_2 = e_2 \inn\\
+       &\phantom{----}\vdots\\
+       &\lett x_n = e_n \inn\\
+       &\lett y_1 = e_1 \inn\\
+       &\lett y_2 = e_2 \inn\\
+       &\phantom{----}\vdots\\
+       &\lett y_n = e_n \inn\\
+       &(c_i, d_i)
+       \end{align*}
+       \end{mdframed}
+     \caption{Fused function $\odot'_{fg}$}
+     \label{fig:post-fusion}
+\end{figure}
+
+In the same manor the assosiative operations is fused into one, enabling the computation of two scanomaps to be done within one loop. 
+
+
 % Conditions
 % Function composition
 \subsection{Other Fusion}
