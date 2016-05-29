@@ -495,10 +495,10 @@ This section will go through the algorithm for fusing two \texttt{scanomap} into
 \end{align*}
 
 
-\paragraph{Parameters} With a two \texttt{scanomap} to be fused, the goal is to join the computations within the same loop. Hence $\: a$ does not have to equal $\: b$, but the amount of arrays in $\: a$ and $\:b$ must be the same, and with the same length. Hence our new list of parameters simply become:
+\paragraph{Parameters} With two \texttt{scanomap} to be fused, the goal is to join the computations within the same loop. Hence $\: a$ does not have to equal $\: b$, but the the length of the input arrays must be the same. Our new list of parameters simply become:
 $$\text{New-Params} = (a,b)$$
 
-\paragraph{New folding function and associative operation} As the two \texttt{scanomap} are independent of each other the composition of the new fused folding function is fairly easy. Figure \ref{fig:pre-fusion} show the pre-fusion folding functions for both scanomap, running sequentially after each other. Fusing them is simply adding the additional parameters and adding the function body of one of them to the other as shown in figure \ref{fig:post-fusion}. 
+\paragraph{New folding function and associative operation} As the two \texttt{scanomap} are independent of each other the composition of the new fused folding function is fairly easy. Figure \ref{fig:pre-fusion} show the pre-fusion folding functions for both scanomap, running sequentially after each other. Fusing them is simply adding the additional parameters and adding the function body of one of them into the other as shown in figure \ref{fig:post-fusion}. 
  \begin{figure}[hb!]
 
    \begin{mdframed}
