@@ -8,7 +8,7 @@
 \contentsline {subsubsection}{\numberline {3.2.1}Map}{4}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Scan}{5}{subsubsection.3.2.2}
 \contentsline {section}{\numberline {4}Map-Scan Fusion}{5}{section.4}
-\contentsline {subsection}{\numberline {4.1}Scanomap}{5}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Scanomap}{6}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Necessary Conditions}{7}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Fusing Scanomap}{9}{subsection.4.3}
 \contentsline {paragraph}{Map-Scanomap Fusion}{9}{section*.4}
