@@ -23,7 +23,7 @@
 \usepackage{breqn}
 \usepackage{tikz}
 \usepackage{mdframed}
-\usetikzlibrary{arrows,automata,fit,positioning, shapes}
+\usetikzlibrary{arrows,automata,fit,positioning, shapes, arrows.meta,chains,matrix,decorations.pathreplacing}
 \newcommand\doubleplus{+\kern-1.3ex+\kern0.8ex}
 \newcommand\lett{\phantom{-}\:\:\mathbf{let}\:\:}
 \newcommand\inn{\:\:\mathbf{in}\:\:}
@@ -108,8 +108,10 @@ As described in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ langua
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
- functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples. Working with SOACs allows for some assumptions to be made which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
- is used in Futhark to expedite loop-fusion. \cite[chap. 7]{MasterTroels}
+ functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples.
+While Futhark SOACs are semantically indentical to their namesake higer-order functions found in other functional languages, working with SOACs allows for some assumptions to be made
+ which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
+ is used in Futhark to expedite the loop-fusion process. \cite[chap. 7]{MasterTroels}
 
 % Definition of SOACs
 % Why are they useful wrt. parallelisation
@@ -123,6 +125,50 @@ $$\mathtt{map} \: f \: a \: =  \: [f(a_0), f(a_1), ..., f(a_{n-1})]\mathnormal{.
 Having no free variables, means that each result $f(a_i)$ \textit{only} depends on the corresponding element $a_i$. This makes \texttt{map}s fantastic for parallelisation as once the
  degree of parallism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parrallel step, or $c$ steps for a chunk size of $c$.
 
+\begin{tikzpicture}[
+node distance=0pt,
+ start chain = A going right,
+ start chain = C going right,
+arrow/.style = {draw=#1,-{Stealth[]}, 
+                shorten >=1mm, shorten <=1mm}, % styles of arrows
+arrow/.default = black,
+    X/.style = {rectangle, draw,% styles of nodes in string (chain)
+                minimum width=5ex, minimum height=4ex,
+                outer sep=0pt, on chain},
+    B/.style = {decorate,
+                decoration={brace, amplitude=5pt,
+                pre=moveto,pre length=1pt,post=moveto,post length=1pt,
+                raise=1mm,
+                            #1}, % for mirroring of brace, if necessary
+                thick},
+   B/.default = mirror, % by default braces are mirrored
+                        ]
+\foreach \i in {0,...,11}% <-- content of nodes
+    \node[X, on chain = A] {$a_\i$};
+
+\node [X, on chain = C, below = 10ex of A-1]  {$b_0$};
+\foreach \i in {1,...,11}% <-- content of nodes
+    \node[X, on chain = C] {$b_\i$};
+
+        ;
+\draw[B=]   (A-1.north west) -- coordinate[above=3mm] (a1) (A-3.north east) node [green, midway, above, yshift = 5pt] (a) {$c_0$};
+\draw[B=]   (A-4.north west) -- coordinate[above=3mm] (a2) (A-6.north east) node [red, midway, above, yshift = 5pt] {$c_1$};
+\draw[B=]   (A-7.north west) -- coordinate[above=3mm] (a3) (A-9.north east) node [blue, midway, above, yshift = 5pt] {$c_2$};
+\draw[B=]   (A-10.north west) -- coordinate[above=3mm] (a4) (A-12.north east) node [purple, midway, above, yshift = 5pt] {$c_3$};
+
+
+\foreach \c [count=\i] in {green, red, blue, purple} { 
+  \foreach \j in {1,...,3} {
+    \pgfmathtruncatemacro{\is}{\i - 1}%
+    \pgfmathtruncatemacro{\jn}{\is * 3 + \j}%
+    \pgfmathtruncatemacro{\jl}{(\j - 1) * 5}%
+    \draw[arrow,\c , shorten >= \jl pt] (A-\jn.south) to (C-\jn.north) node (AR-\jn) {};
+  }
+}
+
+\node [above left= 10pt and 5pt of AR-1] {$f(x)$};
+
+\end{tikzpicture}
 % INSERT COOL FIGURE OF MAP BEING COMPUTED 
 % How do we compute it parallely
 % Timecomplexity?
