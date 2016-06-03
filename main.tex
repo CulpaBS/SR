@@ -120,55 +120,61 @@ While Futhark SOACs are semantically indentical to their namesake higer-order fu
 The $\texttt{map} \: f \: a$ function, has the very simple definition of taking a function $f \: : \: \alpha \to \beta$ and returning a function $\mathtt{map} \:f \: : \: [\alpha] \to [\beta]$  which
  applies $f$ to every element of an input array, $a$.  This gives us the type signature of \texttt{map},
 $$\mathtt{map} \: f \: a \: :  \: (\alpha \to \beta) \to [\alpha] \to [\beta]\mathnormal{.}$$
-bAnd the semantic definition of \texttt{map},
+And the semantic definition of \texttt{map},
 $$\mathtt{map} \: f \: a \: =  \: [f(a_0), f(a_1), ..., f(a_{n-1})]\mathnormal{.}$$
 Having no free variables, means that each result $f(a_i)$ \textit{only} depends on the corresponding element $a_i$. This makes \texttt{map}s fantastic for parallelisation as once the
  degree of parallism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parrallel step, or $c$ steps for a chunk size of $c$.
 
-\begin{tikzpicture}[
-node distance=0pt,
- start chain = A going right,
- start chain = C going right,
-arrow/.style = {draw=#1,-{Stealth[]}, 
-                shorten >=1mm, shorten <=1mm}, % styles of arrows
-arrow/.default = black,
-    X/.style = {rectangle, draw,% styles of nodes in string (chain)
-                minimum width=5ex, minimum height=4ex,
-                outer sep=0pt, on chain},
-    B/.style = {decorate,
-                decoration={brace, amplitude=5pt,
-                pre=moveto,pre length=1pt,post=moveto,post length=1pt,
-                raise=1mm,
-                            #1}, % for mirroring of brace, if necessary
-                thick},
-   B/.default = mirror, % by default braces are mirrored
-                        ]
-\foreach \i in {0,...,11}% <-- content of nodes
-    \node[X, on chain = A] {$a_\i$};
+ \begin{figure}[h!]
+   \centering
+   \begin{tikzpicture}[ node distance=0pt, start chain = A going
+     right, start chain = C going right, arrow/.style =
+     {draw=#1,-{Stealth[]}, shorten >=1mm, shorten
+       <=1mm}, % styles of arrows
+     arrow/.default = black, X/.style = {rectangle,
+       draw,% styles of nodes in string (chain)
+       minimum width=5ex, minimum height=4ex, outer sep=0pt, on
+       chain}, B/.style = {decorate, decoration={brace, amplitude=5pt,
+         pre=moveto,pre length=1pt,post=moveto,post length=1pt,
+         raise=1mm, #1}, % for mirroring of brace, if necessary
+       thick}, B/.default = mirror, % by default braces are mirrored
+     ]
+     \foreach \i in {0,...,11}% <-- content of nodes
+     \node[X, on chain = A] {$a_\i$};
 
-\node [X, on chain = C, below = 10ex of A-1]  {$b_0$};
-\foreach \i in {1,...,11}% <-- content of nodes
-    \node[X, on chain = C] {$b_\i$};
+     \node [X, on chain = C, below = 10ex of A-1] {$b_0$}; \foreach \i
+     in {1,...,11}% <-- content of nodes
+     \node[X, on chain = C] {$b_\i$};
 
-        ;
-\draw[B=]   (A-1.north west) -- coordinate[above=3mm] (a1) (A-3.north east) node [green, midway, above, yshift = 5pt] (a) {$c_0$};
-\draw[B=]   (A-4.north west) -- coordinate[above=3mm] (a2) (A-6.north east) node [red, midway, above, yshift = 5pt] {$c_1$};
-\draw[B=]   (A-7.north west) -- coordinate[above=3mm] (a3) (A-9.north east) node [blue, midway, above, yshift = 5pt] {$c_2$};
-\draw[B=]   (A-10.north west) -- coordinate[above=3mm] (a4) (A-12.north east) node [purple, midway, above, yshift = 5pt] {$c_3$};
+     ; \draw[B=] (A-1.north west) -- coordinate[above=3mm] (a1)
+     (A-3.north east) node [green, midway, above, yshift = 5pt] (a)
+     {$c_0$}; \draw[B=] (A-4.north west) -- coordinate[above=3mm] (a2)
+     (A-6.north east) node [red, midway, above, yshift = 5pt] {$c_1$};
+     \draw[B=] (A-7.north west) -- coordinate[above=3mm] (a3)
+     (A-9.north east) node [blue, midway, above, yshift = 5pt]
+     {$c_2$}; \draw[B=] (A-10.north west) -- coordinate[above=3mm]
+     (a4) (A-12.north east) node [magenta, midway, above, yshift = 5pt]
+     {$c_3$};
 
 
-\foreach \c [count=\i] in {green, red, blue, purple} { 
-  \foreach \j in {1,...,3} {
-    \pgfmathtruncatemacro{\is}{\i - 1}%
-    \pgfmathtruncatemacro{\jn}{\is * 3 + \j}%
-    \pgfmathtruncatemacro{\jl}{(\j - 1) * 5}%
-    \draw[arrow,\c , shorten >= \jl pt] (A-\jn.south) to (C-\jn.north) node (AR-\jn) {};
-  }
-}
+     \foreach \c [count=\i] in {green, red, blue, magenta} { \foreach
+       \j in {1,...,3} { \pgfmathtruncatemacro{\is}{\i - 1}%
+         \pgfmathtruncatemacro{\jn}{\is * 3 + \j}%
+         \pgfmathtruncatemacro{\jl}{(\j - 1) * 5}%
+         \draw[arrow,\c , shorten >= \jl pt] (A-\jn.south) to
+         (C-\jn.north) node (AR-\jn) {}; } }
 
-\node [above left= 10pt and 5pt of AR-1] {$f(x)$};
+     \node [above left= 10pt and 5pt of AR-1] {$f(x)$};
 
-\end{tikzpicture}
+   \end{tikzpicture}
+   
+   \caption{Parallel computation of map with chunking. Each colour represents a seperate thread.}
+   \label{fig:compmap1}
+ \end{figure}
+
+Figure \ref{fig:compmap1} displays how map can be computed in chunks. Each thread is responsible for sequentially computing
+ $\mathtt{map} \: f \: c_i$ across a single chunk. With no depedencies in the way, this can happen in parallel such that the
+ 12 element list is \texttt{map}ped with just 3 sequential applications of $f$.
 % INSERT COOL FIGURE OF MAP BEING COMPUTED 
 % How do we compute it parallely
 % Timecomplexity?
@@ -187,165 +193,161 @@ the associativity of $\odot$ is vital as it means that this dependency does not 
 % How scan is computed in Futhark with fancy diagram 
 
 % Timecomplexity?
-\begin{tikzpicture}[
-node distance=0pt,
- start chain = A going right,
- start chain = C going right,
- start chain = D going right,
- start chain = E going right,
- start chain = F going right,
- start chain = G going right,
-arrow/.style = {draw=#1,-{Stealth[]}, 
-                shorten >=1mm, shorten <=1mm}, % styles of arrows
-arrow/.default = black,
-    X/.style = {rectangle, draw,% styles of nodes in string (chain)
-                minimum width=7ex, minimum height=4ex,
-                outer sep=0pt, on chain},
-    B/.style = {decorate,
-                decoration={brace, amplitude=5pt,
-                pre=moveto,pre length=1pt,post=moveto,post length=1pt,
-                raise=1mm,
-                            #1}, % for mirroring of brace, if necessary
-                thick},
-   B/.default = mirror, % by default braces are mirrored
-                        ]
-\foreach \i in {0,...,11}% <-- content of nodes
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}[ node distance=0pt,
+    start chain = A going right,
+    start chain = C going right,
+    start chain = D going right, 
+    start chain = E going right,
+    start chain = G going right,
+    arrow/.style = {draw=#1,-{Stealth[]},shorten >=1mm, shorten <=1mm}, % styles of arrows
+    arrow/.default = black, X/.style = {rectangle, draw,% styles of nodes in string (chain)
+      minimum width=7ex, minimum height=4ex, outer sep=0pt, on chain},
+    B/.style = {decorate, decoration={brace, amplitude=5pt,
+        pre=moveto,pre length=1pt,post=moveto,post length=1pt,
+        raise=1mm, #1}, % for mirroring of brace, if necessary
+      thick},
+    B/.default = mirror, % by default braces are mirrored
+    ]
+    \foreach \i in {0,...,11}% <-- content of nodes
     \node[X, on chain = A] {$a_\i$};
 
-\node [X, on chain = C, below = 10ex of A-1]  {$a_0$};
-\node [X, on chain = C]  {$a_{0-1}$};
-\node [X, on chain = C]  {$a_{0-2}$};
-\foreach \i in {3, 6, 9} {
-    \node[X, on chain = C] {$a_\i$};
-  \foreach \j in {1,...,2} {
-    \pgfmathtruncatemacro{\ij}{\i + \j}%%
-    \node[X, on chain = C] {$a_{\i-\ij}$};
-}
-}
+    \node [X, on chain = C, below = 10ex of A-1] {$a_0$};
+    \node [X, on chain = C] {$a_{0-1}$};
+    \node [X, on chain = C] {$a_{0-2}$};
+    \foreach \i in {3, 6, 9} { 
+      \node[X, on chain = C] {$a_\i$};
+      \foreach \j in {1,...,2} { 
+        \pgfmathtruncatemacro{\ij}{\i + \j}%%
+        \node[X, on chain = C] {$a_{\i-\ij}$}; 
+      }
+    }
 
-\node [X, on chain = D, below = 10ex of C-1]  {$a_0$};
-\node [X, on chain = D]  {$a_{0-1}$};
-\node [X, on chain = D]  {$a_{0-2}$};
-\foreach \i in {3, 6, 9} {
-    \node[X, on chain = D] {$a_\i$};%%
-    \pgfmathtruncatemacro{\ii}{\i+1}%
-    \pgfmathtruncatemacro{\iii}{\i+2}%
-    \pgfmathtruncatemacro{\im}{\i-3}%
-    \node[X, on chain = D] {$a_{\i-\ii}$};
-    \node[X, on chain = D] {$a_{\im-\iii}$};
-}
+    \node [X, on chain = D, below = 10ex of C-1] {$a_0$};
+    \node [X, on chain = D] {$a_{0-1}$};
+    \node [X, on chain = D] {$a_{0-2}$};
+    \node [X, on chain = D] {$a_{3}$};
+    \node [X, on chain = D] {$a_{3-4}$};
+    \node [X, on chain = D] {$a_{0-5}$};
+    \node [X, on chain = D] {$a_{6}$};
+    \node [X, on chain = D] {$a_{6-7}$};
+    \node [X, on chain = D] {$a_{3-8}$};
+    \node [X, on chain = D] {$a_{9}$};
+    \node [X, on chain = D] {$a_{9-10}$};
+    \node [X, on chain = D] {$a_{6-11}$};
 
-\node [X, on chain = E, below = 10ex of D-1]  {$a_0$};
-\node [X, on chain = E]  {$a_{0-1}$};
-\node [X, on chain = E]  {$a_{0-2}$};    
-\node [X, on chain = E]  {$a_{3}$};
-\node [X, on chain = E]  {$a_{3-4}$};    
-\node [X, on chain = E]  {$a_{0-5}$};    
-\foreach \i in {6, 9} {
-    \node[X, on chain = E] {$a_\i$};%%
-    \pgfmathtruncatemacro{\ii}{\i+1}%
-    \pgfmathtruncatemacro{\iii}{\i+2}%
-    \pgfmathtruncatemacro{\im}{\i-6}%
-    \node[X, on chain = E] {$a_{\i-\ii}$};
-    \node[X, on chain = E] {$a_{\im-\iii}$};
-}
-
-
-
-\node [X, on chain = F, below = 10ex of E-1]  {$a_0$};
-\node [X, on chain = F]  {$a_{0-1}$};
-\node [X, on chain = F]  {$a_{0-2}$}; 
-\foreach \i in {3, 6, 9} {
-    \node[X, on chain = F] {$a_\i$};%%
-    \pgfmathtruncatemacro{\ii}{\i+1}%
-    \pgfmathtruncatemacro{\iii}{\i+2}%
-    \pgfmathtruncatemacro{\im}{\i-6}%
-    \node[X, on chain = F] {$a_{\i-\ii}$};
-    \node[X, on chain = F] {$a_{0-\iii}$};
-}
-
-\node [X, on chain = G, below = 10ex of F-1]  {$a_0$};
-\node [X, on chain = G]  {$a_{0-1}$};
-\node [X, on chain = G]  {$a_{0-2}$};
-
-\foreach \i in {3,...,11} {
-    \node[X, on chain = G] {$a_{0-\i}$};
-}
-
-
-\draw[B=]   (A-1.north west) -- coordinate[above=3mm] (a1) (A-3.north east) node [green, midway, above, yshift = 5pt] (a) {$c_0$};
-\draw[B=]   (A-4.north west) -- coordinate[above=3mm] (a2) (A-6.north east) node [red, midway, above, yshift = 5pt] {$c_1$};
-\draw[B=]   (A-7.north west) -- coordinate[above=3mm] (a3) (A-9.north east) node [blue, midway, above, yshift = 5pt] {$c_2$};
-\draw[B=]   (A-10.north west) -- coordinate[above=3mm] (a4) (A-12.north east) node [purple, midway, above, yshift = 5pt] {$c_3$};
-
-
-\foreach \c [count=\i] in {green, red, blue, purple} { 
-  \foreach \j in {2,...,3} {
-    \pgfmathtruncatemacro{\is}{\i - 1}%
-    \pgfmathtruncatemacro{\jn}{\is * 3 + \j}%
-    \pgfmathtruncatemacro{\jl}{(\j - 2) * 5}%
-    \draw[arrow,\c , shorten >= \jl pt] (A-\jn.south) to (C-\jn.north) node (AR-\jn) {};
-  }
-}
-\foreach \c [count=\i] in {green, red, blue, purple} {
-  \foreach \j in {1,...,2} {
-    \pgfmathtruncatemacro{\ir}{\i - 1}%
-    \pgfmathtruncatemacro{\pos}{3 * \ir + \j}%
-    \pgfmathtruncatemacro{\ii}{\pos +1}%
-    \draw[arrow, \c] (A-\pos.south) to[out=280, in=200] (A-\ii.south) node (CR-\pos) {};
- }
-}
-\foreach \i/\c in {3/red, 6/blue, 9/purple} {
-  \pgfmathtruncatemacro{\iii}{\i + 3}%
-  \def\this{C-\iii.south}
-  \def\there{D-\iii.north}
-  \coordinate (mid\i) at ($(\this) !0.6! (\there)$);
-  \node at (mid\i) {$\odot$}; 
-  \draw[arrow, \c,shorten >= 4pt] (C-\iii.south) to node[midway, black] (RED-1) {} (mid\i.north) ;
-  \draw[arrow, \c,shorten >= 4pt] (C-\i.south) to[out=340 ,in=90] (mid\i.north);
-  \draw[arrow, \c,shorten <= 4pt] (mid\i) to (D-\iii.north) ;
-
-}
-
-
-\foreach \i/\c in {3/blue, 6/purple} {
-  \pgfmathtruncatemacro{\iii}{\i + 6}%
-  \def\this{D-\iii.south}
-  \def\there{E-\iii.north}
-  \coordinate (mid\i) at ($(\this) !0.6! (\there)$);
-  \node at (mid\i) {$\odot$}; 
-  \draw[arrow, \c,shorten >= 4pt] (D-\iii.south) to node[midway, black] (RED-1) {} (mid\i.north) ;
-  \draw[arrow, \c,shorten >= 4pt] (D-\i.south) to[out=320 ,in=90, looseness= 0.6] (mid\i.north);
-  \draw[arrow, \c,shorten <= 4pt] (mid\i) to (E-\iii.north) ;
-}
+    \node [X, on chain = E, below = 10ex of D-1] {$a_0$};
+    \node [X, on chain = E] {$a_{0-1}$};
+    \node [X, on chain = E] {$a_{0-2}$};
+    \node [X, on chain = E] {$a_{3}$};
+    \node [X, on chain = E] {$a_{3-4}$};
+    \node [X, on chain = E] {$a_{0-5}$};
+    \node [X, on chain = E] {$a_{6}$};
+    \node [X, on chain = E] {$a_{6-7}$};
+    \node [X, on chain = E] {$a_{0-8}$};
+    \node [X, on chain = E] {$a_{9}$};
+    \node [X, on chain = E] {$a_{9-10}$};
+    \node [X, on chain = E] {$a_{0-11}$};
 
 
 
-\coordinate (midl) at ($(E-12) !0.6! (F-12)$);  
-\node at (midl) {$\odot$}; 
-\draw[arrow, purple,shorten >= 4pt] (E-12.south) to node[midway, black] (RED-1) {} (midl.north) ;
-\draw[arrow, purple,shorten >= 4pt] (E-3.south) to[out=300 ,in=90, looseness= 0.5] (midl.north);
-\draw[arrow, purple,shorten <= 4pt] (midl) to (F-12.north) ;
+
+    \node [X, on chain = G, below = 10ex of E-1] {$a_0$};
+    \node [X, on chain = G] {$a_{0-1}$};
+    \node [X, on chain = G] {$a_{0-2}$};
+
+    \foreach \i in {3,...,11} {
+      \node[X, on chain = G] {$a_{0-\i}$};
+    }
 
 
-\foreach \c [count=\i] in {red, blue, purple} { 
-  \foreach \j in {2,...,3} {
-    \pgfmathtruncatemacro{\is}{\i - 0}%
-    \pgfmathtruncatemacro{\jn}{\is * 3 + \j -1}%
-    \pgfmathtruncatemacro{\jl}{(\j - 2) * 5}%
-    \draw[arrow,\c] (F-\jn.south) to (G-\jn.north) node (GR-\jn) {};
-  }
-  \foreach \j in {1,...,2} {
-    \pgfmathtruncatemacro{\ir}{\i - 1}%
-    \pgfmathtruncatemacro{\pos}{3 * \ir + \j + 2}%
-    \pgfmathtruncatemacro{\ii}{\pos +1}%
-    \draw[arrow, \c] (F-\pos.south) to[out=280, in=200] (F-\ii.south) node (GGR-\pos) {};
- }
-}
-
-\end{tikzpicture}
+    \draw[B=] (A-1.north west) -- coordinate[above=3mm] (a1)
+    (A-3.north east) node [green, midway, above, yshift = 5pt] (a)
+    {$c_0$}; \draw[B=] (A-4.north west) -- coordinate[above=3mm] (a2)
+    (A-6.north east) node [red, midway, above, yshift = 5pt] {$c_1$};
+    \draw[B=] (A-7.north west) -- coordinate[above=3mm] (a3)
+    (A-9.north east) node [blue, midway, above, yshift = 5pt] {$c_2$};
+    \draw[B=] (A-10.north west) -- coordinate[above=3mm] (a4)
+    (A-12.north east) node [magenta, midway, above, yshift = 5pt]
+    {$c_3$};
 
 
+    \foreach \c [count=\i] in {green, red, blue, magenta} {
+      \foreach \j in {2,...,3} { 
+        \pgfmathtruncatemacro{\is}{\i - 1}%
+        \pgfmathtruncatemacro{\jn}{\is * 3 + \j}%
+        \pgfmathtruncatemacro{\jl}{(\j - 2) * 5}%
+        \draw[arrow,\c , shorten >= \jl pt] (A-\jn.south) to (C-\jn.north) node (AR-\jn) {};
+      }
+    }
+    \foreach \c [count=\i] in {green, red, blue, magenta} {
+      \foreach \j in {1,...,2} {
+        \pgfmathtruncatemacro{\ir}{\i - 1}%
+        \pgfmathtruncatemacro{\pos}{3 * \ir + \j}%
+        \pgfmathtruncatemacro{\ii}{\pos +1}%
+        \draw[arrow, \c] (A-\pos.south) to[out=280, in=200] (A-\ii.south) node (CR-\pos) {};
+      }
+    }
+    \foreach \i/\c in {3/red,6/blue,9/magenta} {
+      \pgfmathtruncatemacro{\iii}{\i + 3}%
+      \def\this{C-\iii.south}
+      \def\there{D-\iii.north}
+      \coordinate (mid\i) at ($(\this) !0.6! (\there)$);
+      \node at (mid\i) {$\odot$};
+      \draw[arrow, \c,shorten >= 4pt] (C-\iii.south) to node[midway, black] (RED-1) {} (mid\i.north) ;
+      \draw[arrow, \c,shorten >= 4pt] (C-\i.south) to[out=340 ,in=90] (mid\i.north);
+      \draw[arrow, \c,shorten <= 4pt] (mid\i) to (D-\iii.north) ;
+
+    }
+
+
+    \foreach \i/\c in {3/blue,6/magenta} {
+      \pgfmathtruncatemacro{\iii}{\i + 6}%
+      \def\this{D-\iii.south} 
+      \def\there{E-\iii.north}
+      \coordinate (mid\i) at ($(\this) !0.6! (\there)$);
+      \node at (mid\i) {$\odot$};
+      \draw[arrow, \c,shorten >= 4pt] (D-\iii.south) to node[midway, black] (RED-1) {} (mid\i.north) ;
+      \draw[arrow, \c,shorten >= 4pt] (D-\i.south) to[out=320 ,in=90, looseness=0.6] (mid\i.north);
+      \draw[arrow, \c,shorten <= 4pt] (mid\i) to (E-\iii.north) ; 
+    }
+
+
+
+
+    \foreach \c [count=\i] in {red, blue, magenta} {
+      \foreach \j in {2,...,3} {
+        \pgfmathtruncatemacro{\is}{\i - 0}%
+        \pgfmathtruncatemacro{\jn}{\is * 3 + \j -1}%
+        \pgfmathtruncatemacro{\jl}{(\j - 2) * 3}%
+        \draw[arrow,\c, shorten >= \jl pt] (E-\jn.south) to (G-\jn.north) node (GR-\jn) {};
+      }
+      \foreach \j in {1,...,2} { 
+        \pgfmathtruncatemacro{\ir}{\i - 1}%
+        \pgfmathtruncatemacro{\pos}{3 * \ir + \j + 2}%
+        \pgfmathtruncatemacro{\ii}{\pos +1}%
+        \draw[arrow, \c] (E-\pos.south) to[out=280, in=200] (E-\ii.south) node (GGR-\pos) {};
+      }
+    }
+    \node [above left= 10pt and 5pt of AR-1] (other) {$\odot$};
+    \node [below= 38ex of other] {$\odot$};
+  \end{tikzpicture}
+  
+  \caption{Parallel computation of \texttt{scan} with chunking. Each colour represents a single thread, and $a_{i-j} = a_i \odot a_{i+1} \odot ... \odot a_j$.}
+  \label{fig:scancomp1}
+\end{figure}
+With this, there are multiple ways in which \texttt{scan} can be computed in parallel with chunking, and Figure \ref{fig:scancomp1} shows a simple algorithm.
+ It is a three phase process which step-wise involves,
+ \begin{enumerate}
+ \item First each thread sequentially computes the $\odot$-prefixes of their respective chunks. ($c$ steps)
+ \item Then the final element of each chunk is recursively combined with the previous using $\odot$ with
+ doubling stride for each recursion, such that each final element contains the $a_{0-j}$ prefix where $j = (c * (i+1) - 1)$ for the
+ $i$th chunk. ($\log(\frac{n}{c})$ steps)
+ \item Finally each thread adds the final element of the previous chunk to each element of the chunk
+ which is not the tail. ($c$ steps)
+ \end{enumerate}
+While this algorithm is not work efficient -- it involves more than $n$ applications of $\odot$ -- it still has a running time of $O(2c + \log(n)) < O(n)$ due to parallelism.
 \section{Map-Scan Fusion}
 % Why?
 In a typical situation involving \texttt{map} and \texttt{scan}, we will have the \texttt{map} producing some array, which is subsequently
