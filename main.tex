@@ -487,7 +487,8 @@ However there are special cases for scanomap, as the result array x of the produ
 
 \subsection{Fusing Scanomap}
 % What can we not reduce with
-
+Once a \texttt{map} and a \texttt{scan} has been combined into a \texttt{scanomap}, it raises the question of how can we further fuse this new construct?
+ This section details which SOACs \texttt{scanomap} can fuse with, and how.
 \paragraph{Map-Scanomap Fusion}
 Fusing a \texttt{map} as a producer into a consumer \texttt{scanomap} is a simple process. Given a \texttt{map} with function $g$ and a 
  \texttt{scanomap} with the folding function $\odot_f$, we compose a new folding function $x \odot_{f \circ g} y = x \odot f (g (y))$. This is illustrated below,
@@ -495,7 +496,7 @@ Fusing a \texttt{map} as a producer into a consumer \texttt{scanomap} is a simpl
   b &= \mathtt{map} \: g \: a \\
   c &= \mathtt{scanomap} \: \odot \: \odot_f \: e \: b \\
 \Downarrow \\
-  c &= \mathtt{scanomap} \: \odot \: \odot_{f\circ g} \: e \: a
+  c &= \mathtt{scanomap} \: \odot \: \odot_{f\circ g} \: e \: a\mathnormal{.}
 \end{align*}
 
 \paragraph{Scanomap-Scanomap Fusion} Horizontally fusing a \texttt{scanomap} with another \texttt{scanomap}, requires that theres exists no dependency between the
