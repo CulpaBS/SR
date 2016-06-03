@@ -52,6 +52,7 @@
 }
 
 \begin{document}
+\lstset{language=C, frame=single, numbers=left, breaklines=true}
 \mdfdefinestyle{alignbox}{leftmargin=100pt,
 rightmargin=100pt,%
 innerleftmargin=10pt,
@@ -356,15 +357,41 @@ In a typical situation involving \texttt{map} and \texttt{scan}, we will have th
   b &= \mathtt{map} \: f \: a \\
   c &= \mathtt{scan} \: \odot \: e \: b\mathnormal{.}
 \end{align*}
+We can describe this in C-like code as two subsequent loops where the first constructs the $b$ array and the second uses $b$ to create $c$.
+\begin{lstlisting}[caption=\texttt{map} and \texttt{scan} in C-like code.]
+  a[n];
+  ...
+  b[n];
+  for (int i = 0; i < n; i++) {
+    b[i] = f(a[i]);
+  }
+  c[n];
+  acc = e;
+  for (int i = 0; i < n; i++) {
+    acc = g(acc, b[i]);
+    c[i] = acc;
+  }
+\end{lstlisting}
 In this situation, the memory access pattern will look something like the following,
 \begin{align*}
   \mathtt{load}[a_0]&, \mathtt{store}[b_0], \mathtt{load}[a_1], \mathtt{store}[b_1], ..., \mathtt{load}[a_{n-1}], \mathtt{store}[b_{n-1}] \\
   \mathtt{load}[b_0]&, \mathtt{store}[c_0], \mathtt{load}[b_1], \mathtt{store}[c_1], ..., \mathtt{load}[b_{n-1}], \mathtt{store}[c_{n-1}]\mathnormal{.}
 \end{align*}
-Recalling that element of the scanned array $c$ depend only on the previous prefixes, we have that $c_i$ will only depend on $b_j$ for $j \leq i$ being calculated.
- This means that, ideally, we can interleave this access pattern without breaking any dependencies -- giving us a pattern more like this:
- $$\mathtt{load}[a_0], \mathtt{store}[b_0], \mathtt{load}[b_0], \mathtt{store}[c_0], ..., \mathtt{load}[a_{n-1}], \mathtt{store}[b_{n-1}], \mathtt{load}[b_{n-1}], \mathtt{store}[c_{n-1}]\mathnormal{.}$$
-In this case, all accesses to $b$ become wholly uneccessary and can be removed, giving us:
+However, if the $b$ array is not used outside the second loop, we can recalling that element of the scanned array $c$ depend only on the previous prefixes. 
+Thus we have that $c_i$ will only depend on $b_j$ for $j \leq i$ being calculated. This gives us the option of fusing the two loops into a single loop which directly calculates $c$ from $a$.
+\begin{lstlisting}[caption=\texttt{map} and \texttt{scan} loops fused.]
+  a[n];
+  ...
+  b;
+  c[n];
+  acc = e;
+  for (int i = 0; i < n; i++) {
+    b = f(a[i]);
+    acc = g(acc, b);
+    c[i] = acc;
+  }
+\end{lstlisting}
+Now we have removed all accesses to $b$, giving us an access pattern as follows,
  $$\mathtt{load}[a_0],  \mathtt{store}[c_0], ..., \mathtt{load}[a_{n-1}],  \mathtt{store}[c_{n-1}]\mathnormal{.}$$
 This is the goal of perfoming \texttt{map}-\texttt{scan} fusion. By fusing a \texttt{map} into a \texttt{scan} we can optimise a program by eliminating costly memory accesses.
  Something which is even more useful when working on a GPGPU, which generally do not have the more forgiving memory hierarchy and caching system of a CPU.
