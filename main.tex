@@ -492,7 +492,7 @@ Would become
 $$z = 5 * x $$
 and constant folding where the compiler evaluating constant expressions at compile time. After dead code removal the process repeats unless a fixed point is reached, if the fixed point is reached the program is ready for possible fusion transformations. Reaching the fusion stage does not guarantee that a fusion transformation can be done, as shown in figure \ref{fig:cases} there are 6 cases where a fusion transformation should not happen.
 
-\clearpage
+
 \begin{figure}[hb]
   \centering
     \includegraphics[width=0.6\textwidth]{images/cases.png}
@@ -731,6 +731,8 @@ This section will go through the algorithm for fusing two \texttt{scanomap} into
 $$\text{New-Params} = (a,b)$$
 
 \paragraph{New folding function and associative operation} As the two \texttt{scanomap} are independent of each other the composition of the new fused folding function is fairly easy. Figure \ref{fig:pre-fusion} show the pre-fusion folding functions for both scanomap, running sequentially after each other. Fusing them is simply adding the additional parameters and adding the function body of one of them into the other as shown in figure \ref{fig:post-fusion}. 
+
+\clearpage
  \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -768,7 +770,6 @@ $$\text{New-Params} = (a,b)$$
      \label{fig:pre-fusion}
 \end{figure}
 
-\clearpage
 \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -793,6 +794,8 @@ $$\text{New-Params} = (a,b)$$
 
 In the same manor the assosiative operations is fused into one, enabling the computation of two scanomaps to be done within one loop. 
 
+\paragraph{Map-Out Arrays}
+If the maps-out arrays in the \texttt{scanomaps} should be returned, it is done in the same manor as explained in the consumer-producer fusion of map and scan in section 5.2 (Map-Scanomap Fusion). Because the horizontally fused \texttt{scanomaps} are computed in precisely the same way, just "sequentially" in one loop it does not change anything regarding map-out arrays.
 
 % Conditions
 % Function composition
