@@ -7,14 +7,18 @@
 \BOOKMARK [2][-]{subsection.3.2}{SOACs}{section.3}% 7
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Map}{subsection.3.2}% 8
 \BOOKMARK [3][-]{subsubsection.3.2.2}{Scan}{subsection.3.2}% 9
-\BOOKMARK [1][-]{section.4}{Map-Scan Fusion}{}% 10
-\BOOKMARK [2][-]{subsection.4.1}{Scanomap}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.2}{Necessary Conditions}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.3}{Fusing Scanomap}{section.4}% 13
-\BOOKMARK [1][-]{section.5}{Implementation}{}% 14
-\BOOKMARK [2][-]{subsection.5.1}{Bottom Up Analysis}{section.5}% 15
-\BOOKMARK [2][-]{subsection.5.2}{Map-Scanomap Fusion}{section.5}% 16
-\BOOKMARK [2][-]{subsection.5.3}{Scanomap-Scanomap Fusion}{section.5}% 17
-\BOOKMARK [2][-]{subsection.5.4}{Other Fusion}{section.5}% 18
-\BOOKMARK [1][-]{section.6}{Benchmarking and Testing}{}% 19
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 20
+\BOOKMARK [1][-]{section.4}{Fusion}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Consumer-Producer Fusion}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Horizontal Fusion}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Fusion in Futhark}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{Map-Scan Fusion}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Scanomap}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Necessary Conditions}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Fusing Scanomap}{section.5}% 17
+\BOOKMARK [1][-]{section.6}{Implementation}{}% 18
+\BOOKMARK [2][-]{subsection.6.1}{Bottom Up Analysis}{section.6}% 19
+\BOOKMARK [2][-]{subsection.6.2}{Map-Scanomap Fusion}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.3}{Scanomap-Scanomap Fusion}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.4}{Other Fusion}{section.6}% 22
+\BOOKMARK [1][-]{section.7}{Benchmarking and Testing}{}% 23
+\BOOKMARK [1][-]{section.8}{Conclusion}{}% 24

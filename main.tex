@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+ \documentclass[11pt]{article}
 \usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
 \usepackage{eso-pic} % \AddToShipoutPicture
 \usepackage{graphicx} % \includegraphics
@@ -349,6 +349,16 @@ With this, there are multiple ways in which \texttt{scan} can be computed in par
  which is not the tail. ($c$ steps)
  \end{enumerate}
 While this algorithm is not work efficient -- it involves more than $n$ applications of $\odot$ -- it still has a running time of $O(2c + \log(n)) < O(n)$ due to parallelism.
+
+\section{Fusion}
+In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
+The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as if not the same amount that would result in errors for one of the loops.
+\subsection{Consumer-Producer Fusion}
+
+\subsection{Horizontal Fusion}
+
+\subsection{Fusion in Futhark}
+
 \section{Map-Scan Fusion}
 % Why?
 In a typical situation involving \texttt{map} and \texttt{scan}, we will have the \texttt{map} producing some array, which is subsequently
@@ -795,7 +805,7 @@ $$\text{New-Params} = (a,b)$$
 In the same manor the assosiative operations is fused into one, enabling the computation of two scanomaps to be done within one loop. 
 
 \paragraph{Map-Out Arrays}
-If the maps-out arrays in the \texttt{scanomaps} should be returned, it is done in the same manor as explained in the consumer-producer fusion of map and scan in section 5.2 (Map-Scanomap Fusion). Because the horizontally fused \texttt{scanomaps} are computed in precisely the same way, just "sequentially" in one loop it does not change anything regarding map-out arrays.
+If the map-out arrays in the \texttt{scanomaps} should be returned, it is done in the same manor as explained in the consumer-producer fusion of map and scan in section Map-Scanomap Fusion. Because the horizontally fused \texttt{scanomaps} are computed in precisely the same way, just "sequentially" in one loop it does not change anything regarding map-out arrays.
 
 % Conditions
 % Function composition
