@@ -352,8 +352,50 @@ While this algorithm is not work efficient -- it involves more than $n$ applicat
 
 \section{Fusion}
 In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
-The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as if not the same amount that would result in errors for one of the loops.
+The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
+
+\begin{lstlisting}[caption=Pre-fusion.]
+
+  a[n];
+  b[n];
+
+  for (int i = 0; i < n; i++) {
+    a[i] = i
+  }
+
+  for (int i = 0; i < n; i++) {
+    b[i] = i
+  }
+\end{lstlisting}
+Having two loops with the same iteration range as shown in listing 1, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing 2. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
+
+\begin{lstlisting}[caption=Post-fusion.]
+  a[n];
+  b[n];
+  
+  for (int i = 0; i < n; i++) {
+    a[i] = i
+    b[i] = i  
+  }
+\end{lstlisting}
+
+By doing the fusion in this case, loop-overhead has been reduced in half, as now it is only necessary to keep track of one loop instruction.
+
 \subsection{Consumer-Producer Fusion}
+Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship.
+
+\begin{lstlisting}[caption=Producer-Consumer pre-fusion.]
+  a[n];
+  b[n];
+  
+  for (int i = 0; i < n; i++) {
+    a[i] = f(i) // f(x) some function doing work  
+  }
+  
+  for (int i = 0; i < n; i++) {
+    b[i] = g(a[i]) // g(x) some function doing work
+  }
+\end{lstlisting}
 
 \subsection{Horizontal Fusion}
 
