@@ -382,20 +382,33 @@ Having two loops with the same iteration range as shown in listing 1, it gives t
 By doing the fusion in this case, loop-overhead has been reduced in half, as now it is only necessary to keep track of one loop instruction.
 
 \subsection{Consumer-Producer Fusion}
-Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship.
+Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created, that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship. \\
+Loop fusion of a consumer-producer relationship now gives the opportunity to fuse the functions in the 2 loops into one, i.e $f(x) \circ g(x) = f(g(x))$ as the example in listing 3 and 4 shows. 
 
-\begin{lstlisting}[caption=Producer-Consumer pre-fusion.]
+\begin{lstlisting}[caption=Producer-Consumer pre-fusion.] 
   a[n];
   b[n];
-  
+  c[n];
+  	  
   for (int i = 0; i < n; i++) {
-    a[i] = f(i) // f(x) some function doing work  
+    b[i] = f(a[i]) // f(x) some function doing work  
   }
   
   for (int i = 0; i < n; i++) {
-    b[i] = g(a[i]) // g(x) some function doing work
+    c[i] = g(b[i]) // g(x) some function doing work
   }
 \end{lstlisting}
+
+\begin{lstlisting}[caption=Producer-Consumer post-fusion.] 
+  a[n];
+  c[n];
+  	  
+  for (int i = 0; i < n; i++) {
+    c[i] = f(g(a[i])
+  }
+\end{lstlisting}
+
+The result is reduced loop overhead, reducing in memory requirements as the output of the producer loop is no longer stored separately, but calculated within the fused result.
 
 \subsection{Horizontal Fusion}
 

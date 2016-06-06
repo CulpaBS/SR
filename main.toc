@@ -15,18 +15,18 @@
 \contentsline {subsection}{\numberline {5.1}Scanomap}{8}{subsection.5.1}
 \contentsline {subsection}{\numberline {5.2}Necessary Conditions}{9}{subsection.5.2}
 \contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{11}{subsection.5.3}
-\contentsline {paragraph}{Map-Scanomap Fusion}{11}{section*.6}
-\contentsline {paragraph}{Scanomap-Scanomap Fusion}{11}{section*.7}
+\contentsline {paragraph}{Map-Scanomap Fusion}{12}{section*.6}
+\contentsline {paragraph}{Scanomap-Scanomap Fusion}{12}{section*.7}
 \contentsline {section}{\numberline {6}Implementation}{12}{section.6}
 \contentsline {subsection}{\numberline {6.1}Bottom Up Analysis}{12}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Map-Scanomap Fusion}{12}{subsection.6.2}
 \contentsline {paragraph}{Parameters}{13}{section*.10}
-\contentsline {paragraph}{Map-Out Arrays}{13}{section*.11}
+\contentsline {paragraph}{Map-Out Arrays}{14}{section*.11}
 \contentsline {paragraph}{Function Composition}{14}{section*.12}
-\contentsline {subsection}{\numberline {6.3}Scanomap-Scanomap Fusion}{14}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.3}Scanomap-Scanomap Fusion}{15}{subsection.6.3}
 \contentsline {paragraph}{Parameters}{15}{section*.15}
-\contentsline {paragraph}{New folding function and associative operation}{15}{section*.16}
-\contentsline {paragraph}{Map-Out Arrays}{16}{section*.19}
-\contentsline {subsection}{\numberline {6.4}Other Fusion}{16}{subsection.6.4}
-\contentsline {section}{\numberline {7}Benchmarking and Testing}{16}{section.7}
-\contentsline {section}{\numberline {8}Conclusion}{16}{section.8}
+\contentsline {paragraph}{New folding function and associative operation}{16}{section*.16}
+\contentsline {paragraph}{Map-Out Arrays}{17}{section*.19}
+\contentsline {subsection}{\numberline {6.4}Other Fusion}{17}{subsection.6.4}
+\contentsline {section}{\numberline {7}Benchmarking and Testing}{17}{section.7}
+\contentsline {section}{\numberline {8}Conclusion}{17}{section.8}
