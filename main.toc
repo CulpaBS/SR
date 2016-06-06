@@ -11,22 +11,22 @@
 \contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{6}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Horizontal Fusion}{7}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Fusion in Futhark}{7}{subsection.4.3}
-\contentsline {section}{\numberline {5}Map-Scan Fusion}{7}{section.5}
-\contentsline {subsection}{\numberline {5.1}Scanomap}{8}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{9}{subsection.5.2}
+\contentsline {section}{\numberline {5}Map-Scan Fusion}{8}{section.5}
+\contentsline {subsection}{\numberline {5.1}Scanomap}{9}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{10}{subsection.5.2}
 \contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{11}{subsection.5.3}
-\contentsline {paragraph}{Map-Scanomap Fusion}{12}{section*.6}
-\contentsline {paragraph}{Scanomap-Scanomap Fusion}{12}{section*.7}
+\contentsline {paragraph}{Map-Scanomap Fusion}{12}{section*.7}
+\contentsline {paragraph}{Scanomap-Scanomap Fusion}{12}{section*.8}
 \contentsline {section}{\numberline {6}Implementation}{12}{section.6}
 \contentsline {subsection}{\numberline {6.1}Bottom Up Analysis}{12}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Map-Scanomap Fusion}{12}{subsection.6.2}
-\contentsline {paragraph}{Parameters}{13}{section*.10}
-\contentsline {paragraph}{Map-Out Arrays}{14}{section*.11}
-\contentsline {paragraph}{Function Composition}{14}{section*.12}
+\contentsline {subsection}{\numberline {6.2}Map-Scanomap Fusion}{13}{subsection.6.2}
+\contentsline {paragraph}{Parameters}{14}{section*.11}
+\contentsline {paragraph}{Map-Out Arrays}{14}{section*.12}
+\contentsline {paragraph}{Function Composition}{14}{section*.13}
 \contentsline {subsection}{\numberline {6.3}Scanomap-Scanomap Fusion}{15}{subsection.6.3}
-\contentsline {paragraph}{Parameters}{15}{section*.15}
-\contentsline {paragraph}{New folding function and associative operation}{16}{section*.16}
-\contentsline {paragraph}{Map-Out Arrays}{17}{section*.19}
+\contentsline {paragraph}{Parameters}{15}{section*.16}
+\contentsline {paragraph}{New folding function and associative operation}{15}{section*.17}
+\contentsline {paragraph}{Map-Out Arrays}{17}{section*.20}
 \contentsline {subsection}{\numberline {6.4}Other Fusion}{17}{subsection.6.4}
 \contentsline {section}{\numberline {7}Benchmarking and Testing}{17}{section.7}
 \contentsline {section}{\numberline {8}Conclusion}{17}{section.8}

@@ -110,7 +110,7 @@ As described in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ langua
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
  functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples.
-While Futhark SOACs are semantically indentical to their namesake higer-order functions found in other functional languages, working with SOACs allows for some assumptions to be made
+While Futhark SOACs are semantically identical to their namesake higher-order functions found in other functional languages, working with SOACs allows for some assumptions to be made
  which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
  is used in Futhark to expedite the loop-fusion process. \cite[chap. 7]{MasterTroels}
 
@@ -411,8 +411,25 @@ Loop fusion of a consumer-producer relationship now gives the opportunity to fus
 The result is reduced loop overhead, reducing in memory requirements as the output of the producer loop is no longer stored separately, but calculated within the fused result.
 
 \subsection{Horizontal Fusion}
-
+Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing 1 and 2 therefore perfectly examples a horizontal fusion.  
 \subsection{Fusion in Futhark}
+Futhark is centered around SOACs for doing operations on arrays, and your therefore do not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
+
+\begin{table}[hb!]
+\centering
+\caption{Producers and Consumers in Futhark}
+\label{my-label}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Producers} & \textbf{Consumers} \\ \hline
+Map                & Map                \\ \hline
+                   & Reduce             \\ \hline
+                   & Scan               \\ \hline
+Filter             & Filter             \\ \hline
+                   & Redomap            \\ \hline
+                   & Scanomap           \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Map-Scan Fusion}
 % Why?
