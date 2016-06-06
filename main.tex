@@ -413,7 +413,7 @@ The result is reduced loop overhead, reducing in memory requirements as the outp
 \subsection{Horizontal Fusion}
 Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing 1 and 2 therefore perfectly examples a horizontal fusion.  
 \subsection{Fusion in Futhark}
-Futhark is centered around SOACs for doing operations on arrays, and your therefore do not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
+Futhark is centered around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
 
 \begin{table}[hb!]
 \centering
