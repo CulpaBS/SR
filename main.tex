@@ -897,10 +897,23 @@ If the map-out arrays in the \texttt{scanomaps} should be returned, it is done i
 % Detailed descriptions of relevant parts.
 
 \section{Benchmarking and Testing}
-How have we tested our implementation. Does it work? Why?\\
-How does the performance of a fused program compare with a non-fused program both sequentially and parallelly. Why?
+%How have we tested our implementation. Does it work? Why?\\
+%How does the performance of a fused program compare with a non-fused program both %sequentially and parallelly. Why?
+
+In this section we will go through how we have tested our implementation, and the benchmark results. 
 
 \subsection{Tests}
+
+Testing the computation time improvement is done with this simple Futhark program. 
+
+\begin{lstlisting}[caption=Test program] 
+fun ([int]) main([int] inp) =
+  let a = map(+10, inp)
+  let b = scan(+, 0, a) in
+  (b)
+\end{lstlisting}
+
+The test program contains a simple map producer and scan consumer, with the scanomap implementation the resulting program will be one scanomap. By testing with and without the scanomap implementation, the results will show us any increase/decrease in computation time. We run the test program with increasingly large amount of data, and several times per data amount to try and negate any large deviations.
 
 \subsection{Benchmarks}
 
