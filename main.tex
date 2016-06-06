@@ -114,6 +114,10 @@ While Futhark SOACs are semantically identical to their namesake higher-order fu
  which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
  is used in Futhark to expedite the loop-fusion process. \cite[chap. 7]{MasterTroels}
 
+Futhark SOACs work with tuples of arrays in favour of arrays of tuples. This means that when talking about input or output array to a SOAC, we are talking about an arbitrary amount of arrays with
+ the same length. For example, $b = \mathtt{map} \: f \: a$ is in fact short hand for $(b0, b1,..., bn) = \mathtt{map} \: f \: (a0, a1, ..., am)$ where $ai$ and $bj$ are each arrays, and each of the arrays
+ in a tuple have the same amount of
+ elements.
 % Definition of SOACs
 % Why are they useful wrt. parallelisation
 % Soacs with tuples in Futhark
@@ -537,43 +541,7 @@ Any producer \texttt{map} can be fused into a consuming \texttt{scan} in this ma
 
 \subsection{Necessary Conditions}
 % Copy from T2/Troels.
-There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
-
-\begin{itemize}
-\item No tuple type can appear in an array or tuple type, i.e., flat
-tuples,
-\item unzip has been eliminated, zip has been replaced with assertZip,
-which verifies either statically or at runtime that the outer size of zip’s input matches, and finally, the original SOACs (map)
-have been replaced with their tuple-of-array version,
-\item tuple expressions can appear only as the final result of a function,
-SOAC, or if expression, and similarly for the tuple pattern
-of a let binding, e.g., a formal argument cannot be a tuple,
-\item $\: e_1$ cannot be a let expression when used in let $\: p$ = $\: e_1$ in $\: e_2$,
-\item each if is bound to a corresponding let expression, and
-an if’s condition cannot be in itself an if expression, e.g., \\
-$\: a$ + if( if $\: c_1$ then $\: e_1$ else $\: e_2$ ) then $\: e_3$ else $\: e_4$ $\rightarrow$ \\
-let $\: c_2$ = if $\: c_1$ then $\: e_1$ else $\: e_2$ in \\
-let $\: b$ = if $\: c_2$ then $\: e_3$ else $\: e_4$ in $\: a+ \:b$ 
-\item function calls, including SOACs, have their own let binding, e.g., \\
-reduce2($\:f,\:a$) + $\:x$ $\Rightarrow$ let $\:y$ = reduce2($\:f,\:e,\:a$) in $\:y+\:x$,
-\item all actual arguments are vars, e.g., $\:f(\:a+\:b))$ $\Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$.
-\end{itemize}
-The properties listed above is reached by going through the different stages in the compiler pipeline, as shown in figure \ref{fig:pipeline}. Type checking first so that any errors will refer to the actual names given by the programmer, then moving on to tuple transformation that flattens all tuples and converts arrays of tuples to tuples of arrays. Tuple and let normalisation to optimise the code based on code recognition (e.g $\:f(\:a+\:b)) \Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$).
-
-\begin{figure}[hb!]
-  \centering
-    \includegraphics[width=0.5\textwidth]{images/pipeline.jpg}
-  \caption{Compile pipeline \cite[page 4]{T2Fusion}}
-  \label{fig:pipeline}
-\end{figure}
-
-When the program has reached the properties mentioned it enters the enabling optimisations loop, with aggressive in lining (i.e., building the call-graph and moving non recursive functions into the function calling it.). Copy propagation e.g., 
-$$y = x $$
-$$z = 5 * y $$
-Would become
-$$z = 5 * x $$
-and constant folding where the compiler evaluating constant expressions at compile time. After dead code removal the process repeats unless a fixed point is reached, if the fixed point is reached the program is ready for possible fusion transformations. Reaching the fusion stage does not guarantee that a fusion transformation can be done, as shown in figure \ref{fig:cases} there are 6 cases where a fusion transformation should not happen.
-
+Fusion is not always viable as there are some situation where fusion cannot or should not happen. Figure \ref{fig:cases} shows six cases where fusion transformation should not happen for some reason.
 
 \begin{figure}[hb]
   \centering
@@ -625,6 +593,45 @@ Where $\odot'(e_1,e_2, x, y) = (e_1 \odot x, e_2 \odot y)$ and $\odot'_{fg}(e_1,
 % How does a futhark program look ~ absyn. As we need it.
 This section will detail the specifics of performing \texttt{map-scan}, and other \texttt{scanomap} fusions, as well as detailing the process of
  analysing a program for valid fusions.
+
+\subsection{Program State}
+There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
+
+\begin{itemize}
+\item No tuple type can appear in an array or tuple type, i.e., flat
+tuples,
+\item unzip has been eliminated, zip has been replaced with assertZip,
+which verifies either statically or at runtime that the outer size of zip’s input matches, and finally, the original SOACs (map)
+have been replaced with their tuple-of-array version,
+\item tuple expressions can appear only as the final result of a function,
+SOAC, or if expression, and similarly for the tuple pattern
+of a let binding, e.g., a formal argument cannot be a tuple,
+\item $\: e_1$ cannot be a let expression when used in let $\: p$ = $\: e_1$ in $\: e_2$,
+\item each if is bound to a corresponding let expression, and
+an if’s condition cannot be in itself an if expression, e.g., \\
+$\: a$ + if( if $\: c_1$ then $\: e_1$ else $\: e_2$ ) then $\: e_3$ else $\: e_4$ $\rightarrow$ \\
+let $\: c_2$ = if $\: c_1$ then $\: e_1$ else $\: e_2$ in \\
+let $\: b$ = if $\: c_2$ then $\: e_3$ else $\: e_4$ in $\: a+ \:b$ 
+\item function calls, including SOACs, have their own let binding, e.g., \\
+reduce2($\:f,\:a$) + $\:x$ $\Rightarrow$ let $\:y$ = reduce2($\:f,\:e,\:a$) in $\:y+\:x$,
+\item all actual arguments are vars, e.g., $\:f(\:a+\:b))$ $\Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$.
+\end{itemize}
+The properties listed above is reached by going through the different stages in the compiler pipeline, as shown in figure \ref{fig:pipeline}. Type checking first so that any errors will refer to the actual names given by the programmer, then moving on to tuple transformation that flattens all tuples and converts arrays of tuples to tuples of arrays. Tuple and let normalisation to optimise the code based on code recognition (e.g $\:f(\:a+\:b)) \Rightarrow$ let $\:x=\:a+\:b$ in $\:f(\:x)$).
+
+\begin{figure}[hb!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{images/pipeline.jpg}
+  \caption{Compile pipeline \cite[page 4]{T2Fusion}}
+  \label{fig:pipeline}
+\end{figure}
+
+When the program has reached the properties mentioned it enters the enabling optimisations loop, with aggressive in lining (i.e., building the call-graph and moving non recursive functions into the function calling it.). Copy propagation e.g., 
+$$y = x $$
+$$z = 5 * y $$
+Would become
+$$z = 5 * x $$
+and constant folding where the compiler evaluating constant expressions at compile time. After dead code removal the process repeats unless a fixed point is reached, if the fixed point is reached the program is ready for possible fusion transformations.
+
 \subsection{Bottom Up Analysis}
 % How the fusion module analyses the program
 Futhark's fusion module gathers fusible SOACs by using a bottom-up analysis pass of the program's AST. This is done by traversing the AST depth first, while using a set
@@ -892,6 +899,10 @@ If the map-out arrays in the \texttt{scanomaps} should be returned, it is done i
 \section{Benchmarking and Testing}
 How have we tested our implementation. Does it work? Why?\\
 How does the performance of a fused program compare with a non-fused program both sequentially and parallelly. Why?
+
+\subsection{Tests}
+
+\subsection{Benchmarks}
 
 \section{Conclusion}
 \newpage
