@@ -105,7 +105,14 @@ To do GPGPU, Hyperfit a joint research center addressing the simultaneous challe
 
 
 \subsection{Futhark}
-As described in Troels Henriksens master thesis \cite[The $\mathcal{L}_0$ language, p. 8]{MasterTroels} the language $\mathcal{L}_0$ later renamed Futhark is in a sense "sufficient", in that it is Turing-complete, and can express imperative style loops with do-loops. However Futhark is ment to use second-order array combinations (SOACs) to do bulk operations on arrays instead of using the do-loops. In this sections the reasoning behind using SOACs will be explained by showing the difference in their computation when done sequentially vs. parallelly.
+
+Futhark is a ``statically typed, data-parallel, and purely functional array language'' \cite{futharklang} which aims to perform
+ general purpose computing on GPUs (GPGPU). While Futhark is able to express imperative concepts such as inplace updates and loops, its main focus centered around the usage of
+ functional language paradigm to express parallel computations through bulk operations using Second Order Array Combinators
+ -- or SOACs -- which are semantically identical to higher order functions such as \texttt{map} and \texttt{reduce} commonly found in functional programming.
+
+The Futhark compiler features an aggressive optimisation strategy which relies on strong functional invariants found in constructs such as SOACs.
+
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
