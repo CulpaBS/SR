@@ -29,6 +29,6 @@
 \contentsline {paragraph}{New folding function and associative operation}{16}{section*.17}
 \contentsline {paragraph}{Map-Out Arrays}{17}{section*.20}
 \contentsline {subsection}{\numberline {6.5}Other Fusion}{17}{subsection.6.5}
-\contentsline {section}{\numberline {7}Benchmarking and Testing}{17}{section.7}
-\contentsline {subsection}{\numberline {7.1}Tests}{18}{subsection.7.1}
-\contentsline {section}{\numberline {8}Conclusion}{18}{section.8}
+\contentsline {section}{\numberline {7}Testing}{17}{section.7}
+\contentsline {subsection}{\numberline {7.1}Benchmark}{18}{subsection.7.1}
+\contentsline {section}{\numberline {8}Conclusion}{19}{section.8}

@@ -896,16 +896,16 @@ If the map-out arrays in the \texttt{scanomaps} should be returned, it is done i
 % Algoritmical description of of the fusion process: function composition, determining input/outputs of fusion products.
 % Detailed descriptions of relevant parts.
 
-\section{Benchmarking and Testing}
+\section{Testing}
 %How have we tested our implementation. Does it work? Why?\\
 %How does the performance of a fused program compare with a non-fused program both %sequentially and parallelly. Why?
 
-In this section we will go through how we have tested our implementation, and the benchmark results. 
+In this section we will present the programs used to benchmark the scanomap implementation, and the results retrieved.
 
-\subsection{Tests}
+\subsection{Benchmark}
 
-\paragraph*{Map-Scan Fusion Test}
-Testing the computation time improvement on map-scan fusion to scanomap is done with this simple Futhark program. 
+\paragraph*{Map-Scan Fusion benchmark}
+Benchmarking the computation time improvement on map-scan fusion to scanomap is done with this simple Futhark program. 
 
 \begin{lstlisting}[caption=Test program] 
 fun ([int]) main([int] inp) =
@@ -914,8 +914,9 @@ fun ([int]) main([int] inp) =
   (b)
 \end{lstlisting}
 
-The test program contains a simple map producer and scan consumer, with the scanomap implementation the resulting program will be one scanomap. By testing with and without the scanomap implementation, the results will show us any increase/decrease in computation time. We run the test program with increasingly large amount of data, and 50 times per data amount to try and negate any large deviations.
-The result from this test show that the scanomap implementation makes the same program run 
+The benchmark program contains a simple map producer and scan consumer, with the scanomap implementation the resulting program will contain one scanomap. By benchmarking with and without the scanomap implementation, the results will show us any increase/decrease in computation time. We run the benchmark program with increasingly large amount of data, and 50 times per data amount to try and negate any large deviations. Additionally this program will be benchmarked on both the GPU and CPU. \\
+
+\paragraph*{GPU:} The result from the benchmark show that the scanomap implementation, enables the same computations to be done faster then pre-scanomap Futhark for this program. In figure \ref{fig:map-scan fusion test} the red line represents the pre-scanomap Futhark, and the blue line with scanomap implemented. In the entire input size range (1000-90000000) the program runs faster with the scanomap implementation.
 
 \begin{figure}[hb]
   \centering
@@ -924,6 +925,8 @@ The result from this test show that the scanomap implementation makes the same p
   \label{fig:map-scan fusion test}
 \end{figure}
 
+Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and the general result shows that with the scanomap implementation the computation is around 1.35 times faster. For data larger then 5000000 the speedup seems to stay around 1.2 times faster. We do not know what caused the two high spikes at 60000 and 70000 data sizes, and will not investigate any cause.
+
 \begin{figure}[hb]
   \centering
     \includegraphics[width=1.0\textwidth]{images/comparing.png}
@@ -931,6 +934,14 @@ The result from this test show that the scanomap implementation makes the same p
   \label{fig:map-scan fusion speedup}
 \end{figure}
 
+\paragraph*{CPU:} When running the same test on the CPU, we see that the scanomap is no longer always faster. Below input size of 20000 the computation time is faster without scanomap as seen in figure \ref{fig:CPU-map-scan fusion speedup}. Higher then 20000 and especially above 100000 scanomap gives an significant increase in speedup.
+
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=1.0\textwidth]{images/futhark-c-comparing.png}
+  \caption{Speedup chart}
+  \label{fig:CPU-map-scan fusion speedup}
+\end{figure}
 
 \section{Conclusion}
 \newpage
