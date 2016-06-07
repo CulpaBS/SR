@@ -77,15 +77,24 @@ skipbelow=10pt}
 
 \section{Abstract}
 \section{Introduction}
-\textit{NOTE: the contents of this section is lifted from our synopsis and is probably placeholder}\\
-The Futhark language is a functional programming with which the main idea is to allow for the expression of sufficiently complex programs while keeping complexity to a level where programs can be aggressively optimised and have their parallelism exploited \cite{futharkdoc}.
 
-The Futhark compiler already supports a range of fusion optimisations \cite{T2Fusion}, but does not currently support fusion between \texttt{Map} and \texttt{Scan} statements.
+The Futhark language is a functional programming with which the main idea is to allow for the expression of sufficiently complex programs while exploiting functional invariants such that
+ programs can be aggressively optimised and have their parallelism exploited \cite{futharkdoc}. Its main target is to support general purpose computing on GPUs (GPGPU) to exploit their high parallel
+ computational power.
+
+Loop fusion is a method of identifying two or more loops in an iterative program which can be combined for potential speedup as a result of altering memory access patterns  or reducing loop overhead.
+ The Futhark compiler's optimisation pipeline already contains a fusion module. 
+The Futhark compiler already supports a range of fusion optimisations, by exploiting invariants in its Second Order Array Combinator (SOAC) constructs -- which are semantically identical
+ to higher order functions found in functional languages. \cite{T2Fusion} It already supports an range of such fusions, such as fusing two \texttt{map} expressions together,
+ but does not currently support fusion between \texttt{map} and \texttt{scan} expressions.
 
 For our project we will explore the possibility of implementing Map-Scan fusion into the Futhark compiler, and will examine the performance benefits (if any) of performing such optimisations.
 
 \subsection{Motivation}
-Fusion has the ``[..] potential to optimize both the memory hierarchy time overhead and, sometimes asymptotically, the space requirement" \cite{T2Fusion}. Hence the main motivation for adding Map-Scan fusion capabilities to the optimiser of the Futhark compiler, is the potential for enabling performance increases for some Futhark programs.
+Performing global memory accesses when performing computations on a GPU, due to their weaker caching system, is often far more penalising than on a CPU. Hence, performing loop fusion on a program
+ which is to be on a graphics card, has the ``[..] potential to optimize both the memory hierarchy time overhead and, sometimes asymptotically, the space requirement'' for the program as a result of 
+improving memory access patterns and making obsolete temporary arrays \cite{T2Fusion}. Thus, the main motivation for adding \texttt{map}-\texttt{scan} fusion capabilities to
+ the optimiser of the Futhark compiler, is the potential for enabling speedups for relevant Futhark programs.
 
 \subsection{Tasks}
 The project can be divided into three main tasks:
@@ -93,6 +102,8 @@ The project can be divided into three main tasks:
     \item Gain an understanding of logical reasoning behind fusion optimisations on Second Order Array Combinators.
     \item Read and understand the relevant parts of the Futhark compiler required to make the necessary changes in the compiler.
     \item Modify all modules of the Futhark compiler necessary to implement the Map-Scan fusion itself.
+    \item Benchmark the modified compiler against the unmodified compiler.
+    \item Evaluate the results.
 \end{enumerate}
 At first sight, these tasks look fairly straight forward. However, we expect that the main difficulties of this project lie within unforeseen roadblocks we will run into when modifying the codebase.
 
