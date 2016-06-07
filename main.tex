@@ -361,6 +361,7 @@ With this, there are multiple ways in which \texttt{scan} can be computed in par
  \end{enumerate}
 While this algorithm is not work efficient -- it involves more than $n$ applications of $\odot$ -- it still has a running time of $O(2c + \log(n)) < O(n)$ due to parallelism.
 
+\clearpage
 \section{Fusion}
 In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
 The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
@@ -806,6 +807,7 @@ $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \ci
 % - 
 % How is the new Scanomap construct formed.
 
+\clearpage
 \subsection{Scanomap-Scanomap Fusion}
 Having two \texttt{scanomap} in a futhark program with no dependencies between the two SOACs, and equal length input, the program computation time can be optimised using horizontal fusion. 
 
@@ -828,7 +830,7 @@ $$\text{New-Params} = (a,b)$$
 
 \paragraph{New folding function and associative operation} As the two \texttt{scanomap} are independent of each other the composition of the new fused folding function is fairly easy. Figure \ref{fig:pre-fusion} show the pre-fusion folding functions for both scanomap, running sequentially after each other. Fusing them is simply adding the additional parameters and adding the function body of one of them into the other as shown in figure \ref{fig:post-fusion}. 
 
-\clearpage
+
  \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -865,7 +867,7 @@ $$\text{New-Params} = (a,b)$$
      \caption{The SOAC functions $\odot_f$ and $\odot_g$ from the two scanomap}
      \label{fig:pre-fusion}
 \end{figure}
-
+\clearpage
 \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -902,14 +904,12 @@ If the map-out arrays in the \texttt{scanomaps} should be returned, it is done i
 
 % Algoritmical description of of the fusion process: function composition, determining input/outputs of fusion products.
 % Detailed descriptions of relevant parts.
-
-\section{Testing}
+\newpage
+\section{Benchmarking}
 %How have we tested our implementation. Does it work? Why?\\
 %How does the performance of a fused program compare with a non-fused program both %sequentially and parallelly. Why?
 
 In this section we will present the programs used to benchmark the scanomap implementation, and the results retrieved.
-
-\subsection{Benchmark}
 
 \paragraph*{Map-Scan Fusion benchmark}
 Benchmarking the computation time improvement on map-scan fusion to scanomap is done with this simple Futhark program. 
@@ -927,7 +927,7 @@ The benchmark program contains a simple map producer and scan consumer, with the
 
 \begin{figure}[hb]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/chart.png}
+    \includegraphics[width=0.9\textwidth]{images/chart.png}
   \caption{Computation time for Map-Scan Fusion test}
   \label{fig:map-scan fusion test}
 \end{figure}
@@ -936,7 +936,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 \begin{figure}[hb]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/comparing.png}
+    \includegraphics[width=0.9\textwidth]{images/comparing.png}
   \caption{Speedup chart}
   \label{fig:map-scan fusion speedup}
 \end{figure}

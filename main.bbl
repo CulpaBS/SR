@@ -17,6 +17,11 @@ Hyperfit.
 \newblock \url{http://hiperfit.dk/}.
 \newblock Accessed: 05-15-2016.
 
+\bibitem{futharklang}
+Futhark website.
+\newblock \url{http://futhark-lang.org}.
+\newblock Accessed: 02-03-2016.
+
 \bibitem{MasterTroels}
 Troels Henriksen.
 \newblock {Exploiting functional invariants to optimise parallelism: a dataflow
