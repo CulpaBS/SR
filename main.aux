@@ -37,22 +37,36 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Scan}{5}{subsubsection.3.2.2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Parallel computation of \texttt  {scan} with chunking. Each colour represents a single thread, and $a_{i-j} = a_i \odot a_{i+1} \odot ... \odot a_j$.\relax }}{6}{figure.caption.3}}
 \newlabel{fig:scancomp1}{{2}{6}{Parallel computation of \texttt {scan} with chunking. Each colour represents a single thread, and $a_{i-j} = a_i \odot a_{i+1} \odot ... \odot a_j$.\relax }{figure.caption.3}{}}
+<<<<<<< HEAD
 \@writefile{toc}{\contentsline {section}{\numberline {4}Fusion}{6}{section.4}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Pre-fusion.}{6}{lstlisting.1}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Post-fusion.}{7}{lstlisting.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{7}{subsection.4.1}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Producer-Consumer pre-fusion.}{7}{lstlisting.3}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Producer-Consumer post-fusion.}{7}{lstlisting.4}}
+=======
+\@writefile{toc}{\contentsline {section}{\numberline {4}Fusion}{7}{section.4}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Pre-fusion.}{7}{lstlisting.1}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Post-fusion.}{7}{lstlisting.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{7}{subsection.4.1}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}Producer-Consumer pre-fusion.}{7}{lstlisting.3}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Producer-Consumer post-fusion.}{8}{lstlisting.4}}
+>>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Horizontal Fusion}{8}{subsection.4.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Fusion in Futhark}{8}{subsection.4.3}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Producers and Consumers in Futhark\relax }}{8}{table.caption.4}}
 \newlabel{my-label}{{1}{8}{Producers and Consumers in Futhark\relax }{table.caption.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Map-Scan Fusion}{8}{section.5}}
+<<<<<<< HEAD
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {5}\texttt  {map} and \texttt  {scan} in C-like code.}{8}{lstlisting.5}}
+=======
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}\texttt  {map} and \texttt  {scan} in C-like code.}{9}{lstlisting.5}}
+>>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {6}\texttt  {map} and \texttt  {scan} loops fused.}{9}{lstlisting.6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Scanomap}{9}{subsection.5.1}}
 \citation{T2Fusion}
 \citation{T2Fusion}
+<<<<<<< HEAD
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{10}{subsection.5.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{11}{subsection.5.3}}
 \@writefile{toc}{\contentsline {paragraph}{Map-Scanomap Fusion}{11}{section*.6}}
@@ -86,33 +100,68 @@
 \@writefile{toc}{\contentsline {paragraph}{New folding function and associative operation}{16}{section*.17}}
 \newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 858}}{17}{New folding function and associative operation}{figure.caption.18}{}}
 \newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 872}}{17}{New folding function and associative operation}{figure.caption.18}{}}
+=======
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{11}{subsection.5.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{11}{subsection.5.3}}
+\@writefile{toc}{\contentsline {paragraph}{Map-Scanomap Fusion}{11}{section*.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Don't Fuse Cases \cite  [page 6]{T2Fusion}\relax }}{11}{figure.caption.5}}
+\newlabel{fig:cases}{{3}{11}{Don't Fuse Cases \cite [page 6]{T2Fusion}\relax }{figure.caption.5}{}}
+\citation{T2Fusion}
+\@writefile{toc}{\contentsline {paragraph}{Scanomap-Scanomap Fusion}{12}{section*.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Implementation}{12}{section.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Program State}{12}{subsection.6.1}}
+\citation{T2Fusion}
+\citation{T2Fusion}
+\citation{T2Fusion}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compile pipeline \cite  [page 4]{T2Fusion}\relax }}{13}{figure.caption.8}}
+\newlabel{fig:pipeline}{{4}{13}{Compile pipeline \cite [page 4]{T2Fusion}\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{13}{subsection.6.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Map-Scanomap Fusion}{14}{subsection.6.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Infusible program snippet.\relax }}{14}{figure.caption.9}}
+\newlabel{fig:progsnip1}{{5}{14}{Infusible program snippet.\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Example of a SOAC lambda function.\relax }}{15}{figure.caption.10}}
+\@writefile{toc}{\contentsline {paragraph}{Parameters}{15}{section*.11}}
+\@writefile{toc}{\contentsline {paragraph}{Map-Out Arrays}{15}{section*.12}}
+\@writefile{toc}{\contentsline {paragraph}{Function Composition}{15}{section*.13}}
+\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 752}}{16}{Function Composition}{figure.caption.14}{}}
+\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 766}}{16}{Function Composition}{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The SOAC functions $f$ and $\odot _g$ from the input \texttt  {map} and \texttt  {scanomap}.\relax }}{16}{figure.caption.14}}
+\newlabel{fig:bothfuns}{{7}{16}{The SOAC functions $f$ and $\odot _g$ from the input \texttt {map} and \texttt {scanomap}.\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Resulting function $\odot _{f \circ g}$.\relax }}{16}{figure.caption.15}}
+\newlabel{fig:fusresfun}{{8}{16}{Resulting function $\odot _{f \circ g}$.\relax }{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Scanomap-Scanomap Fusion}{17}{subsection.6.4}}
+\@writefile{toc}{\contentsline {paragraph}{Parameters}{17}{section*.16}}
+\@writefile{toc}{\contentsline {paragraph}{New folding function and associative operation}{17}{section*.17}}
+\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 849}}{17}{New folding function and associative operation}{figure.caption.18}{}}
+\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 863}}{17}{New folding function and associative operation}{figure.caption.18}{}}
+>>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The SOAC functions $\odot _f$ and $\odot _g$ from the two scanomap\relax }}{17}{figure.caption.18}}
 \newlabel{fig:pre-fusion}{{9}{17}{The SOAC functions $\odot _f$ and $\odot _g$ from the two scanomap\relax }{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Fused function $\odot '_{fg}$\relax }}{17}{figure.caption.19}}
-\newlabel{fig:post-fusion}{{10}{17}{Fused function $\odot '_{fg}$\relax }{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {paragraph}{Map-Out Arrays}{17}{section*.20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Other Fusion}{17}{subsection.6.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Testing}{17}{section.7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Benchmark}{18}{subsection.7.1}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}Test program}{18}{lstlisting.7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Computation time for Map-Scan Fusion test\relax }}{18}{figure.caption.23}}
-\newlabel{fig:map-scan fusion test}{{11}{18}{Computation time for Map-Scan Fusion test\relax }{figure.caption.23}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Speedup chart\relax }}{19}{figure.caption.24}}
-\newlabel{fig:map-scan fusion speedup}{{12}{19}{Speedup chart\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Fused function $\odot '_{fg}$\relax }}{18}{figure.caption.19}}
+\newlabel{fig:post-fusion}{{10}{18}{Fused function $\odot '_{fg}$\relax }{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {paragraph}{Map-Out Arrays}{18}{section*.20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Other Fusion}{18}{subsection.6.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Benchmarking}{19}{section.7}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}Test program}{19}{lstlisting.7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Computation time for Map-Scan Fusion test\relax }}{19}{figure.caption.23}}
+\newlabel{fig:map-scan fusion test}{{11}{19}{Computation time for Map-Scan Fusion test\relax }{figure.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Speedup chart\relax }}{20}{figure.caption.24}}
+\newlabel{fig:map-scan fusion speedup}{{12}{20}{Speedup chart\relax }{figure.caption.24}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {8}Scanomap-scanomap benchmark program}{20}{lstlisting.8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Radix-Speedup chart\relax }}{21}{figure.caption.26}}
-\newlabel{fig:CPU-map-scan fusion speedup}{{13}{21}{Radix-Speedup chart\relax }{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Speedup chart\relax }}{21}{figure.caption.28}}
-\newlabel{fig:scanomap-radix}{{14}{21}{Speedup chart\relax }{figure.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Speedup chart for scanomap-scanomap fusion benchmark\relax }}{22}{figure.caption.30}}
-\newlabel{fig:scanomap-scanomap}{{15}{22}{Speedup chart for scanomap-scanomap fusion benchmark\relax }{figure.caption.30}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{23}{section.8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Radix-Speedup chart\relax }}{22}{figure.caption.26}}
+\newlabel{fig:CPU-map-scan fusion speedup}{{13}{22}{Radix-Speedup chart\relax }{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Speedup chart\relax }}{22}{figure.caption.28}}
+\newlabel{fig:scanomap-radix}{{14}{22}{Speedup chart\relax }{figure.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Speedup chart for scanomap-scanomap fusion benchmark\relax }}{23}{figure.caption.30}}
+\newlabel{fig:scanomap-scanomap}{{15}{23}{Speedup chart for scanomap-scanomap fusion benchmark\relax }{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{24}{section.8}}
 \bibstyle{unsrt}
 \bibdata{lit}
 \bibcite{futharkdoc}{1}
 \bibcite{T2Fusion}{2}
 \bibcite{Hyperfit}{3}
-\bibcite{MasterTroels}{4}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{25}{section.9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}A}{25}{subsection.9.1}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}Test program}{25}{lstlisting.9}}
+\bibcite{futharklang}{4}
+\bibcite{MasterTroels}{5}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{26}{section.9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}A}{26}{subsection.9.1}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}Test program}{26}{lstlisting.9}}
