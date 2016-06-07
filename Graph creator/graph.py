@@ -37,8 +37,6 @@ comparing_Results = []
 for i in range(0, len(average_data)):
 	comparing_Results.append(average_data[i] / average_data_yes[i])
 
-print np.average(comparing_Results)
-
 line_chart = pygal.Line(logarithmic=True, x_label_rotation=40, x_title='Input size', y_title='Microseconds')
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.title = 'Average computation time'
@@ -141,6 +139,8 @@ comparing_Results = []
 
 for i in range(0, len(average_data)):
 	comparing_Results.append(average_data[i] / average_data_yes[i])
+
+print np.average(comparing_Results)
 
 line_chart = pygal.Bar(range=(1,3),x_label_rotation=40, x_title='Input size', y_title='times increased')
 line_chart.title = 'Computation speedup'
