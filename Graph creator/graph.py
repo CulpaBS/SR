@@ -35,7 +35,7 @@ for data in sorted_keys_yes:
 comparing_Results = []
 
 for i in range(0, len(average_data)):
-	comparing_Results.append(((average_data_yes[i] / average_data[i]) - 1)*(-100))
+	comparing_Results.append(average_data[i] / average_data_yes[i])
 
 
 line_chart = pygal.Line(logarithmic=True, x_label_rotation=40, x_title='Input size', y_title='Microseconds')
@@ -43,14 +43,14 @@ line_chart.x_labels = map(str, sorted_keys)
 line_chart.title = 'Average computation time'
 line_chart.add("No scanomap", average_data)
 line_chart.add("Yes scanomap", average_data_yes)
-line_chart.render_to_png('chart.png')
+line_chart.render_to_png('../images/chart.png')
 
 line_chart = pygal.Bar(x_label_rotation=40, x_title='Input size', y_title='Percentage increase')
 line_chart.title = 'Computation speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('Result', comparing_Results)
 line_chart.render()
-line_chart.render_to_png('comparing.png')
+line_chart.render_to_png('../images/comparing.png')
 
 
 
@@ -89,18 +89,18 @@ for data in sorted_keys_yes:
 comparing_Results = []
 
 for i in range(0, len(average_data)):
-	comparing_Results.append(((average_data_yes[i] / average_data[i]) - 1)*(-100))
+	comparing_Results.append(average_data[i] / average_data_yes[i])
 
 line_chart = pygal.Line(logarithmic=True, x_label_rotation=40, x_title='Input size', y_title='Microseconds')
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.title = 'Average computation time'
 line_chart.add("No scanomap", average_data)
 line_chart.add("Yes scanomap", average_data_yes)
-line_chart.render_to_png('futhark-c-chart.png')
+line_chart.render_to_png('../images/futhark-c-chart.png')
 
-line_chart = pygal.Bar(x_label_rotation=40, x_title='Input size', y_title='Percentage increase')
+line_chart = pygal.Bar(range=(1, 2), x_label_rotation=40, x_title='Input size', y_title='Percentage increase')
 line_chart.title = 'Computation speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('Result', comparing_Results)
 line_chart.render()
-line_chart.render_to_png('futhark-c-comparing.png')
+line_chart.render_to_png('../images/futhark-c-comparing.png')
