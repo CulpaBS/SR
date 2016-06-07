@@ -914,9 +914,23 @@ fun ([int]) main([int] inp) =
   (b)
 \end{lstlisting}
 
-The test program contains a simple map producer and scan consumer, with the scanomap implementation the resulting program will be one scanomap. By testing with and without the scanomap implementation, the results will show us any increase/decrease in computation time. We run the test program with increasingly large amount of data, and several times per data amount to try and negate any large deviations.
+The test program contains a simple map producer and scan consumer, with the scanomap implementation the resulting program will be one scanomap. By testing with and without the scanomap implementation, the results will show us any increase/decrease in computation time. We run the test program with increasingly large amount of data, and 50 times per data amount to try and negate any large deviations.
+The result from this test show that the scanomap implementation makes the same program run 
 
-\subsection{Benchmarks}
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=1.0\textwidth]{images/chart.png}
+  \caption{Computation time for Map-Scan Fusion test}
+  \label{fig:map-scan fusion test}
+\end{figure}
+
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=1.0\textwidth]{images/comparing.png}
+  \caption{Speedup chart}
+  \label{fig:map-scan fusion speedup}
+\end{figure}
+
 
 \section{Conclusion}
 \newpage
