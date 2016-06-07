@@ -932,7 +932,7 @@ The benchmark program contains a simple map producer and scan consumer, with the
   \label{fig:map-scan fusion test}
 \end{figure}
 
-Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and the general result shows that with the scanomap implementation the computation is around 1.35 times faster. For data larger then 5000000 the speedup seems to stay around 1.2 times faster. We do not know what caused the two high spikes at 60000 and 70000 data sizes, and will not investigate any cause.
+Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and the general result shows that with the scanomap implementation the computation is around 1.35 times faster. For data larger then 5,000,000 the speedup seems to stay around 1.2 times faster. We do not know what caused the two high spikes at 60,000 and 70,000 data sizes, and will not investigate any cause.
 
 \begin{figure}[hb]
   \centering
@@ -945,15 +945,83 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 \begin{figure}[hb]
   \centering
-    \includegraphics[width=1.0\textwidth]{images/futhark-c-comparing.png}
-  \caption{Speedup chart}
+    \includegraphics[width=0.9\textwidth]{images/radix-comparing.png}
+  \caption{Radix-Speedup chart}
   \label{fig:CPU-map-scan fusion speedup}
 \end{figure}
 
+\paragraph*{Radix sort:}
+
+To benchmark the scanomap implementation with a more complicated program, that does more work, we benchmarked the radix sort futhark program (Appendix A). The results displayed in figure \ref{fig:scanomap-radix} shows considerable speedup, with a average of 1.32 times faster then without scanomap.
+
+
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=0.9\textwidth]{images/futhark-c-comparing.png}
+  \caption{Speedup chart}
+  \label{fig:scanomap-radix}
+\end{figure}
+
+\paragraph*{Scanomap-Scanomap fusion:}
+To test the effect of implementing the horizontal fusion of scanomap-scanomap, we have made a futhark program and tested it in three ways:
+
+\begin{itemize}
+\item Without any fusion.
+\item With scanomap fusion.
+\item With scanomap fusion and scanomap-scanomap fusion.
+\end{itemize}
+
+\begin{lstlisting}[caption=Scanomap-scanomap benchmark program] 
+fun [int, n] main([int, n] inp) =
+    let a  = map(+10, inp) in
+    let b1 = scan(+, 0, a) in
+    let a2 = map(+1, a) in
+    let b2 = scan(+, 0, a2) in
+    map(fn int (int x,int y) => x + y, zip(b1,b2))
+
+\end{lstlisting}
+
+\begin{figure}[hb]
+  \centering
+    \includegraphics[width=0.9\textwidth]{images/horri-comparing.png}
+  \caption{Speedup chart for scanomap-scanomap fusion benchmark}
+  \label{fig:scanomap-scanomap}
+\end{figure}
+
+The results in figure \ref{fig:scanomap-scanomap} shows a speedup of average 1.19 times faster by using scanomap fusion, illustrated by the red bars. However by adding the scanomap-scanomap fusion illustrated by the blue bars, the results are an average of 1.56 times faster computation.
+
+\clearpage
 \section{Conclusion}
 \newpage
 
 \bibliographystyle{unsrt}
 \bibliography{lit}
+
+\newpage
+\section{Appendix}
+\subsection{A}
+\begin{lstlisting}[caption=Test program] 
+fun [u32, n] main([u32, n] xs) =
+  radix_sort(xs)
+
+fun [u32, n] radix_sort([u32, n] xs) =
+  loop (xs) = for i < 32 do
+    radix_sort_step(xs, i)
+  in xs
+
+fun [u32, n] radix_sort_step([u32, n] xs, i32 digit_n) =
+  let bits = map(fn i32 (u32 x) => i32((x >> u32(digit_n)) & 1u32), xs)
+  let bits_inv = map(fn i32 (i32 b) => 1 - b, bits)
+  let ps0 = scan(+, 0, bits_inv)
+  let ps0_clean = map(*, zip(bits_inv, ps0))
+  let ps1 = scan(+, 0, bits)
+  let ps0_offset = reduce(+, 0, bits_inv)
+  let ps1_clean = map(+ ps0_offset, ps1)
+  let ps1_clean' = map(*, zip(bits, ps1_clean))
+  let ps = map(+, zip(ps0_clean, ps1_clean'))
+  let ps_actual = map(fn i32 (i32 p) => p - 1, ps)
+  in write(ps_actual, xs, copy(xs))
+
+\end{lstlisting}
 
 \end{document}
