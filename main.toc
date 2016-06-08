@@ -5,13 +5,9 @@
 \contentsline {section}{\numberline {3}Background Information}{4}{section.3}
 \contentsline {subsection}{\numberline {3.1}Futhark}{4}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}SOACs}{4}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Map}{4}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.1}Map}{5}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Scan}{5}{subsubsection.3.2.2}
-<<<<<<< HEAD
-\contentsline {section}{\numberline {4}Fusion}{6}{section.4}
-=======
 \contentsline {section}{\numberline {4}Fusion}{7}{section.4}
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 \contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{7}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Horizontal Fusion}{8}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Fusion in Futhark}{8}{subsection.4.3}
@@ -20,26 +16,6 @@
 \contentsline {subsection}{\numberline {5.2}Necessary Conditions}{11}{subsection.5.2}
 \contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{11}{subsection.5.3}
 \contentsline {paragraph}{Map-Scanomap Fusion}{11}{section*.6}
-<<<<<<< HEAD
-\contentsline {paragraph}{Scanomap-Scanomap Fusion}{11}{section*.7}
-\contentsline {section}{\numberline {6}Implementation}{12}{section.6}
-\contentsline {subsection}{\numberline {6.1}Program State}{12}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{13}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Map-Scanomap Fusion}{13}{subsection.6.3}
-\contentsline {paragraph}{Parameters}{14}{section*.11}
-\contentsline {paragraph}{Map-Out Arrays}{15}{section*.12}
-\contentsline {paragraph}{Function Composition}{15}{section*.13}
-\contentsline {subsection}{\numberline {6.4}Scanomap-Scanomap Fusion}{15}{subsection.6.4}
-\contentsline {paragraph}{Parameters}{16}{section*.16}
-\contentsline {paragraph}{New folding function and associative operation}{16}{section*.17}
-\contentsline {paragraph}{Map-Out Arrays}{17}{section*.20}
-\contentsline {subsection}{\numberline {6.5}Other Fusion}{17}{subsection.6.5}
-\contentsline {section}{\numberline {7}Testing}{17}{section.7}
-\contentsline {subsection}{\numberline {7.1}Benchmark}{18}{subsection.7.1}
-\contentsline {section}{\numberline {8}Conclusion}{23}{section.8}
-\contentsline {section}{\numberline {9}Appendix}{25}{section.9}
-\contentsline {subsection}{\numberline {9.1}A}{25}{subsection.9.1}
-=======
 \contentsline {paragraph}{Scanomap-Scanomap Fusion}{12}{section*.7}
 \contentsline {section}{\numberline {6}Implementation}{12}{section.6}
 \contentsline {subsection}{\numberline {6.1}Program State}{12}{subsection.6.1}
@@ -54,7 +30,6 @@
 \contentsline {paragraph}{Map-Out Arrays}{18}{section*.20}
 \contentsline {subsection}{\numberline {6.5}Other Fusion}{18}{subsection.6.5}
 \contentsline {section}{\numberline {7}Benchmarking}{19}{section.7}
-\contentsline {section}{\numberline {8}Conclusion}{24}{section.8}
-\contentsline {section}{\numberline {9}Appendix}{26}{section.9}
-\contentsline {subsection}{\numberline {9.1}A}{26}{subsection.9.1}
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+\contentsline {section}{\numberline {8}Conclusion}{23}{section.8}
+\contentsline {section}{\numberline {9}Appendix}{25}{section.9}
+\contentsline {subsection}{\numberline {9.1}A}{25}{subsection.9.1}

@@ -109,10 +109,20 @@ At first sight, these tasks look fairly straight forward. However, we expect tha
 
 \section{Background Information}
 %Describe some relevant background info for how SOACs are parallelly computed - relevant %to why Scanomap is smart. IMPORTANT: WHY MEMORY MANAGEMENT IS VERY IMPORTANT ON GPU\\
+In the past decade or so, the constant demand for more powerful CPUs has increasingly been satisfied through increasing the amount of cores rather than simply attempting to increase clock-speed or similar.
+ This trend of multi-core processors seeks to take advantage of latent potential for performing computational tasks in parallel -- with the dream being doubling performance with a doubling of the
+ number of cores. At the same time graphics cards with GPUS containing up to thousands of cores have become mainstream, and while they have been designed for graphics rendering, their sheer degree of 
+parallelism brings a great potential for general purpose computation. 
 
-There are problems/calculations that gets to a size where normal sequential programming involving consecutive execution of processes, will reach a computation time unsatisfying for the intended users. In some cases these calculations can be done much faster with parallel programming. Parallel programming is where many calculations are carried out simultaneously, with the idea of dividing a problem into smaller sub problems solved at the same time. Parallel and sequential programming are not mutually exclusive, in the sense that if you use parallel programming, you cant use sequential programming, in many cases they are used together. Parallel programming can be done on the CPU with its multiple cores, but when possible and advantages it is much better to harness the thousands of cores in the GPU - graphics processing units. The GPU is no longer only used to do graphical calculations, but also General-purpose computing, GPGPU (General-purpose computing on graphics processing units). \\
+Reasoning about, and writing programs which exploit parallelism on GPUs can be a challenge, and parallel libraries such as CUDA and OpenCL, while useful, are not necessarily productive to work with directly.
+ Hence it is important to have languages which natively support parallel GPU execution, so that the compiler can handle many of the repeating challenges of writing parallel programs for the GPU, and 
+ expedite the process of exploiting the GPU for computational power. Futhark seeks to fill this role by supplying a parallel language wherein specific compute intensive task can be defined and executed,
+ lightening the load for a larger program written in a more general purpose language. \cite{futharklang} 
 
-To do GPGPU, Hyperfit a joint research center addressing the simultaneous challenges of high transparency, high computational performance and high productivity in finance, employing an integrated approach of financial mathematics, domain specific languages, parallel functional programming, and high-performance systems \cite{Hyperfit} created Futhark. 
+This section will elaborate and detail what Futhark seeks to accoplish and how it does so.
+% There are problems/calculations that gets to a size where normal sequential programming involving consecutive execution of processes, will reach a computation time unsatisfying for the intended users. In some cases these calculations can be done much faster with parallel programming. Parallel programming is where many calculations are carried out simultaneously, with the idea of dividing a problem into smaller sub problems solved at the same time. Parallel and sequential programming are not mutually exclusive, in the sense that if you use parallel programming, you cant use sequential programming, in many cases they are used together. Parallel programming can be done on the CPU with its multiple cores, but when possible and advantages it is much better to harness the thousands of cores in the GPU - graphics processing units. The GPU is no longer only used to do graphical calculations, but also General-purpose computing, GPGPU (General-purpose computing on graphics processing units). \\
+
+% To do GPGPU, Hyperfit a joint research center addressing the simultaneous challenges of high transparency, high computational performance and high productivity in finance, employing an integrated approach of financial mathematics, domain specific languages, parallel functional programming, and high-performance systems \cite{Hyperfit} created Futhark. 
 
 
 \subsection{Futhark}
@@ -936,7 +946,7 @@ The benchmark program contains a simple map producer and scan consumer, with the
 
 \paragraph*{GPU:} The result from the benchmark show that the scanomap implementation, enables the same computations to be done faster then pre-scanomap Futhark for this program. In figure \ref{fig:map-scan fusion test} the red line represents the pre-scanomap Futhark, and the blue line with scanomap implemented. In the entire input size range (1000-90000000) the program runs faster with the scanomap implementation.
 
-\begin{figure}[hb]
+\begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/chart.png}
   \caption{Computation time for Map-Scan Fusion test}
@@ -945,7 +955,7 @@ The benchmark program contains a simple map producer and scan consumer, with the
 
 Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and the general result shows that with the scanomap implementation the computation is around 1.35 times faster. For data larger then 5,000,000 the speedup seems to stay around 1.2 times faster. We do not know what caused the two high spikes at 60,000 and 70,000 data sizes, and will not investigate any cause.
 
-\begin{figure}[hb]
+\begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/comparing.png}
   \caption{Speedup chart}
@@ -954,7 +964,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 \paragraph*{CPU:} When running the same test on the CPU, we see that the scanomap is no longer always faster. Below input size of 20000 the computation time is faster without scanomap as seen in figure \ref{fig:CPU-map-scan fusion speedup}. Higher then 20000 and especially above 100000 scanomap gives an significant increase in speedup.
 
-\begin{figure}[hb]
+\begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/radix-comparing.png}
   \caption{Radix-Speedup chart}
@@ -966,7 +976,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 To benchmark the scanomap implementation with a more complicated program, that does more work, we benchmarked the radix sort futhark program (Appendix A). The results displayed in figure \ref{fig:scanomap-radix} shows considerable speedup, with a average of 1.32 times faster then without scanomap.
 
 
-\begin{figure}[hb]
+\begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{images/futhark-c-comparing.png}
   \caption{Speedup chart}
