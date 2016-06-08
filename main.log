@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  7 JUN 2016 22:54
-=======
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.26)  7 JUN 2016 22:05
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.26)  8 JUN 2016 20:34
 entering extended mode
 **./main.tex
 (main.tex
@@ -1780,110 +1776,56 @@ at-farve.pdf> <./include/nat-en.pdf>] (main.toc)
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
-<<<<<<< HEAD
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
-=======
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+Underfull \hbox (badness 10000) in paragraph at lines 113--114
 
  []
 
-[3]
-<<<<<<< HEAD
-
-LaTeX Warning: Citation `futharklang' on page 4 undefined on input line 120.
-
-[4]
-=======
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+[3] [4]
 Missing character: There is no ; in font nullfont!
-
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<<<<<<< HEAD
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 376--378
-=======
 [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 366--368
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+Underfull \hbox (badness 10000) in paragraph at lines 377--379
 
  []
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-<<<<<<< HEAD
-nput line 379.
-[6] [7] [8] [9] <images/cases.png, id=320, 484.05844pt x 298.11375pt>
-File: images/cases.png Graphic file (type png)
-
-<use images/cases.png>
-Package pdftex.def Info: images/cases.png used on input line 566.
-(pdftex.def)             Requested size: 262.90604pt x 161.92064pt.
- [10] [11 <./images/cases.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 619.
-=======
-nput line 369.
+nput line 380.
 [7
 
-] [8] [9] <images/cases.png, id=311, 484.05844pt x 298.11375pt>
+] [8] [9] <images/cases.png, id=313, 484.05844pt x 298.11375pt>
 File: images/cases.png Graphic file (type png)
 
 <use images/cases.png>
-Package pdftex.def Info: images/cases.png used on input line 556.
+Package pdftex.def Info: images/cases.png used on input line 567.
 (pdftex.def)             Requested size: 262.90604pt x 161.92064pt.
  [10] [11 <./images/cases.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 609.
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 620.
 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-<<<<<<< HEAD
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 619.
-
-<images/pipeline.jpg, id=336, 248.42813pt x 255.95625pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 620.
+ [12]
+<images/pipeline.jpg, id=334, 248.42813pt x 255.95625pt>
 File: images/pipeline.jpg Graphic file (type jpg)
 
 <use images/pipeline.jpg>
-Package pdftex.def Info: images/pipeline.jpg used on input line 641.
-(pdftex.def)             Requested size: 219.08614pt x 225.72647pt.
- [12]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 665.
-Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 673.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 673.
- [13 <./images/pipeline.jpg>] [14]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 750.
-
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 750--778
-=======
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 609.
- [12]
-<images/pipeline.jpg, id=332, 248.42813pt x 255.95625pt>
-File: images/pipeline.jpg Graphic file (type jpg)
-
-<use images/pipeline.jpg>
-Package pdftex.def Info: images/pipeline.jpg used on input line 631.
+Package pdftex.def Info: images/pipeline.jpg used on input line 642.
 (pdftex.def)             Requested size: 219.08614pt x 225.72647pt.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 655.
+(mdframed)              on input line 666.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 663.
+ mdframed uses option nobreak mdframed on input line 674.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 663.
+ mdframed uses option nobreak mdframed on input line 674.
  [13 <./images/pipeline.jpg>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1891,167 +1833,99 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [14]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 740.
+(mdframed)              on input line 751.
 
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 740--768
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 751--779
 []$[]$ $[]$ 
  []
 
 Package mdframed Info: mdframed inside float 
-<<<<<<< HEAD
- mdframed uses option nobreak mdframed on input line 779.
+ mdframed uses option nobreak mdframed on input line 780.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 779.
+ mdframed uses option nobreak mdframed on input line 780.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 791.
+(mdframed)              on input line 792.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 805.
+ mdframed uses option nobreak mdframed on input line 806.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 805.
-=======
- mdframed uses option nobreak mdframed on input line 769.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 769.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 781.
-Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 795.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 795.
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+ mdframed uses option nobreak mdframed on input line 806.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [15] [16]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-<<<<<<< HEAD
-(mdframed)              on input line 846.
+(mdframed)              on input line 848.
 
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 846--874
-=======
-(mdframed)              on input line 837.
-
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 837--865
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 848--876
 []$[]$ $[]$ 
  []
 
 Package mdframed Info: mdframed inside float 
-<<<<<<< HEAD
- mdframed uses option nobreak mdframed on input line 875.
+ mdframed uses option nobreak mdframed on input line 877.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 875.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 883.
-Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 897.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 897.
-[17
-=======
- mdframed uses option nobreak mdframed on input line 866.
-Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 866.
+ mdframed uses option nobreak mdframed on input line 877.
 [17
 
 ]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 874.
+(mdframed)              on input line 885.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 888.
+ mdframed uses option nobreak mdframed on input line 899.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 888.
+ mdframed uses option nobreak mdframed on input line 899.
  [18
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 935--936
 
  []
 
-<<<<<<< HEAD
-<images/chart.png, id=394, 803.0pt x 602.25pt>
+<images/chart.png, id=392, 803.0pt x 602.25pt>
 File: images/chart.png Graphic file (type png)
  <use images/chart.png>
 Package pdftex.def Info: images/chart.png used on input line 941.
-(pdftex.def)             Requested size: 438.17227pt x 328.63786pt.
- [18 <./images/chart.png>] <images/comparing.png, id=410, 803.0pt x 602.25pt>
+(pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
+ [19 <./images/chart.png>] <images/comparing.png, id=407, 803.0pt x 602.25pt>
 File: images/comparing.png Graphic file (type png)
 
 <use images/comparing.png>
 Package pdftex.def Info: images/comparing.png used on input line 950.
-(pdftex.def)             Requested size: 438.17227pt x 328.63786pt.
-
-<images/radix-comparing.png, id=412, 803.0pt x 602.25pt>
-=======
-<images/chart.png, id=390, 803.0pt x 602.25pt>
-File: images/chart.png Graphic file (type png)
- <use images/chart.png>
-Package pdftex.def Info: images/chart.png used on input line 930.
-(pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
- [19 <./images/chart.png>] <images/comparing.png, id=405, 803.0pt x 602.25pt>
-File: images/comparing.png Graphic file (type png)
-
-<use images/comparing.png>
-Package pdftex.def Info: images/comparing.png used on input line 939.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
 
-<images/radix-comparing.png, id=407, 803.0pt x 602.25pt>
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
-File: images/radix-comparing.png Graphic file (type png)
-
-<use images/radix-comparing.png>
-Package pdftex.def Info: images/radix-comparing.png used on input line 959.
-(pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
-
-<<<<<<< HEAD
-<images/futhark-c-comparing.png, id=414, 803.0pt x 602.25pt>
-=======
 <images/futhark-c-comparing.png, id=409, 803.0pt x 602.25pt>
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 File: images/futhark-c-comparing.png Graphic file (type png)
 
 <use images/futhark-c-comparing.png>
-Package pdftex.def Info: images/futhark-c-comparing.png used on input line 971.
+Package pdftex.def Info: images/futhark-c-comparing.png used on input line 959.
 
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
-<<<<<<< HEAD
- [19 <./images/comparing.png>]
-<images/horri-comparing.png, id=425, 803.0pt x 602.25pt>
-=======
+
+<images/radix-comparing.png, id=411, 803.0pt x 602.25pt>
+File: images/radix-comparing.png Graphic file (type png)
+
+<use images/radix-comparing.png>
+Package pdftex.def Info: images/radix-comparing.png used on input line 970.
+(pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
  [20 <./images/comparing.png>]
-<images/horri-comparing.png, id=422, 803.0pt x 602.25pt>
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+<images/horri-comparing.png, id=424, 803.0pt x 602.25pt>
 File: images/horri-comparing.png Graphic file (type png)
 
 <use images/horri-comparing.png>
-Package pdftex.def Info: images/horri-comparing.png used on input line 997.
+Package pdftex.def Info: images/horri-comparing.png used on input line 996.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
- [21] [22 <./images/radix-comparing.png> <./images/futhark-c-comparing.png>] [2
+ [21] [22 <./images/futhark-c-comparing.png> <./images/radix-comparing.png>] [2
 3 <./images/horri-comparing.png>] [24
 
 ]
-<<<<<<< HEAD
-(./main.bbl) [24] [25]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1038.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1038.
- (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1038.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1038.
-=======
 (main.bbl) [25] [26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1027.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1027.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1037.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1037.
  (main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1027.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1027.
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1037.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1037.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 79F4B24B469B3FE2E1870CAEE8678AC5;1591.
@@ -2059,53 +1933,20 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1038.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1037.
  ) 
 Here is how much of TeX's memory you used:
-<<<<<<< HEAD
- 35805 strings out of 494430
- 675662 string characters out of 6165637
- 905031 words of memory out of 5000000
- 38271 multiletter control sequences out of 15000+600000
- 22967 words of font info for 73 fonts, out of 8000000 for 9000
- 350 hyphenation exceptions out of 8191
- 55i,16n,71p,10379b,1961s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk> </home
-/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/william/
-.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/william/.texmf-va
-r/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/william/.texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecbx1095.600pk> </home/william/.texmf-var/fonts/pk/ljfour/
-jknappen/ec/ecbx1440.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecrm1200.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt12
-00.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk>
- </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2488.600pk></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mtt10.pfb>
-Output written on main.pdf (25 pages, 602850 bytes).
-PDF statistics:
- 941 PDF objects out of 1000 (max. 8388607)
- 531 compressed objects within 6 object streams
- 205 named destinations out of 1000 (max. 500000)
- 300 words of extra memory for PDF output out of 10000 (max. 10000000)
-=======
- 37197 strings out of 493335
- 702867 string characters out of 3136680
- 922202 words of memory out of 3000000
+ 37199 strings out of 493335
+ 702881 string characters out of 3136680
+ 922835 words of memory out of 3000000
  39923 multiletter control sequences out of 15000+200000
  22967 words of font info for 73 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,16n,71p,10374b,1902s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
-ecbx1200.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
-ec\dpi600\ectt1095.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
-\jknappen\ec\dpi600\ecti1095.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts
+ecti1095.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
+ec\dpi600\ecbx1200.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
+\jknappen\ec\dpi600\ectt1095.pk> <C:\Users\Brian\AppData\Local\MiKTeX\2.9\fonts
 \pk\ljfour\jknappen\ec\dpi600\ecrm1095.pk> <C:\Users\Brian\AppData\Local\MiKTeX
 \2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1095.pk> <C:\Users\Brian\AppData\Lo
 cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Brian\
@@ -2122,10 +1963,9 @@ cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 ><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (26 pages, 668621 bytes).
+Output written on main.pdf (26 pages, 656231 bytes).
 PDF statistics:
- 937 PDF objects out of 1000 (max. 8388607)
- 204 named destinations out of 1000 (max. 500000)
+ 933 PDF objects out of 1000 (max. 8388607)
+ 206 named destinations out of 1000 (max. 500000)
  292 words of extra memory for PDF output out of 10000 (max. 10000000)
->>>>>>> 8ad557ed38328c51af082378f74522f6d429a4d8
 
