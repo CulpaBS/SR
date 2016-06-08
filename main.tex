@@ -935,7 +935,7 @@ In this section we will present the programs used to benchmark the scanomap impl
 \paragraph*{Map-Scan Fusion benchmark}
 Benchmarking the computation time improvement on map-scan fusion to scanomap is done with this simple Futhark program. 
 
-\begin{lstlisting}[caption=Test program] 
+\begin{lstlisting}[caption=SimpleScanomap] 
 fun ([int]) main([int] inp) =
   let a = map(+10, inp)
   let b = scan(+, 0, a) in
@@ -966,8 +966,8 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.9\textwidth]{images/radix-comparing.png}
-  \caption{Radix-Speedup chart}
+    \includegraphics[width=0.9\textwidth]{images/futhark-c-comparing.png}
+  \caption{Speedup chart}
   \label{fig:CPU-map-scan fusion speedup}
 \end{figure}
 
@@ -975,11 +975,10 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 To benchmark the scanomap implementation with a more complicated program, that does more work, we benchmarked the radix sort futhark program (Appendix A). The results displayed in figure \ref{fig:scanomap-radix} shows considerable speedup, with a average of 1.32 times faster then without scanomap.
 
-
-\begin{figure}[h!]
+\begin{figure}[hb]
   \centering
-    \includegraphics[width=0.9\textwidth]{images/futhark-c-comparing.png}
-  \caption{Speedup chart}
+    \includegraphics[width=0.9\textwidth]{images/radix-comparing.png}
+  \caption{Radix-Speedup chart}
   \label{fig:scanomap-radix}
 \end{figure}
 

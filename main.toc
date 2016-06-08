@@ -30,6 +30,12 @@
 \contentsline {paragraph}{Map-Out Arrays}{18}{section*.20}
 \contentsline {subsection}{\numberline {6.5}Other Fusion}{18}{subsection.6.5}
 \contentsline {section}{\numberline {7}Benchmarking}{19}{section.7}
+<<<<<<< HEAD
 \contentsline {section}{\numberline {8}Conclusion}{23}{section.8}
 \contentsline {section}{\numberline {9}Appendix}{25}{section.9}
 \contentsline {subsection}{\numberline {9.1}A}{25}{subsection.9.1}
+=======
+\contentsline {section}{\numberline {8}Conclusion}{24}{section.8}
+\contentsline {section}{\numberline {9}Appendix}{26}{section.9}
+\contentsline {subsection}{\numberline {9.1}A}{26}{subsection.9.1}
+>>>>>>> 2a92067191a82d9a42cadb7b367258379112c887
