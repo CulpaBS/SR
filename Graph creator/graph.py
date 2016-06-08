@@ -37,15 +37,15 @@ comparing_Results = []
 for i in range(0, len(average_data)):
 	comparing_Results.append(average_data[i] / average_data_yes[i])
 
-line_chart = pygal.Line(logarithmic=True, x_label_rotation=40, x_title='Input size', y_title='Microseconds')
+line_chart = pygal.Line(x_label_rotation=40, x_title='Input size', y_title='Microseconds')
 line_chart.x_labels = map(str, sorted_keys)
-line_chart.title = 'Average computation time'
+line_chart.title = 'GPU execution / SimpleScanomap'
 line_chart.add("No scanomap", average_data)
 line_chart.add("Yes scanomap", average_data_yes)
 line_chart.render_to_png('../images/chart.png')
 
-line_chart = pygal.Bar(x_label_rotation=40, x_title='Input size', y_title='Percentage increase')
-line_chart.title = 'Computation speedup'
+line_chart = pygal.Bar(x_label_rotation=40, x_title='Input size', y_title='Speedup')
+line_chart.title = 'GPU / SimpleScanomap Speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('Result', comparing_Results)
 line_chart.render()
@@ -90,15 +90,15 @@ comparing_Results = []
 for i in range(0, len(average_data)):
 	comparing_Results.append(average_data[i] / average_data_yes[i])
 
-line_chart = pygal.Line(logarithmic=True, x_label_rotation=40, x_title='Input size', y_title='Microseconds')
+line_chart = pygal.Line(x_label_rotation=40, x_title='Input size', y_title='Microseconds')
 line_chart.x_labels = map(str, sorted_keys)
-line_chart.title = 'Average computation time'
+line_chart.title = 'CPU execution / SimpleScanomap'
 line_chart.add("No scanomap", average_data)
 line_chart.add("Yes scanomap", average_data_yes)
 line_chart.render_to_png('../images/futhark-c-chart.png')
 
-line_chart = pygal.Bar(range=(1, 3), x_label_rotation=40, x_title='Input size', y_title='Percentage increase')
-line_chart.title = 'Computation speedup'
+line_chart = pygal.Bar(range=(1, 3), x_label_rotation=40, x_title='Input size', y_title='Speedup')
+line_chart.title = 'CPU SimpleScanomap speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('Result', comparing_Results)
 line_chart.render()
@@ -140,10 +140,9 @@ comparing_Results = []
 for i in range(0, len(average_data)):
 	comparing_Results.append(average_data[i] / average_data_yes[i])
 
-print np.average(comparing_Results)
 
-line_chart = pygal.Bar(range=(1,3),x_label_rotation=40, x_title='Input size', y_title='times increased')
-line_chart.title = 'Computation speedup'
+line_chart = pygal.Bar(range=(1,3),x_label_rotation=40, x_title='Input size', y_title='Speedup')
+line_chart.title = 'GPU Radix Speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('Result', comparing_Results)
 line_chart.render()
@@ -202,8 +201,11 @@ for i in range(0, len(average_noFusion_data)):
 	comparing_Results_without_hori.append(average_noFusion_data[i] / average_data_noHorri[i])
 	comparing_Results_with_hori.append(average_noFusion_data[i] / average_data_all_yes[i])
 
-line_chart = pygal.Bar(range=(1,3),x_label_rotation=40, x_title='Input size', y_title='times increased')
-line_chart.title = 'Computation speedup'
+print np.average(comparing_Results_with_hori)
+print np.average(comparing_Results_without_hori)
+
+line_chart = pygal.Bar(range=(1,3),x_label_rotation=40, x_title='Input size', y_title='Speedup')
+line_chart.title = 'GPU Scanomap-Scanomap speedup'
 line_chart.x_labels = map(str, sorted_keys)
 line_chart.add('No Horizontal', comparing_Results_without_hori)
 line_chart.add('Horizontal', comparing_Results_with_hori)
