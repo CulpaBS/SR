@@ -409,23 +409,46 @@ and $b = \mathtt{scan} \: g \: e \: a$ can be converted into equivalent loops (s
 However, such a conversion comes with a loss of useful invariants. For example, we can always rely on a loop created from a \texttt{map} expression to have no cross-iteration
  dependencies. I.e. each iteration will not depend on a result computed in another iteration. This means that a \texttt{map}-loop can always be computed in parallel. On the other hand,
  deciding whether or not a generic loop can be computed can be computed in parallel requires sometimes complex dependency analysis.
-\clearpage
+
 \section{Fusion}
 In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
 The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
 
-Having two loops with the same iteration range as shown in listing \ref{lst:horipre}, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing \ref{lst:horipst}. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
+Having two loops with the same iteration range as shown in listing \ref{lst:horipre}, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing \ref{lst:horipost}. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
 
 By doing the fusion in this case, loop-overhead has been reduced in half, as now it is only necessary to keep track of one loop instruction.
 
 \subsection{Consumer-Producer Fusion}
-Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created, that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship. \\
-Loop fusion of a consumer-producer relationship now gives the opportunity to fuse the functions in the 2 loops into one, i.e $f(x) \circ g(x) = f(g(x))$ as the example in listing 3 and 4 shows. 
+Producer-consumer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created, that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship. \\
+Loop fusion of a producer-consumer relationship now gives the opportunity to fuse the functions in the 2 loops into one, i.e $f(x) \circ g(x) = f(g(x))$ as the example in listing \ref{lst:pc-pre} and \ref{lst:pc-post} shows. 
 
 The result is reduced loop overhead, reducing in memory requirements as the output of the producer loop is no longer stored separately, but calculated within the fused result.
 
+\begin{lstlisting}[caption=Producer-Consumer pre-fusion.,label={lst:pc-pre}] 
+  a[n];
+  b[n];
+  c[n];
+  	  
+  for (int i = 0; i < n; i++) {
+    b[i] = f(a[i]) // f(x) some function doing work  
+  }
+  
+  for (int i = 0; i < n; i++) {
+    c[i] = g(b[i]) // g(x) some function doing work
+  }
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Producer-Consumer post-fusion.,label={lst:pc-post}] 
+  a[n];
+  c[n];
+  	  
+  for (int i = 0; i < n; i++) {
+    c[i] = f(g(a[i])
+  }
+\end{lstlisting}
+
 \subsection{Horizontal Fusion}
-Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing 1 and 2 therefore perfectly examples a horizontal fusion.  
+Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing \ref{lst:horipre} and \ref{lst:horipost} therefore perfectly examples a horizontal fusion.  
 \begin{lstlisting}[caption=Pre-fusion,label={lst:horipre}]
 
   a[n];
