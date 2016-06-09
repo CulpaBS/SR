@@ -451,8 +451,8 @@ Horizontal fusion is a none producer-consumer fusion, i.e the two loops must hav
 \end{lstlisting}
 
 \subsection{Fusion Hindrances}
-Fusing a producer loop into a consumer loop is not always valid, and deciding whether or not a producer-consumer loop pair is safely fusible requires loop depedency analysis for every statement 
- in the consuming loop, such that depencies can be upheld in a fused loop.
+Fusing a producer loop into a consumer loop is not always valid, and deciding whether or not a producer-consumer loop pair is safely fusible requires loop dependency analysis for every statement 
+ in the consuming loop, such that dependencies can be upheld in a fused loop.
  For example, in Listing \ref{lst:dep1pre} we can see that statement \texttt{S2} depends on iteration $i$ of \texttt{S1} and iteration $i-1$ of \texttt{S2}. Thus loop a can safely be fused together
  with loop b.
 
@@ -468,8 +468,8 @@ loop b:
 S2: b[i] = b[i - 1] + a[i]  
   }
 \end{lstlisting}
- However, in Listing \ref{lst:dep2pre} we have that statement \texttt{S4} depends on iteration $i+1$ of statement \texttt{S3}. If we were to fuse
-
+However, in Listing \ref{lst:dep2pre} we have that statement \texttt{S4} depends on iteration $i+1$ of statement \texttt{S3}. If we were to fuse loop c and loop d into a single, then we would
+ have a situation where \texttt{S4} would depend on a future iteration of its own loop. Hence, the result of fusing loops c and d would be an invalid program, and as such it is unsafe to fuse them.
 \begin{lstlisting}[caption=Example dependencies,label={lst:dep2pre}]
   a[n];
 loop c:
@@ -482,7 +482,8 @@ loop d:
 S4: d[i] = c[i + 1]  
   }
 \end{lstlisting}
-
+With larger and more complicated loops, this kind of analysis can become very sophisticated and complicated. This is why we reason about fusion through SOACs as their shapes and dependencies as loops
+ are well known.
 \subsection{Fusion in Futhark}
 Futhark is centered around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
 
