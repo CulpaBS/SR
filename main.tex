@@ -76,6 +76,21 @@ skipbelow=10pt}
 \newpage
 
 \section{Abstract}
+The ability of fusing loops together in a program gives the possibility of reducing loop overhead, increase execution speed and the potential to optimize both memory hierarchy time overhead and space requirements. We therefore implement the fusion features in Futhark:
+
+\begin{itemize}
+\item A producer-consumer fusion with \texttt{map} as producer and \texttt{scan} as consumer, creating \texttt{scanomap}
+\item Horizontal fusion of two \texttt{scanomaps}
+\end{itemize}
+We show that:
+\begin{itemize}
+\item Fusing functions from \texttt{map} and \texttt{scan} enables a reduction in memory requirements.
+\item Producer-consumer fusion can happen even in some cases where the producer output is used by multiple functions.
+\item The effectiveness of our implementation is demonstrated on 3 different benchmark programs, showing an GPU improvement speedup average up to 1.35 times faster then pre-scanomap implementaion.  
+\item With additional horizontal scanomap fusion we demonstrate a speedup of 1.56 times faster then pre-scanomap implementaion.
+\end{itemize}
+
+The results suggest a big potential in increase of performance from implementing fusion. Unleashing even more potential in GPGPU, as well as improving big data calculations on CPU.
 \section{Introduction}
 
 The Futhark language is a functional programming with which the main idea is to allow for the expression of sufficiently complex programs while exploiting functional invariants such that

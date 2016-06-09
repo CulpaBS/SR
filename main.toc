@@ -1,27 +1,27 @@
 \contentsline {section}{\numberline {1}Abstract}{3}{section.1}
 \contentsline {section}{\numberline {2}Introduction}{3}{section.2}
 \contentsline {subsection}{\numberline {2.1}Motivation}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Tasks}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.2}Tasks}{4}{subsection.2.2}
 \contentsline {section}{\numberline {3}Background Information}{4}{section.3}
 \contentsline {subsection}{\numberline {3.1}Futhark}{4}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}SOACs}{4}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2}SOACs}{5}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}Map}{5}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Scan}{5}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}Loop Conversion}{6}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.2}Scan}{6}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Loop Conversion}{7}{subsubsection.3.2.3}
 \contentsline {section}{\numberline {4}Fusion}{7}{section.4}
-\contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{7}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Consumer-Producer Fusion}{8}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Horizontal Fusion}{8}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Fusion Hindrances}{8}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Fusion in Futhark}{9}{subsection.4.4}
-\contentsline {section}{\numberline {5}Map-Scan Fusion}{10}{section.5}
-\contentsline {subsection}{\numberline {5.1}Scanomap}{11}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{12}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{13}{subsection.5.3}
-\contentsline {paragraph}{Map-Scanomap Fusion}{13}{section*.6}
-\contentsline {paragraph}{Scanomap-Scanomap Fusion}{13}{section*.7}
+\contentsline {subsection}{\numberline {4.3}Fusion Hindrances}{9}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Fusion in Futhark}{10}{subsection.4.4}
+\contentsline {section}{\numberline {5}Map-Scan Fusion}{11}{section.5}
+\contentsline {subsection}{\numberline {5.1}Scanomap}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Necessary Conditions}{13}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{14}{subsection.5.3}
+\contentsline {paragraph}{Map-Scanomap Fusion}{14}{section*.6}
+\contentsline {paragraph}{Scanomap-Scanomap Fusion}{14}{section*.7}
 \contentsline {section}{\numberline {6}Implementation}{14}{section.6}
 \contentsline {subsection}{\numberline {6.1}Program State}{14}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{15}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{16}{subsection.6.2}
 \contentsline {subsection}{\numberline {6.3}Map-Scanomap Fusion}{16}{subsection.6.3}
 \contentsline {paragraph}{Parameters}{17}{section*.11}
 \contentsline {paragraph}{Map-Out Arrays}{17}{section*.12}
