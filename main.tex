@@ -20,7 +20,7 @@
 \usepackage{mathtools}
 \usepackage{listings}
 \usepackage{enumitem}
-\usepackage{breqn}
+
 \usepackage{tikz}
 \usepackage{mdframed}
 \usetikzlibrary{arrows,automata,fit,positioning, shapes, arrows.meta,chains,matrix,decorations.pathreplacing, calc}
@@ -137,13 +137,16 @@ The Futhark compiler features an aggressive optimisation strategy which relies o
 %Chunking
 \subsection{SOACs}
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
- functions whose domains are arrays of the domain of the input. Furthermore, in Futhark, these array inputs and outputs are tuples of arrays, and not arrays of tuples.
+ functions whose domains are arrays of the domain of the input.
 While Futhark SOACs are semantically identical to their namesake higher-order functions found in other functional languages, working with SOACs allows for some assumptions to be made
  which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
  is used in Futhark to expedite the loop-fusion process. \cite[chap. 7]{MasterTroels}
 
-Futhark SOACs work with tuples of arrays in favour of arrays of tuples. This means that when talking about input or output array to a SOAC, we are talking about an arbitrary amount of arrays with
- the same length. For example, $b = \mathtt{map} \: f \: a$ is in fact short hand for $(b0, b1,..., bn) = \mathtt{map} \: f \: (a0, a1, ..., am)$ where $ai$ and $bj$ are each arrays, and each of the arrays
+The intermediate representation of a Futhark program in the Futhark compiler does not contain arrays of tuples. Hence when a Futhark program is compiled any expression of type $[\alpha]$ where
+ $\alpha =  (\alpha_1, \alpha_2, ..., \alpha_n)$ is converted into an expression of type $([\alpha_1], [\alpha_2],..., [\alpha_n])$. Hence we have that Futhark SOACs internally have an arbitrary amount
+ of input arrays and output arrays. However, such notation can be cumbersome, so for the sake of clarity and ease we will notate tuples of arrays as single variables and/or types until the implementation
+ section where it becomes relevant.
+ For example, $b = \mathtt{map} \: f \: a$ is short hand for $(b0, b1,..., bn) = \mathtt{map} \: f \: (a0, a1, ..., am)$ where $ai$ and $bj$ are each arrays, and each of the arrays
  in a tuple have the same amount of
  elements.
 % Definition of SOACs
@@ -358,9 +361,10 @@ the associativity of $\odot$ is vital as it means that this dependency does not 
       }
       \foreach \j in {1,...,2} { 
         \pgfmathtruncatemacro{\ir}{\i - 1}%
+        \pgfmathtruncatemacro{\star}{3 * \ir + 3}%
         \pgfmathtruncatemacro{\pos}{3 * \ir + \j + 2}%
         \pgfmathtruncatemacro{\ii}{\pos +1}%
-        \draw[arrow, \c] (E-\pos.south) to[out=280, in=200] (E-\ii.south) node (GGR-\pos) {};
+        \draw[arrow, \c] (E-\star.south) to[out=280, in=200] (E-\ii.south) node (GGR-\pos) {};
       }
     }
     \node [above left= 10pt and 5pt of AR-1] (other) {$\odot$};
@@ -380,14 +384,49 @@ With this, there are multiple ways in which \texttt{scan} can be computed in par
  \item Finally each thread adds the final element of the previous chunk to each element of the chunk
  which is not the tail. ($c$ steps)
  \end{enumerate}
-While this algorithm is not work efficient -- it involves more than $n$ applications of $\odot$ -- it still has a running time of $O(2c + \log(n)) < O(n)$ due to parallelism.
+While this algorithm is not work efficient -- it involves more than $n$ applications of $\odot$ -- it still has a depth of $O(2c + \log(\frac{n}{c})) < O(n)$ due to parallelism.
+ This also shows some the idea of chunking. In the example of Figure \ref{fig:scancomp1}, if we instead of having four threads to compute the scan, had $12$ -- or $n$ threads in general -- we
+ could exploit this by simply setting the chunk-size to $c = 1$. This would forego steps 1 and 3, giving us a total depth of $O(\log(n))$.
 
+\subsubsection{Loop Conversion}
+Each SOAC can always be converted to an equivalent loop. For example, both $b = \mathtt{map} \: f \: a$ and
+and $b = \mathtt{scan} \: g \: e \: a$ can be converted into equivalent loops (see Listing \ref{lst:maploop} \& \ref{lst:scanloop}).
+\begin{lstlisting}[caption=\texttt{map} as a loop., label={lst:maploop}]
+  b[n];
+  for (i = 0; i < n; i++) {
+    b[i] = f(a[i])
+  }
+\end{lstlisting}
+\begin{lstlisting}[caption=\texttt{scan} as a loop., label={lst:scanloop}]
+  b[n];
+  acc = e;
+  for (i = 0; i < n; i++) {
+    acc = g(acc, a[i])
+    b[i] = acc
+  }
+\end{lstlisting}
+
+However, such a conversion comes with a loss of useful invariants. For example, we can always rely on a loop created from a \texttt{map} expression to have no cross-iteration
+ dependencies. I.e. each iteration will not depend on a result computed in another iteration. This means that a \texttt{map}-loop can always be computed in parallel. On the other hand,
+ deciding whether or not a generic loop can be computed can be computed in parallel requires sometimes complex dependency analysis.
 \clearpage
 \section{Fusion}
 In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
 The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
 
-\begin{lstlisting}[caption=Pre-fusion.]
+Having two loops with the same iteration range as shown in listing \ref{lst:horipre}, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing \ref{lst:horipst}. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
+
+By doing the fusion in this case, loop-overhead has been reduced in half, as now it is only necessary to keep track of one loop instruction.
+
+\subsection{Consumer-Producer Fusion}
+Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created, that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship. \\
+Loop fusion of a consumer-producer relationship now gives the opportunity to fuse the functions in the 2 loops into one, i.e $f(x) \circ g(x) = f(g(x))$ as the example in listing 3 and 4 shows. 
+
+The result is reduced loop overhead, reducing in memory requirements as the output of the producer loop is no longer stored separately, but calculated within the fused result.
+
+\subsection{Horizontal Fusion}
+Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing 1 and 2 therefore perfectly examples a horizontal fusion.  
+\begin{lstlisting}[caption=Pre-fusion,label={lst:horipre}]
 
   a[n];
   b[n];
@@ -400,9 +439,8 @@ The loop fusion technique gives the possibility of reducing loop overhead and in
     b[i] = i
   }
 \end{lstlisting}
-Having two loops with the same iteration range as shown in listing 1, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing 2. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
 
-\begin{lstlisting}[caption=Post-fusion.]
+\begin{lstlisting}[caption=Post-fusion,label={lst:horipost}]
   a[n];
   b[n];
   
@@ -412,39 +450,39 @@ Having two loops with the same iteration range as shown in listing 1, it gives t
   }
 \end{lstlisting}
 
-By doing the fusion in this case, loop-overhead has been reduced in half, as now it is only necessary to keep track of one loop instruction.
+\subsection{Fusion Hindrances}
+Fusing a producer loop into a consumer loop is not always valid, and deciding whether or not a producer-consumer loop pair is safely fusible requires loop depedency analysis for every statement 
+ in the consuming loop, such that depencies can be upheld in a fused loop.
+ For example, in Listing \ref{lst:dep1pre} we can see that statement \texttt{S2} depends on iteration $i$ of \texttt{S1} and iteration $i-1$ of \texttt{S2}. Thus loop a can safely be fused together
+ with loop b.
 
-\subsection{Consumer-Producer Fusion}
-Consumer-Producer loop fusion is slightly more complicated. In this case the two loops are connected, as in inside the producer-loop some data is being created, that is required in the consumer-loop. I.e a producer creates some data, and a consumer uses the created data, this relationship is referred to as a producer-consumer relationship. \\
-Loop fusion of a consumer-producer relationship now gives the opportunity to fuse the functions in the 2 loops into one, i.e $f(x) \circ g(x) = f(g(x))$ as the example in listing 3 and 4 shows. 
-
-\begin{lstlisting}[caption=Producer-Consumer pre-fusion.] 
+\begin{lstlisting}[caption=Example dependencies,label={lst:dep1pre}]
   a[n];
+loop a:
+  for (int i = 0; i < n; i++) {
+S1: a[i] = f(i)
+  }
   b[n];
-  c[n];
-  	  
+loop b:
   for (int i = 0; i < n; i++) {
-    b[i] = f(a[i]) // f(x) some function doing work  
-  }
-  
-  for (int i = 0; i < n; i++) {
-    c[i] = g(b[i]) // g(x) some function doing work
+S2: b[i] = b[i - 1] + a[i]  
   }
 \end{lstlisting}
+ However, in Listing \ref{lst:dep2pre} we have that statement \texttt{S4} depends on iteration $i+1$ of statement \texttt{S3}. If we were to fuse
 
-\begin{lstlisting}[caption=Producer-Consumer post-fusion.] 
+\begin{lstlisting}[caption=Example dependencies,label={lst:dep2pre}]
   a[n];
-  c[n];
-  	  
+loop c:
   for (int i = 0; i < n; i++) {
-    c[i] = f(g(a[i])
+S3: c[i] = f(i)
+  }
+  b[n];
+loop d:
+  for (int i = 0; i < n; i++) {
+S4: d[i] = c[i + 1]  
   }
 \end{lstlisting}
 
-The result is reduced loop overhead, reducing in memory requirements as the output of the producer loop is no longer stored separately, but calculated within the fused result.
-
-\subsection{Horizontal Fusion}
-Horizontal fusion is a none producer-consumer fusion, i.e the two loops must have no connection with each other. Listing 1 and 2 therefore perfectly examples a horizontal fusion.  
 \subsection{Fusion in Futhark}
 Futhark is centered around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
 
