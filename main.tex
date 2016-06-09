@@ -509,7 +509,6 @@ With larger and more complicated loops, this kind of analysis can become very so
  are well known.
 \subsection{Fusion in Futhark}
 Futhark is centered around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
-
 \begin{table}[hb!]
 \centering
 \caption{Producers and Consumers in Futhark}
@@ -526,6 +525,37 @@ Filter             & Filter             \\ \hline
 \end{tabular}
 \end{table}
 
+This brings us to the benefits of reasoning about fusion via. SOACs. Instead of being a question of ``can loop a be fused with loop b?'' we instead ask whether a one type of SOAC can
+ be fused with another. For example, take \texttt{map}-\texttt{map} producer-consumer fusion. We know that the program,
+ \begin{align*}
+   \lett b &= \mathtt{map} \: f \: a \inn \\
+   \lett c &= \mathtt{map} \: g \: b \inn
+ \end{align*}
+can be expressed as the loops in Listing \ref{lst:mapmappre},
+\begin{lstlisting}[caption=\texttt{map} and \texttt{map} as producer and consumer, label={lst:mapmappre}]
+  a[n];  	  
+  b[n];
+  for (int i = 0; i < n; i++) {
+    b[i] = f(a[i]);
+  }
+  c[n];
+  for (int i = 0; i < n; i++) {
+    c[i] = g(b[i]);
+  }
+\end{lstlisting}
+and through dependency analysis we will find that we can fuse those loops into the loop from Listing \ref{lst:mapmappost}.
+\begin{lstlisting}[caption=Loop from Listing \ref{lst:mapmappre} fused as producer and consumer, label={lst:mapmappost}]
+  a[n];  	  
+  c[n];
+  for (int i = 0; i < n; i++) {
+    c[i] = g(f(a[i]));
+  }
+\end{lstlisting}
+The process above is equivalent to looking at the original SOAC statements, removing the intermediate array, and performing function composition on $f$ and $g$. If
+ we do this, we get the following -- which if converted to a loop gives the exact same loop as Listing \ref{lst:mapmappost}.
+ \begin{align*}
+   \lett c &= \mathtt{map} \: (g \circ f) \: a \inn
+ \end{align*}
 \section{Map-Scan Fusion}
 % Why?
 In a typical situation involving \texttt{map} and \texttt{scan}, we will have the \texttt{map} producing some array, which is subsequently
@@ -534,8 +564,8 @@ In a typical situation involving \texttt{map} and \texttt{scan}, we will have th
   b &= \mathtt{map} \: f \: a \\
   c &= \mathtt{scan} \: \odot \: e \: b\mathnormal{.}
 \end{align*}
-We can describe this in C-like code as two subsequent loops where the first constructs the $b$ array and the second uses $b$ to create $c$.
-\begin{lstlisting}[caption=\texttt{map} and \texttt{scan} in C-like code.]
+To demostrate the benefits of fusing these expressions, we can describe them in sequential code as two loops where the first produces the $b$ array and the second consumes $b$ to create $c$.
+\begin{lstlisting}[caption=\texttt{map} and \texttt{scan} as sequential loops.]
   a[n];
   ...
   b[n];
@@ -582,7 +612,10 @@ When looking to fuse a \texttt{map} into a \texttt{scan}, the most straight forw
 \intertext{into,}
   c &= \mathtt{scan} \: \odot_f \: e \: a
 \end{align}
-where, $$x \odot_f y = \odot \circ f = x \odot f(y)$$ would be the naive approach.
+where, $$\odot_f \stackrel{\text{def}}{=} \odot \circ f$$
+hence,
+$$\odot \circ f = x \odot f(y)$$
+ would be the naive approach.
 However, the type signature of the resulting function $$\odot_f \: : \: \alpha \to \beta \to \alpha$$
  is not compatible with the Futhark definition of \texttt{scan}, and neither is it associative. Clearly, a different approach
  is needed.
@@ -642,7 +675,7 @@ Fusion is not always viable as there are some situation where fusion cannot or s
 \end{figure}
 
 \begin{itemize}
-\item[Case 1:] Fusion across a in-place update is not possible. When fusing the producer array is not created as before, but a part of the computation in the resulting fused SOAC.
+\item[Case 1:] Fusion across an in-place update is not possible -- i.e. $a[i] = k$. When fusing the producer array is not created as before, but a part of the computation in the resulting fused SOAC.
 \item[Case 2:] Not all combinations of SOACs are fusable.
 \item[Case 3:] Fusion across a loop or a SOAC lambda would duplicate the computation and potentially change the time complexity of the program. In this case instead of calculating variable x once, a fusion would result in x being calculated in each of the loops. 
 \item[Case 4:] When the array x produced by a SOAC is consumed by two other SOACs located on the same execution path, the computation will be duplicated.
@@ -683,7 +716,7 @@ Where $\odot'(e_1,e_2, x, y) = (e_1 \odot x, e_2 \odot y)$ and $\odot'_{fg}(e_1,
 \section{Implementation}
 % How does a futhark program look ~ absyn. As we need it.
 This section will detail the specifics of performing \texttt{map-scan}, and other \texttt{scanomap} fusions, as well as detailing the process of
- analysing a program for valid fusions.
+analysing a program for valid fusions.
 
 \subsection{Program State}
 There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
@@ -815,8 +848,12 @@ $$\text{map-out} = m_{out} = \mathtt{drop}(\mathtt{len}(ne),d) \doubleplus \math
 Composing the folding function for the resulting \texttt{scanomap} from the input \texttt{map}'s $f$ function, and the input \texttt{scanomap}'s $\odot_g$ function is a question of combining their
  bindings such that the result of the $f$ function is computed first and bound such that it can be used to compute $\odot_g$.
 
-The input functions will both consist of some amount of let bindings followed by a body which consists solely of the variables to be returned. Figure \ref{fig:bothfuns} shows generalized functions for both
- inputs where $a_i$ is the tuple consisting of the $i$th elements of the arrays contained in the $a$ tuple. 
+We assume that input functions $f$ and $\odot_g$ will consist of a list of let-bindings, binding names to some arbitrary expressions which can reference the function parameters as well as
+ other visible binding. These are followed by a body which consists solely of the variables or constants to be returned.
+
+ Figure \ref{fig:bothfuns} shows generalized functions for both
+ input SOACs. Here $a_i$, $b_i$, $c_i$, and $d_i$ are the tuple consisting of the $i$th elements of the arrays contained in the $a$, $b$, $c$, or $d$ tuple respecively, and $x_i$ and $y_i$ correspond
+ to arbitrary names used in let bindings. It's worth noting that $b_i$ and $d_i$ denote the bodies of $f$ and $\odot_g$ respectively, and that we have $b_i \subset c_i$.
  \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -825,10 +862,10 @@ The input functions will both consist of some amount of let bindings followed by
 
        \begin{align*}
          &f(a_i) = \\
-         &\lett x_1 = e_1 \inn\\
-         &\lett x_2 = e_2 \inn\\
+         &\lett x_1 = e_1^f \inn\\
+         &\lett x_2 = e_2^f \inn\\
          &\phantom{----}\vdots\\
-         &\lett x_n = e_n \inn\\
+         &\lett x_n = e_n^f \inn\\
          &b_i
        \end{align*}
 
@@ -838,11 +875,11 @@ The input functions will both consist of some amount of let bindings followed by
      \centering
 
      \begin{align*}
-       &\odot_f(ne, c_i) = \\
-       &\lett y_1 = e_1 \inn\\
-       &\lett y_2 = e_2 \inn\\
+       &\odot_g(ne, c_i) = \\
+       &\lett y_1 = e_1^g \inn\\
+       &\lett y_2 = e_2^g \inn\\
        &\phantom{----}\vdots\\
-       &\lett y_n = e_n \inn\\
+       &\lett y_n = e_n^g \inn\\
        &d_i
      \end{align*}
 
@@ -859,20 +896,19 @@ Combining these two functions into a single new folding function $\odot_g \circ 
  from the $f$ function, creating a new binding which binds the body of $f$ to the corresponding parameters of $\odot_g$, and then on
  to that appending the bindings of $\odot_g$.
 
-
 \begin{figure}[h!]\centering
   \begin{mdframed}[style=alignbox]
     \begin{align*}
       &\odot_{g} \circ f(ne, ((a \cup c) / b)_i) = \\
-      &\lett x_1 = e_1 \inn\\
-      &\lett x_2 = e_2 \inn\\
+      &\lett x_1 = e_1^f \inn\\
+      &\lett x_2 = e_2^f \inn\\
       &\phantom{----}\vdots\\
-      &\lett x_n = e_n \inn\\
-      &\lett c_i = b_i \inn\\
-      &\lett y_1 = e_1 \inn\\
-      &\lett y_2 = e_2 \inn\\
+      &\lett x_n = e_n^f \inn\\
+      &\lett c_i' = b_i' \inn\\
+      &\lett y_1 = e_1^g \inn\\
+      &\lett y_2 = e_2^g \inn\\
       &\phantom{----}\vdots\\
-      &\lett y_n = e_n \inn\\
+      &\lett y_n = e_n^g \inn\\
       &(d_i /m_{out_i}) \doubleplus m_{out_i}
     \end{align*}
   \end{mdframed}
@@ -881,7 +917,8 @@ Combining these two functions into a single new folding function $\odot_g \circ 
   \label{fig:fusresfun}
 \end{figure}
 The body of $\odot_{f\circ g}$ then becomes the outputs of $\odot_g$ minus any map-out arrays appended with the new map-out arrays as
- found above.
+ found above. This is displayed in Figure \ref{fig:fusresfun}, where $c_i' = b_i'$ is short hand for $c_i \cap b_i = b_i \cap c_i$, or
+ assigning the elements of $c_i$ which refer to elements of $b_i$ to the values refered to by the respective elements of $b_i$.
 
 We can then replace the original \texttt{map} and \texttt{scanomap} with a new \texttt{scanomap},
 $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \circ g} \: ne \: \left((a \cup c) / b \right)\mathnormal{.} $$
