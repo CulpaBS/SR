@@ -20,6 +20,7 @@
 \usepackage{mathtools}
 \usepackage{listings}
 \usepackage{enumitem}
+\usepackage{color}
 
 \usepackage{tikz}
 \usepackage{mdframed}
@@ -1133,7 +1134,7 @@ The results in figure \ref{fig:scanomap-scanomap} shows a speedup of average 1.1
 
 \newpage
 \section{Appendix}
-\subsection{A}
+\subsection{A - Radix sort}
 \begin{lstlisting}[caption=Test program] 
 fun [u32, n] main([u32, n] xs) =
   radix_sort(xs)
@@ -1158,4 +1159,177 @@ fun [u32, n] radix_sort_step([u32, n] xs, i32 digit_n) =
 
 \end{lstlisting}
 
+\newpage
+\section{B - Implementation code}
+Examples of the code for implementing scanomap fusion. This is not the complete code.
+
+\subsection{Implementaion of scanomap SOAC}
+
+\begin{lstlisting}[language=Python,caption=Implementing scanomap as SOAC] 
+-- | A definite representation of a SOAC expression.
+data SOAC lore = Map Certificates SubExp (Lambda lore) [Input]
+               | Reduce Certificates SubExp Commutativity (Lambda lore) [(SubExp,Input)]
+               | Scan Certificates SubExp (Lambda lore) [(SubExp,Input)]
+               | Redomap Certificates SubExp Commutativity (Lambda lore) (Lambda lore) [SubExp] [Input]
+               | Scanomap Certificates SubExp (Lambda lore) (Lambda lore) [SubExp] [Input]
+               | Stream Certificates SubExp (StreamForm lore) (Lambda lore) [Input]
+            deriving (Show)
+            
+-- | Returns the inputs used in a SOAC.
+inputs :: SOAC lore -> [Input]
+inputs (Scanomap _ _ _ _ _  arrs) = arrs
+
+-- | Set the inputs to a SOAC.
+setInputs :: [Input] -> SOAC lore -> SOAC lore
+setInputs arrs (Scanomap cs w lam1 lam ne _) =
+  Scanomap cs w lam1 lam ne arrs
+  
+-- | The lambda used in a given SOAC.
+lambda :: SOAC lore -> Lambda lore
+lambda (Scanomap _ _ _ lam2 _ _) = lam2
+
+-- | Set the lambda used in the SOAC.
+setLambda :: Lambda lore -> SOAC lore -> SOAC lore
+setLambda lam (Scanomap cs w lam1 _ ne arrs) =
+  Scanomap cs w lam1 lam ne arrs
+
+
+-- | Returns the certificates used in a SOAC.
+certificates :: SOAC lore -> Certificates
+certificates (Scanomap cs _ _ _ _ _)  = cs
+
+-- | The return type of a SOAC.
+typeOf :: SOAC lore -> [Type]
+typeOf (Scanomap _ w outlam inlam nes _) =
+  let accrtps = mapType w outlam
+      arrrtps = drop (length nes) $ mapType w inlam
+  in  accrtps ++ arrrtps
+
+width :: SOAC lore -> SubExp
+width (Scanomap _ w _ _ _ _) = w
+
+-- | Convert a SOAC to the corresponding expression.
+toExp :: (MonadBinder m, Op (Lore m) ~ Futhark.SOAC (Lore m)) =>
+         SOAC (Lore m) -> m (Exp (Lore m))
+toExp (Scanomap cs w l1 l2 es as) =
+  Op <$> (Futhark.Scanomap cs w l1 l2 es <$> inputsToSubExps as)
+
+-- | Either convert an expression to the normalised SOAC
+-- representation, or a reason why the expression does not have the
+-- valid form.
+fromExp :: (Bindable lore, Op lore ~ Futhark.SOAC lore, HasScope t f) =>
+           Exp lore -> f (Either NotSOAC (SOAC lore))
+
+fromExp (Op (Futhark.Map cs w l as)) =
+  Right . Map cs w l <$> traverse varInput as
+fromExp (Op (Futhark.Reduce cs w comm l args)) = do
+  let (es,as) = unzip args
+  Right . Reduce cs w comm l . zip es <$> traverse varInput as
+fromExp (Op (Futhark.Scan cs w l args)) = do
+  let (es,as) = unzip args
+  Right . Scan cs w l . zip es <$> traverse varInput as
+fromExp (Op (Futhark.Redomap cs w comm l1 l2 es as)) =
+  Right . Redomap cs w comm l1 l2 es <$> traverse varInput as
+fromExp (Op (Futhark.Scanomap cs w l1 l2 es as)) =
+  Right . Scanomap cs w l1 l2 es <$> traverse varInput as
+fromExp (Op (Futhark.Stream cs w form extlam as)) = do
+  let mrtps = map hasStaticShape $ extLambdaReturnType extlam
+      rtps  = catMaybes mrtps
+  if length mrtps == length rtps
+  then Right <$> do let lam = Lambda (extLambdaParams extlam)
+                                     (extLambdaBody extlam)
+                                     rtps
+                    Stream cs w form lam <$> traverse varInput as
+  else pure $ Left NotSOAC
+fromExp _ = pure $ Left NotSOAC
+\end{lstlisting}
+
+\newpage
+\subsection{Implementing scanomap in loop kernel}
+\begin{lstlisting}[language=Python,caption=Scanomap implementation in loop kernel] 
+removeUnusedParamsFromKer :: FusedKer -> FusedKer
+removeUnusedParamsFromKer ker =
+  case soac of
+    SOAC.Map {}     -> ker { fsoac = soac' }
+    SOAC.Redomap {} -> ker { fsoac = soac' }
+    SOAC.Scanomap {} -> ker { fsoac = soac' }
+    _               -> ker
+  where soac = fsoac ker
+        l = SOAC.lambda soac
+        inps = SOAC.inputs soac
+        (l', inps') = removeUnusedParams l inps
+        soac' = l' `SOAC.setLambda`
+                (inps' `SOAC.setInputs` soac)
+                
+   ----------------------------
+    -- Scanomap Fusions:      --
+    ----------------------------
+
+    (SOAC.Scanomap _ _ lam2r _ nes2 _, SOAC.Scanomap _ _  lam1r _ nes1 _)
+      | horizFuse -> do
+          let (res_lam', new_inp) = fuseRedomap unfus_set outVars nes1 lam1 inp1_arr outPairs lam2 inp2_arr
+              unfus_accs  = take (length nes1) outVars
+              unfus_arrs  = returned_outvars \\ unfus_accs
+              lamr        = mergeReduceOps lam1r lam2r
+          success (unfus_accs ++ outNames ker ++ unfus_arrs) $
+              SOAC.Scanomap (cs1++cs2) w  lamr res_lam' (nes1++nes2) new_inp
+
+    -- Map -> Scanomap Fusion
+    (SOAC.Scanomap _ _ lam21 _ nes _, SOAC.Map {})
+      | mapFusionOK outVars ker || horizFuse -> do
+      -- Create new inner reduction function
+      let (res_lam, new_inp) = fuseMaps unfus_set lam1 inp1_arr outPairs lam2 inp2_arr
+          -- Get the lists from soac1 that still need to be returned
+          (_,extra_rtps) = unzip $ filter (\(nm,_)->nm `HS.member` unfus_set) $
+                           zip outVars $ map (stripArray 1) $ SOAC.typeOf soac1
+          res_lam' = res_lam { lambdaReturnType = lambdaReturnType res_lam ++ extra_rtps }
+      success (outNames ker ++ returned_outvars) $
+              SOAC.Scanomap (cs1++cs2) w lam21 res_lam' nes new_inp
+  
+  
+              
+scanToScanomap :: Maybe [VName] -> SOAC -> SOAC.ArrayTransforms
+               -> TryFusion (SOAC, SOAC.ArrayTransforms)
+scanToScanomap _ (SOAC.Scan cs w scan_fun scan_input) ots = do
+       let (nes, array_inputs) =  unzip scan_input
+       return (SOAC.Scanomap cs w scan_fun scan_fun nes array_inputs, ots)
+scanToScanomap _ _ _ =
+  fail "Only turn scan into scanomaps"
+\end{lstlisting}
+
+\subsection{Implementing first order transform scanomap}
+\begin{lstlisting}[language=Python,caption=Scanomap first order transform] 
+transformSOAC pat (Scanomap cs width _ fun accexps arrexps) = do
+  i <- newVName "i"
+  -- Name accumulators, do something with the corresponding expressions
+  (acc, initacc, _) <- newFold "scanomap" (zip accexps accts) arrexps
+  -- Create output arrays.
+  initarr <- resultArray scan_res_ts
+  -- Name Outputarrays?
+  arr <- mapM (newIdent "scan_arr" ) scan_res_ts
+  -- Create arrays for our map results.
+  initmaparrs <- resultArray map_res_ts
+  mapoutarrs <- mapM (newIdent "scanomap_map_outarr") map_res_ts
+  -- Get the names
+  let arr_names = map identName arr
+      map_names = map identName mapoutarrs
+      merge = loopMerge (acc++arr++mapoutarrs) (initacc++map Var initarr ++ map Var initmaparrs)
+  loopbody <- insertBindingsM $ localScope (scopeOfFParams $ map fst merge) $ do
+    -- Bind function parameters to arguments.
+    x <- bindLambda fun (map (PrimOp . SubExp . Var . identName) acc ++
+                              index cs arrexps (Var i))
+    -- Set function destinations
+    dests <- letwith cs arr_names (pexp (Var i)) $ map (PrimOp . SubExp) (take (length accexps) x)
+    mapdests <- letwith cs map_names (pexp (Var i)) $ map (PrimOp . SubExp) (drop (length accexps) x)
+    irows <- letSubExps "row" $ index cs dests $ Var i
+    rowcopies <- mapM copyIfArray irows
+    return $ resultBody $ rowcopies ++ map Var dests ++ map Var mapdests
+  pat' <- discardPattern (map identType acc) pat
+  letBind_ pat' $ DoLoop [] merge (ForLoop i width) loopbody
+  where accts = map paramType $ take (length accexps) $  lambdaParams fun
+        scan_res_ts = [ arrayOf t (Shape [width]) NoUniqueness
+                     | t <- (take (length accexps) (lambdaReturnType fun))]
+        map_res_ts = [ arrayOf t (Shape [width]) NoUniqueness
+                     | t <- (drop (length accexps) (lambdaReturnType fun))]
+\end{lstlisting}
 \end{document}

@@ -26,4 +26,8 @@
 \BOOKMARK [1][-]{section.7}{Benchmarking}{}% 26
 \BOOKMARK [1][-]{section.8}{Conclusion}{}% 27
 \BOOKMARK [1][-]{section.9}{Appendix}{}% 28
-\BOOKMARK [2][-]{subsection.9.1}{A}{section.9}% 29
+\BOOKMARK [2][-]{subsection.9.1}{A - Radix sort}{section.9}% 29
+\BOOKMARK [1][-]{section.10}{B - Implementation code}{}% 30
+\BOOKMARK [2][-]{subsection.10.1}{Implementaion of scanomap SOAC}{section.10}% 31
+\BOOKMARK [2][-]{subsection.10.2}{Implementing scanomap in loop kernel}{section.10}% 32
+\BOOKMARK [2][-]{subsection.10.3}{Implementing first order transform scanomap}{section.10}% 33
