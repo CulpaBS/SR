@@ -77,7 +77,7 @@ skipbelow=10pt}
 \newpage
 
 \section{Abstract}
-The ability to fuse loops together in a sequential program gives the possibility of reducing loop overhead, increase execution speed and the potential to optimize both memory hierarchy time overhead and space requirements. The effects these optimisations -- especially memory related -- can have increasing benefits when executing on a GPU. Futhark, a heavily optimising functional
+The ability to fuse loops together in a sequential program gives the possibility of reducing loop overhead, increase execution speed and the potential to optimise both memory hierarchy time overhead and space requirements. The effects these optimisations -- especially memory related -- can have increasing benefits when executing on a GPU. Futhark, a heavily optimising functional
  programming language aimed at GPU execution,
  exploits functional invariants to more easily perform loop fusion. We have expanded Futhark's fusion module to support:
 
@@ -86,8 +86,8 @@ The ability to fuse loops together in a sequential program gives the possibility
 \item Producer-consumer fusion with \texttt{map} as producer and \texttt{scan} as consumer, by using the \texttt{scanomap} construct.
 \item Both producer-consumer fusion of \texttt{map} and \texttt{scanomap} expressions, and horizontal fusion of two \texttt{scanomaps}.
 \end{itemize}
-We show that by sucessfully fusing \texttt{map} and \texttt{scan} expressions, we enable significant speedup as a result of memory access optimisation. 
-We demonstrate the effectiveness of our implementation on 3 different benchmark programs, diplaying GPU execution time speedup in ranges of 1.2-1.5 times faster with our implementation.
+We show that by successfully fusing \texttt{map} and \texttt{scan} expressions, we enable significant speedup as a result of memory access optimisation. 
+We demonstrate the effectiveness of our implementation on 3 different benchmark programs, displaying GPU execution time speedup in ranges of 1.2-1.5 times faster with our implementation.
 
 
 The results suggest a big potential in increase of performance from implementing fusion. Unleashing even more potential in GPGPU, as well as improving big data calculations on CPU.
@@ -107,7 +107,7 @@ For our project we will explore the possibility of implementing Map-Scan fusion 
 
 \subsection{Motivation}
 Performing global memory accesses when performing computations on a GPU, due to their weaker caching system, is often far more penalising than on a CPU. Hence, performing loop fusion on a program
- which is to be on a graphics card, has the ``[..] potential to optimize both the memory hierarchy time overhead and, sometimes asymptotically, the space requirement'' for the program as a result of 
+ which is to be on a graphics card, has the ``[..] potential to optimise both the memory hierarchy time overhead and, sometimes asymptotically, the space requirement'' for the program as a result of 
 improving memory access patterns and making obsolete temporary arrays \cite{T2Fusion}. Thus, the main motivation for adding \texttt{map}-\texttt{scan} fusion capabilities to
  the optimiser of the Futhark compiler, is the potential for enabling speedups for relevant Futhark programs.
 
@@ -134,7 +134,7 @@ Reasoning about, and writing programs which exploit parallelism on GPUs can be a
  expedite the process of exploiting the GPU for computational power. Futhark seeks to fill this role by supplying a parallel language wherein specific compute intensive task can be defined and executed,
  lightening the load for a larger program written in a more general purpose language. \cite{futharklang} 
 
-This section will elaborate and detail what Futhark seeks to accoplish and how it does so.
+This section will elaborate and detail what Futhark seeks to accomplish and how it does so.
 % There are problems/calculations that gets to a size where normal sequential programming involving consecutive execution of processes, will reach a computation time unsatisfying for the intended users. In some cases these calculations can be done much faster with parallel programming. Parallel programming is where many calculations are carried out simultaneously, with the idea of dividing a problem into smaller sub problems solved at the same time. Parallel and sequential programming are not mutually exclusive, in the sense that if you use parallel programming, you cant use sequential programming, in many cases they are used together. Parallel programming can be done on the CPU with its multiple cores, but when possible and advantages it is much better to harness the thousands of cores in the GPU - graphics processing units. The GPU is no longer only used to do graphical calculations, but also General-purpose computing, GPGPU (General-purpose computing on graphics processing units). \\
 
 % To do GPGPU, Hyperfit a joint research center addressing the simultaneous challenges of high transparency, high computational performance and high productivity in finance, employing an integrated approach of financial mathematics, domain specific languages, parallel functional programming, and high-performance systems \cite{Hyperfit} created Futhark. 
@@ -143,7 +143,7 @@ This section will elaborate and detail what Futhark seeks to accoplish and how i
 \subsection{Futhark}
 
 Futhark is a ``statically typed, data-parallel, and purely functional array language'' \cite{futharklang} which aims to perform
- general purpose computing on GPUs (GPGPU). While Futhark is able to express imperative concepts such as inplace updates and loops, its main focus centered around the usage of
+ general purpose computing on GPUs (GPGPU). While Futhark is able to express imperative concepts such as in-place updates and loops, its main focus centred around the usage of
  functional language paradigm to express parallel computations through bulk operations using Second Order Array Combinators
  -- or SOACs -- which are semantically identical to higher order functions such as \texttt{map} and \texttt{reduce} commonly found in functional programming.
 
@@ -154,7 +154,7 @@ The Futhark compiler features an aggressive optimisation strategy which relies o
 Both \texttt{map} and \texttt{scan} are defined as SOACs -- or Second Order Array Combinators. Hence they have no free variables, take first-order functions as arguments, and output first-order
  functions whose domains are arrays of the domain of the input.
 While Futhark SOACs are semantically identical to their namesake higher-order functions found in other functional languages, working with SOACs allows for some assumptions to be made
- which turn out to be useful in regards to both parallisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
+ which turn out to be useful in regards to both parallelisation and optimisation. In particular each SOAC can be considered as representing a specific shape of an imperative do-loop, which
  is used in Futhark to expedite the loop-fusion process. \cite[chap. 7]{MasterTroels}
 
 The intermediate representation of a Futhark program in the Futhark compiler does not contain arrays of tuples. Hence when a Futhark program is compiled any expression of type $[\alpha]$ where
@@ -174,7 +174,7 @@ $$\mathtt{map} \: f \: a \: :  \: (\alpha \to \beta) \to [\alpha] \to [\beta]\ma
 And the semantic definition of \texttt{map},
 $$\mathtt{map} \: f \: a \: =  \: [f(a_0), f(a_1), ..., f(a_{n-1})]\mathnormal{.}$$
 Having no free variables, means that each result $f(a_i)$ \textit{only} depends on the corresponding element $a_i$. This makes \texttt{map}s fantastic for parallelisation as once the
- degree of parallism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parrallel step, or $c$ steps for a chunk size of $c$.
+ degree of parallelism reaches the size of $a$, $\mathtt{map} \: f \: a$ can be potentially be computed in a single parallel step, or $c$ steps for a chunk size of $c$.
 
  \begin{figure}[h!]
    \centering
@@ -219,12 +219,12 @@ Having no free variables, means that each result $f(a_i)$ \textit{only} depends 
 
    \end{tikzpicture}
    
-   \caption{Parallel computation of map with chunking. Each colour represents a seperate thread.}
+   \caption{Parallel computation of map with chunking. Each colour represents a separate thread.}
    \label{fig:compmap1}
  \end{figure}
 
 Figure \ref{fig:compmap1} displays how map can be computed in chunks. Each thread is responsible for sequentially computing
- $\mathtt{map} \: f \: c_i$ across a single chunk. With no depedencies in the way, this can happen in parallel such that the
+ $\mathtt{map} \: f \: c_i$ across a single chunk. With no dependencies in the way, this can happen in parallel such that the
  12 element list is \texttt{map}ped with just 3 sequential applications of $f$.
 % INSERT COOL FIGURE OF MAP BEING COMPUTED 
 % How do we compute it parallely
@@ -427,7 +427,7 @@ However, such a conversion comes with a loss of useful invariants. For example, 
 
 \section{Fusion}
 In this section the basic idea of loop fusion will be outlined, with a closer look at the two kinds of fusion implemented in this paper.
-The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimize both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
+The loop fusion technique gives the possibility of reducing loop overhead and increase execution speed, and the potential to optimise both the memory hierarchy time overhead and space requirements. Loop fusion is as the name implies, fusing loops together. However this requires that the loops iterate the same number of times, as that could for example make one loop try to fetch data out of bounds. \\
 
 Having two loops with the same iteration range as shown in listing \ref{lst:horipre}, it gives the possibility for fusion them together as one. Both loops do the work needed within the same range, and therefore it could be done in one loop as shown in listing \ref{lst:horipost}. Cases where fusion will not be possible regardless of two equal length loops, will be shown later on.
 
@@ -523,7 +523,7 @@ S4: d[i] = c[i + 1]
 With larger and more complicated loops, this kind of analysis can become very sophisticated and complicated. This is why we reason about fusion through SOACs as their shapes and dependencies as loops
  are well known.
 \subsection{Fusion in Futhark}
-Futhark is centered around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
+Futhark is centred around SOACs for doing operations on arrays, and you do therefore not write loops to do array functions. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided up as producer consumer functions as shown below:
 \begin{table}[hb!]
 \centering
 \caption{Producers and Consumers in Futhark}
@@ -579,7 +579,7 @@ In a typical situation involving \texttt{map} and \texttt{scan}, we will have th
   b &= \mathtt{map} \: f \: a \\
   c &= \mathtt{scan} \: \odot \: e \: b\mathnormal{.}
 \end{align*}
-To demostrate the benefits of fusing these expressions, we can describe them in sequential code as two loops where the first produces the $b$ array and the second consumes $b$ to create $c$.
+To demonstrate the benefits of fusing these expressions, we can describe them in sequential code as two loops where the first produces the $b$ array and the second consumes $b$ to create $c$.
 \begin{lstlisting}[caption=\texttt{map} and \texttt{scan} as sequential loops.]
   a[n];
   ...
@@ -615,7 +615,7 @@ Thus we have that $c_i$ will only depend on $b_j$ for $j \leq i$ being calculate
 \end{lstlisting}
 Now we have removed all accesses to $b$, giving us an access pattern as follows,
  $$\mathtt{load}[a_0],  \mathtt{store}[c_0], ..., \mathtt{load}[a_{n-1}],  \mathtt{store}[c_{n-1}]\mathnormal{.}$$
-This is the goal of perfoming \texttt{map}-\texttt{scan} fusion. By fusing a \texttt{map} into a \texttt{scan} we can optimise a program by eliminating costly memory accesses.
+This is the goal of performing \texttt{map}-\texttt{scan} fusion. By fusing a \texttt{map} into a \texttt{scan} we can optimise a program by eliminating costly memory accesses.
  Something which is even more useful when working on a GPGPU, which generally do not have the more forgiving memory hierarchy and caching system of a CPU.
 \subsection{Scanomap}
 % Naive approach
@@ -636,11 +636,11 @@ However, the type signature of the resulting function $$\odot_f \: : \: \alpha \
  is needed.
 
 The solution to this problem is to exploit how Futhark uses chunking. Since the associativity of the \texttt{scan} operator only
- comes into play during the parallel phase of computation, we can distiguish between how each chunk is computed sequentially and
+ comes into play during the parallel phase of computation, we can distinguish between how each chunk is computed sequentially and
  how chunks are joined.
 
 To do so, we must expand the list of SOACs with the internal \texttt{scanomap} function. \texttt{scanomap} is semantically similar
- to \texttt{scan}, however it takes two function parameters -- an associatve scanning function meant for parallelly scanning across
+ to \texttt{scan}, however it takes two function parameters -- an associative scanning function meant for parallelly scanning across
  chunks, and a sequential folding function meant for scanning within a chunk. Scanomap has the following type signature,
 $$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to (\alpha \to \beta \to \alpha)
  \to \alpha \to [\beta] \to [\alpha]\mathnormal{.}$$
@@ -691,11 +691,11 @@ Fusion is not always viable as there are some situation where fusion cannot or s
 
 \begin{itemize}
 \item[Case 1:] Fusion across an in-place update is not possible -- i.e. $a[i] = k$. When fusing the producer array is not created as before, but a part of the computation in the resulting fused SOAC.
-\item[Case 2:] Not all combinations of SOACs are fusable.
+\item[Case 2:] Not all combinations of SOACs are fusible.
 \item[Case 3:] Fusion across a loop or a SOAC lambda would duplicate the computation and potentially change the time complexity of the program. In this case instead of calculating variable x once, a fusion would result in x being calculated in each of the loops. 
 \item[Case 4:] When the array x produced by a SOAC is consumed by two other SOACs located on the same execution path, the computation will be duplicated.
 \item[Case 5:] If array x produced by SOAC is used other then input to another SOAC fusion is not allowed.
-\item[Case 6:] If two arrays created by a SOAC is used as input in more then one SOAC the computaion is duplicated, and fusion is therefore not allowed.
+\item[Case 6:] If two arrays created by a SOAC is used as input in more then one SOAC the computation is duplicated, and fusion is therefore not allowed.
 \end{itemize}
 
 However there are special cases for scanomap, as the result array x of the producer SOAC in the scanomap transformation, also will be returned by the scanomap in cases where other SOACs consumes array x.
@@ -715,7 +715,7 @@ Fusing a \texttt{map} as a producer into a consumer \texttt{scanomap} is a simpl
   c &= \mathtt{scanomap} \: \odot \: \odot_{f\circ g} \: e \: a\mathnormal{.}
 \end{align*}
 
-\paragraph{Scanomap-Scanomap Fusion} Horizontally fusing a \texttt{scanomap} with another \texttt{scanomap}, requires that theres exists no dependency between the
+\paragraph{Scanomap-Scanomap Fusion} Horizontally fusing a \texttt{scanomap} with another \texttt{scanomap}, requires that there exists no dependency between the
  two SOACs -- i.e. there exists no producer-consumer relationship between the two. In theses cases, it may still prove beneficial to perform fusion -- even though there is no direct
  optimisation -- to enable more fusion.
 % Tuples
@@ -734,7 +734,7 @@ This section will detail the specifics of performing \texttt{map-scan}, and othe
 analysing a program for valid fusions.
 
 \subsection{Program State}
-There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalized program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
+There are a series of conditions for the fusion transformation can happen. As well as a number of cases where a fusion should not happen. The fusion transformation assumes a normalised program, with the following properties: \cite[Figure 5, page 4]{T2Fusion} 
 
 \begin{itemize}
 \item No tuple type can appear in an array or tuple type, i.e., flat
@@ -776,7 +776,7 @@ and constant folding where the compiler evaluating constant expressions at compi
 Futhark's fusion module gathers fusible SOACs by using a bottom-up analysis pass of the program's AST. This is done by traversing the AST depth first, while using a set
  of environments and data structures, to among other things keep track created kernels and the production and consumption of arrays. \cite{T2Fusion}
 
-These are structures and environments are filled out during the depth first traversal of the AST, such that when analysing a specfic SOAC in the program it is known which
+These are structures and environments are filled out during the depth first traversal of the AST, such that when analysing a specific SOAC in the program it is known which
  SOACs consume its outputs, and whether in-place update in between and so on.
 
 For example, when analysing the program found in Figure \ref{fig:progsnip1} and the looking at the \texttt{map} statement, two simple look-ups will show that while $b$ is consumed by the
@@ -798,7 +798,7 @@ For example, when analysing the program found in Figure \ref{fig:progsnip1} and 
 \end{figure}
 
 Fusion is then attempted along the way whenever the fusion module meets a new SOACs during its analysis. Consequently, we have that fusion is also performed bottom-up, such that
- the compiler will prioritize potential fusion by how ``deep'' the candidates occur in the program.
+ the compiler will prioritise potential fusion by how ``deep'' the candidates occur in the program.
 \subsection{Map-Scanomap Fusion}
 \setcounter{equation}{0}
 Having identified a single \texttt{map} producer and a \texttt{scanomap} consumer to perform fusion on, the fusion itself may seem fairly simple.
@@ -841,7 +841,7 @@ Afterwards a new \texttt{scanomap} can then be constructed which can replace the
 \paragraph{Parameters}
 
 We have that \texttt{map} and \texttt{scanomap} are to be fused, so we must also have $(b0, b1, ...,bn) \cap (c0, c1, ..., cn) \neq \emptyset$. However
- we do not neccessarily have $(b0, b1, ...,bn) = (c0, c1, ..., cn)$. The parameters for our fused product must then become all of the array input parameters from the \texttt{map} as well as
+ we do not necessarily have $(b0, b1, ...,bn) = (c0, c1, ..., cn)$. The parameters for our fused product must then become all of the array input parameters from the \texttt{map} as well as
  the array input parameters from the \texttt{scanomap} which aren't produced by the \texttt{map}. Hence, our new list of parameters become,
 $$\text{New-Params} = (a \cup c) / b\mathnormal{.}$$
 
@@ -866,8 +866,8 @@ Composing the folding function for the resulting \texttt{scanomap} from the inpu
 We assume that input functions $f$ and $\odot_g$ will consist of a list of let-bindings, binding names to some arbitrary expressions which can reference the function parameters as well as
  other visible binding. These are followed by a body which consists solely of the variables or constants to be returned.
 
- Figure \ref{fig:bothfuns} shows generalized functions for both
- input SOACs. Here $a_i$, $b_i$, $c_i$, and $d_i$ are the tuple consisting of the $i$th elements of the arrays contained in the $a$, $b$, $c$, or $d$ tuple respecively, and $x_i$ and $y_i$ correspond
+ Figure \ref{fig:bothfuns} shows generalised functions for both
+ input SOACs. Here $a_i$, $b_i$, $c_i$, and $d_i$ are the tuple consisting of the $i$th elements of the arrays contained in the $a$, $b$, $c$, or $d$ tuple respectively, and $x_i$ and $y_i$ correspond
  to arbitrary names used in let bindings. It's worth noting that $b_i$ and $d_i$ denote the bodies of $f$ and $\odot_g$ respectively, and that we have $b_i \subset c_i$.
  \begin{figure}[hb!]
 
@@ -933,7 +933,7 @@ Combining these two functions into a single new folding function $\odot_g \circ 
 \end{figure}
 The body of $\odot_{f\circ g}$ then becomes the outputs of $\odot_g$ minus any map-out arrays appended with the new map-out arrays as
  found above. This is displayed in Figure \ref{fig:fusresfun}, where $c_i' = b_i'$ is short hand for $c_i \cap b_i = b_i \cap c_i$, or
- assigning the elements of $c_i$ which refer to elements of $b_i$ to the values refered to by the respective elements of $b_i$.
+ assigning the elements of $c_i$ which refer to elements of $b_i$ to the values referred to by the respective elements of $b_i$.
 
 We can then replace the original \texttt{map} and \texttt{scanomap} with a new \texttt{scanomap},
 $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \circ g} \: ne \: \left((a \cup c) / b \right)\mathnormal{.} $$
@@ -944,11 +944,11 @@ $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \ci
 
 \clearpage
 \subsection{Scanomap-Scanomap Fusion}
-Having two \texttt{scanomap} in a futhark program with no dependencies between the two SOACs, and equal length input, the program computation time can be optimised using horizontal fusion. 
+Having two \texttt{scanomap} in a Futhark program with no dependencies between the two SOACs, and equal length input, the program computation time can be optimised using horizontal fusion. 
 
 This section will go through the algorithm for fusing two \texttt{scanomap} into one \texttt{scanomap}. The fusion algorithm have two steps:
 \begin{enumerate}
-\item Composing a new assosiative operation
+\item Composing a new associative operation
 \item Composing a new folding function.
 \end{enumerate}
 
@@ -1025,7 +1025,7 @@ $$\text{New-Params} = (a,b)$$
      \label{fig:post-fusion}
 \end{figure}
 
-In the same manor the assosiative operations is fused into one, enabling the computation of two scanomaps to be done within one loop. 
+In the same manor the associative operations is fused into one, enabling the computation of two scanomaps to be done within one loop. 
 
 \paragraph{Map-Out Arrays}
 If the map-out arrays in the \texttt{scanomaps} should be returned, it is done in the same manor as explained in the consumer-producer fusion of map and scan in section Map-Scanomap Fusion. Because the horizontally fused \texttt{scanomaps} are computed in precisely the same way, just "sequentially" in one loop it does not change anything regarding map-out arrays.
@@ -1087,7 +1087,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
 
 \paragraph*{Radix sort:}
 
-To benchmark the scanomap implementation with a more complicated program, that does more work, we benchmarked the radix sort futhark program (Appendix A). The results displayed in figure \ref{fig:scanomap-radix} shows considerable speedup, with a average of 1.32 times faster then without scanomap.
+To benchmark the scanomap implementation with a more complicated program, that does more work, we benchmarked the radix sort Futhark program (Appendix A). The results displayed in figure \ref{fig:scanomap-radix} shows considerable speedup, with a average of 1.32 times faster then without scanomap.
 
 \begin{figure}[hb]
   \centering
@@ -1097,7 +1097,7 @@ To benchmark the scanomap implementation with a more complicated program, that d
 \end{figure}
 
 \paragraph*{Scanomap-Scanomap fusion:}
-To test the effect of implementing the horizontal fusion of scanomap-scanomap, we have made a futhark program and tested it in three ways:
+To test the effect of implementing the horizontal fusion of scanomap-scanomap, we have made a Futhark program and tested it in three ways:
 
 \begin{itemize}
 \item Without any fusion.
@@ -1158,7 +1158,7 @@ There is a potential to expand the \texttt{scanomap} construct to accommodate mo
 Supporting \texttt{scanomap}-\texttt{map} fusion would require an expansion of the \texttt{scanomap} construct, adding a third function. This would alter \texttt{scanomap}'s type signature to,
 $$\mathtt{scanomap} \: \odot \: \odot_f \: g \: e \: a \: : \:(\alpha \to \alpha \to \alpha) \to (\alpha \to \beta \to \alpha)
  \to (\alpha \to \gamma) \to \alpha \to [\beta] \to [\gamma]\mathnormal{.}$$
-and semanically change such that the function $g$ is applied as the final step,
+and semantically change such that the function $g$ is applied as the final step,
 $$\mathtt{scanomap} \: \odot \: \odot_f \: e \: a \: =
  [g(e \odot_f a_0), g((e \odot_f a_0) \odot_f a_1), ..., g(((e \odot_f a_0) \odot_f ...) \odot_f a_{n-1})]\mathnormal{.}$$
 Any old \texttt{scanomap} can then be represented in the new construct by simply setting $g$ to be the identity function $g(x) = x$, and as such it would not require much work to uphold the
@@ -1176,7 +1176,9 @@ The results of this project give reason to believe that we could experience simi
  would be a worthwhile pursuit.
 \clearpage
 \section{Conclusion}
-We have shown the theory behind map-scan producer-consumer fusion resulting in the SOAC scanomap, with the addition of scanomap-scanomap horizontal fusion. Additionally we have documented a GPU speedup in the range 1.2-1.5 times faster then pre-scanomap implementation. Our implementation of scanomap has also opened the door for additional optimisations as \texttt{scanomap-map} fusion, with the chance of improving execution time even further.
+We have shown the theory behind map-scan producer-consumer fusion resulting in the SOAC scanomap, with the addition of scanomap-scanomap horizontal fusion.
+ Additionally we have documented a GPU speedup in the range 1.2-1.5 times faster then pre-scanomap implementation.
+ Our implementation of scanomap has also opened the door for additional optimisations as \texttt{scanomap-map} fusion, with the chance of improving execution time even further.
 \newpage
 
 \bibliographystyle{unsrt}
