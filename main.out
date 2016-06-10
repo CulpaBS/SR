@@ -22,12 +22,12 @@
 \BOOKMARK [2][-]{subsection.6.2}{Bottom Up Analysis}{section.6}% 22
 \BOOKMARK [2][-]{subsection.6.3}{Map-Scanomap Fusion}{section.6}% 23
 \BOOKMARK [2][-]{subsection.6.4}{Scanomap-Scanomap Fusion}{section.6}% 24
-\BOOKMARK [2][-]{subsection.6.5}{Other Fusion}{section.6}% 25
-\BOOKMARK [1][-]{section.7}{Benchmarking}{}% 26
-\BOOKMARK [1][-]{section.8}{Conclusion}{}% 27
-\BOOKMARK [1][-]{section.9}{Appendix}{}% 28
-\BOOKMARK [2][-]{subsection.9.1}{A - Radix sort}{section.9}% 29
-\BOOKMARK [1][-]{section.10}{B - Implementation code}{}% 30
-\BOOKMARK [2][-]{subsection.10.1}{Implementaion of scanomap SOAC}{section.10}% 31
-\BOOKMARK [2][-]{subsection.10.2}{Implementing scanomap in loop kernel}{section.10}% 32
-\BOOKMARK [2][-]{subsection.10.3}{Implementing first order transform scanomap}{section.10}% 33
+\BOOKMARK [1][-]{section.7}{Benchmarking}{}% 25
+\BOOKMARK [1][-]{section.8}{Future Works}{}% 26
+\BOOKMARK [1][-]{section.9}{Conclusion}{}% 27
+\BOOKMARK [1][-]{section.10}{Appendix}{}% 28
+\BOOKMARK [2][-]{subsection.10.1}{A - Radix sort}{section.10}% 29
+\BOOKMARK [1][-]{section.11}{B - Implementation code}{}% 30
+\BOOKMARK [2][-]{subsection.11.1}{Implementaion of scanomap SOAC}{section.11}% 31
+\BOOKMARK [2][-]{subsection.11.2}{Implementing scanomap in loop kernel}{section.11}% 32
+\BOOKMARK [2][-]{subsection.11.3}{Implementing first order transform scanomap}{section.11}% 33

@@ -25,10 +25,10 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Motivation}{3}{subsection.2.1}}
 \citation{futharklang}
 \citation{futharklang}
+\citation{MasterTroels}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Tasks}{4}{subsection.2.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Background Information}{4}{section.3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Futhark}{4}{subsection.3.1}}
-\citation{MasterTroels}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}SOACs}{5}{subsection.3.2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Map}{5}{subsubsection.3.2.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Parallel computation of map with chunking. Each colour represents a seperate thread.\relax }}{5}{figure.caption.2}}
@@ -79,6 +79,7 @@
 \@writefile{toc}{\contentsline {paragraph}{Map-Scanomap Fusion}{14}{section*.6}}
 \@writefile{toc}{\contentsline {paragraph}{Scanomap-Scanomap Fusion}{14}{section*.7}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Implementation}{14}{section.6}}
+\newlabel{sec:imp}{{6}{14}{Implementation}{section.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Program State}{14}{subsection.6.1}}
 \citation{T2Fusion}
 \citation{T2Fusion}
@@ -93,8 +94,8 @@
 \@writefile{toc}{\contentsline {paragraph}{Parameters}{17}{section*.11}}
 \@writefile{toc}{\contentsline {paragraph}{Map-Out Arrays}{17}{section*.12}}
 \@writefile{toc}{\contentsline {paragraph}{Function Composition}{17}{section*.13}}
-\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 888}}{18}{Function Composition}{figure.caption.14}{}}
-\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 902}}{18}{Function Composition}{figure.caption.14}{}}
+\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 887}}{18}{Function Composition}{figure.caption.14}{}}
+\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 901}}{18}{Function Composition}{figure.caption.14}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The SOAC functions $f$ and $\odot _g$ from the input \texttt  {map} and \texttt  {scanomap}.\relax }}{18}{figure.caption.14}}
 \newlabel{fig:bothfuns}{{7}{18}{The SOAC functions $f$ and $\odot _g$ from the input \texttt {map} and \texttt {scanomap}.\relax }{figure.caption.14}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Resulting function $\odot _{f \circ g}$.\relax }}{18}{figure.caption.15}}
@@ -102,14 +103,13 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Scanomap-Scanomap Fusion}{19}{subsection.6.4}}
 \@writefile{toc}{\contentsline {paragraph}{Parameters}{19}{section*.16}}
 \@writefile{toc}{\contentsline {paragraph}{New folding function and associative operation}{19}{section*.17}}
-\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 985}}{19}{New folding function and associative operation}{figure.caption.18}{}}
-\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 999}}{19}{New folding function and associative operation}{figure.caption.18}{}}
+\newlabel{fig:mapf}{{\caption@xref {fig:mapf}{ on input line 984}}{19}{New folding function and associative operation}{figure.caption.18}{}}
+\newlabel{fig:odotg}{{\caption@xref {fig:odotg}{ on input line 998}}{19}{New folding function and associative operation}{figure.caption.18}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The SOAC functions $\odot _f$ and $\odot _g$ from the two scanomap\relax }}{19}{figure.caption.18}}
 \newlabel{fig:pre-fusion}{{9}{19}{The SOAC functions $\odot _f$ and $\odot _g$ from the two scanomap\relax }{figure.caption.18}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Fused function $\odot '_{fg}$\relax }}{20}{figure.caption.19}}
 \newlabel{fig:post-fusion}{{10}{20}{Fused function $\odot '_{fg}$\relax }{figure.caption.19}{}}
 \@writefile{toc}{\contentsline {paragraph}{Map-Out Arrays}{20}{section*.20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Other Fusion}{20}{subsection.6.5}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Benchmarking}{21}{section.7}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {13}SimpleScanomap}{21}{lstlisting.13}}
 \@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Computation time for Map-Scan Fusion test\relax }}{21}{figure.caption.23}}
@@ -119,24 +119,29 @@
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {14}Scanomap-scanomap benchmark program}{22}{lstlisting.14}}
 \@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Speedup chart\relax }}{23}{figure.caption.26}}
 \newlabel{fig:CPU-map-scan fusion speedup}{{13}{23}{Speedup chart\relax }{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Radix-Speedup chart\relax }}{24}{figure.caption.28}}
-\newlabel{fig:scanomap-radix}{{14}{24}{Radix-Speedup chart\relax }{figure.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Speedup chart for scanomap-scanomap fusion benchmark\relax }}{24}{figure.caption.30}}
-\newlabel{fig:scanomap-scanomap}{{15}{24}{Speedup chart for scanomap-scanomap fusion benchmark\relax }{figure.caption.30}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{25}{section.8}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Future Works}{23}{section.8}}
+\newlabel{lst:maposcanomap1}{{15}{23}{$\mathtt {scanomap} \: g \: g_f \: ne \: a$ and $\mathtt {map} \: h \: b$ as sequential loops}{lstlisting.15}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {15}$\mathtt  {scanomap} \tmspace  +\medmuskip {.2222em} g \tmspace  +\medmuskip {.2222em} g_f \tmspace  +\medmuskip {.2222em} ne \tmspace  +\medmuskip {.2222em} a$ and $\mathtt  {map} \tmspace  +\medmuskip {.2222em} h \tmspace  +\medmuskip {.2222em} b$ as sequential loops.}{23}{lstlisting.15}}
+\newlabel{lst:mos1}{{16}{24}{Listing \ref {lst:maposcanomap1} fused}{lstlisting.16}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {16}Listing \ref  {lst:maposcanomap1} fused.}{24}{lstlisting.16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Radix-Speedup chart\relax }}{25}{figure.caption.28}}
+\newlabel{fig:scanomap-radix}{{14}{25}{Radix-Speedup chart\relax }{figure.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Speedup chart for scanomap-scanomap fusion benchmark\relax }}{25}{figure.caption.30}}
+\newlabel{fig:scanomap-scanomap}{{15}{25}{Speedup chart for scanomap-scanomap fusion benchmark\relax }{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{26}{section.9}}
 \bibstyle{unsrt}
 \bibdata{lit}
 \bibcite{futharkdoc}{1}
 \bibcite{T2Fusion}{2}
 \bibcite{futharklang}{3}
 \bibcite{MasterTroels}{4}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Appendix}{27}{section.9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}A - Radix sort}{27}{subsection.9.1}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {15}Test program}{27}{lstlisting.15}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}B - Implementation code}{28}{section.10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Implementaion of scanomap SOAC}{28}{subsection.10.1}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {16}Implementing scanomap as SOAC}{28}{lstlisting.16}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Implementing scanomap in loop kernel}{30}{subsection.10.2}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {17}Scanomap implementation in loop kernel}{30}{lstlisting.17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Implementing first order transform scanomap}{31}{subsection.10.3}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {18}Scanomap first order transform}{31}{lstlisting.18}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Appendix}{28}{section.10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}A - Radix sort}{28}{subsection.10.1}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {17}Test program}{28}{lstlisting.17}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}B - Implementation code}{29}{section.11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Implementaion of scanomap SOAC}{29}{subsection.11.1}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {18}Implementing scanomap as SOAC}{29}{lstlisting.18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Implementing scanomap in loop kernel}{31}{subsection.11.2}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {19}Scanomap implementation in loop kernel}{31}{lstlisting.19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Implementing first order transform scanomap}{32}{subsection.11.3}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {20}Scanomap first order transform}{32}{lstlisting.20}}

@@ -30,12 +30,12 @@
 \contentsline {paragraph}{Parameters}{19}{section*.16}
 \contentsline {paragraph}{New folding function and associative operation}{19}{section*.17}
 \contentsline {paragraph}{Map-Out Arrays}{20}{section*.20}
-\contentsline {subsection}{\numberline {6.5}Other Fusion}{20}{subsection.6.5}
 \contentsline {section}{\numberline {7}Benchmarking}{21}{section.7}
-\contentsline {section}{\numberline {8}Conclusion}{25}{section.8}
-\contentsline {section}{\numberline {9}Appendix}{27}{section.9}
-\contentsline {subsection}{\numberline {9.1}A - Radix sort}{27}{subsection.9.1}
-\contentsline {section}{\numberline {10}B - Implementation code}{28}{section.10}
-\contentsline {subsection}{\numberline {10.1}Implementaion of scanomap SOAC}{28}{subsection.10.1}
-\contentsline {subsection}{\numberline {10.2}Implementing scanomap in loop kernel}{30}{subsection.10.2}
-\contentsline {subsection}{\numberline {10.3}Implementing first order transform scanomap}{31}{subsection.10.3}
+\contentsline {section}{\numberline {8}Future Works}{23}{section.8}
+\contentsline {section}{\numberline {9}Conclusion}{26}{section.9}
+\contentsline {section}{\numberline {10}Appendix}{28}{section.10}
+\contentsline {subsection}{\numberline {10.1}A - Radix sort}{28}{subsection.10.1}
+\contentsline {section}{\numberline {11}B - Implementation code}{29}{section.11}
+\contentsline {subsection}{\numberline {11.1}Implementaion of scanomap SOAC}{29}{subsection.11.1}
+\contentsline {subsection}{\numberline {11.2}Implementing scanomap in loop kernel}{31}{subsection.11.2}
+\contentsline {subsection}{\numberline {11.3}Implementing first order transform scanomap}{32}{subsection.11.3}
