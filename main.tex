@@ -1125,7 +1125,7 @@ fun [int, n] main([int, n] inp) =
 The results in figure \ref{fig:scanomap-scanomap} shows a speedup of average 1.19 times faster by using scanomap fusion, illustrated by the red bars. However by adding the scanomap-scanomap fusion illustrated by the blue bars, the results are an average of 1.56 times faster computation.
 
 \section{Future Works}
-There is a potential to expand the \texttt{scanomap} construct to accomodate more fusion. Currently the \texttt{scanomap} construct supports fusion as a consumer with a producer \texttt{map} as well
+There is a potential to expand the \texttt{scanomap} construct to accommodate more fusion. Currently the \texttt{scanomap} construct supports fusion as a consumer with a producer \texttt{map} as well
  as horizontal fusion with another \texttt{scanomap}. However, as we can see in Listings \ref{lst:maposcanomap1} and \ref{lst:mos1}, it makes sense
  -- at least sequentially -- to think of fusing \texttt{scanomap} as producer into
  a consumer \texttt{map}. And it should also be possible to exploit this fusion in parallel computation.
@@ -1176,7 +1176,7 @@ The results of this project give reason to believe that we could experience simi
  would be a worthwhile pursuit.
 \clearpage
 \section{Conclusion}
-
+We have shown the theory behind map-scan producer-consumer fusion resulting in the SOAC scanomap, with the addition of scanomap-scanomap horizontal fusion. Additionally we have documented a GPU speedup in the range 1.2-1.5 times faster then pre-scanomap implementation. Our implementation of scanomap has also opened the door for additional optimisations as \texttt{scanomap-map} fusion, with the chance of improving execution time even further.
 \newpage
 
 \bibliographystyle{unsrt}
