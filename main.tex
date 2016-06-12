@@ -816,7 +816,8 @@ $(b0, b1, .. ,bn) = \mathtt{map} \: f \: (a0, a1, ..., an)$, and not all members
  \end{itemize}
 This section will go through the algorithm for fusing a single \texttt{map} into a \texttt{scanomap} -- and, by extension the algorithm for fusing a \texttt{map} into a \texttt{scan}.
 
-The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. 
+The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. Figure \ref{fig:example1} shows an
+ example Futhark lambda function which has four parameters $a0, a1, a2, a3$, contains two bindings, and has a body of $(x1, x2, y1)$; i.e. it returns three values.
 \begin{figure}[h!]
   \centering
   \begin{align}
@@ -825,7 +826,7 @@ The function inputs of SOACs in Futhark consist of a set of parameters, a set of
     &\lett y1 = a2 + a3 \inn \\
     &(x1, x2, y1)
   \end{align}
-  \caption{Example of a SOAC lambda function.}
+  \caption{Example of a SOAC lambda function.}\label{fig:example1}
 \end{figure}
  Given a program, wherein a \texttt{map} is to be fused with a \texttt{scanomap} into a new \texttt{scanomap}:
 \begin{align*}
