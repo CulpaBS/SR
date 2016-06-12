@@ -529,7 +529,9 @@ S4: d[i] = c[i + 1]
 With larger and more complicated loops, this kind of analysis can become very sophisticated and complicated. This is why we reason about fusion through SOACs as their shapes and dependencies as loops
  are well-known.
 \subsection{Fusion in Futhark}
-Futhark is centred around SOACs for doing operations on arrays, and generally loops aren't used to perform array computation. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided as producer consumer functions as shown below:
+Futhark is centred around SOACs for doing operations on arrays, and generally loops aren't used to perform array computation. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided as producer consumer functions as shown in Table 1.
+\clearpage
+
 \begin{table}[hb!]
 \centering
 \caption{Producers and Consumers in Futhark}
@@ -942,7 +944,7 @@ $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \ci
 % - 
 % How is the new Scanomap construct formed.
 
-\clearpage
+\newpage
 \subsection{Scanomap-Scanomap Fusion}
 Having two \texttt{scanomap}s in a Futhark program with no dependencies between them, and input arrays of equal length, horizontal fusion can be performed.
 
@@ -1002,7 +1004,7 @@ $$\text{New-Params} = (a,b)$$
      \caption{The SOAC functions $\odot_f$ and $\odot_g$ from the two scanomaps}
      \label{fig:pre-fusion}
 \end{figure}
-\clearpage
+
 \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -1124,6 +1126,8 @@ fun [int, n] main([int, n] inp) =
 
 The results in Figure \ref{fig:scanomap-scanomap} show a speedup of average 1.19 times faster by using scanomap fusion, illustrated by the red bars. However, by adding the \texttt{scanomap}-\texttt{scanomap} fusion illustrated by the blue bars, the results are an average of 1.56 times faster computation.
 
+\clearpage
+\newpage
 \section{Future Work}
 There is a potential to expand the \texttt{scanomap} construct to accommodate more fusion. Currently the \texttt{scanomap} construct supports fusion as a consumer with a producer \texttt{map} as well
  as horizontal fusion with another \texttt{scanomap}. However, as we can see in Listings \ref{lst:maposcanomap1} and \ref{lst:mos1}, it makes sense
