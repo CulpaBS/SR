@@ -1,4 +1,4 @@
- \documentclass[11pt,bibliography=totocnumbered]{article}
+\documentclass[11pt,bibliography=totocnumbered]{article}
 \usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
 \usepackage{eso-pic} % \AddToShipoutPicture
 \usepackage{graphicx} % \includegraphics
@@ -98,7 +98,7 @@ The Futhark language is a functional programming with which the main idea is to 
  computational power.
 
 Loop fusion is a method of identifying two or more loops in an iterative program which can be combined for potential speedup as a result of altering memory access patterns  or reducing loop overhead.
- The optimisation pipeline of the Futhark compiler already contains a fusion module; it futhermore supports a range of fusion optimisations by exploiting invariants in its Second Order Array Combinator (SOAC) constructs -- which are semantically identical
+ The optimisation pipeline of the Futhark compiler already contains a fusion module; it furthermore supports a range of fusion optimisations by exploiting invariants in its Second Order Array Combinator (SOAC) constructs -- which are semantically identical
  to higher order functions found in functional languages \cite{T2Fusion}. The fusion module is not complete, but supports a range of SOAC fusions for example fusing two \texttt{map} expressions together. However, it does not currently support fusion between \texttt{map} and \texttt{scan} expressions.
 
 For our project we will explore the possibility of implementing \texttt{map}-\texttt{scan} fusion into the Futhark compiler and will examine the performance benefits (if any) of performing such optimisations.
@@ -1079,7 +1079,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
   \label{fig:map-scan fusion speedup}
 \end{figure}
 
-\paragraph*{CPU:} When running the same test on the CPU, we see that the \texttt{scanomap} is no longer consistantly faster. Below input size of 20,000, the computation time is faster without \texttt{scanomap} as seen in Figure \ref{fig:CPU-map-scan fusion speedup}. With input sizes higher than 20,000, and especially above 100,000, scanomap gives a significant speedup.
+\paragraph*{CPU:} When running the same test on the CPU, we see that the \texttt{scanomap} is no longer consistently faster. Below input size of 20,000, the computation time is faster without \texttt{scanomap} as seen in Figure \ref{fig:CPU-map-scan fusion speedup}. With input sizes higher than 20,000, and especially above 100,000, scanomap gives a significant speedup.
 
 \begin{figure}[h!]
   \centering
@@ -1133,7 +1133,7 @@ The results in Figure \ref{fig:scanomap-scanomap} show a speedup of average 1.19
 There is a potential to expand the \texttt{scanomap} construct to accommodate more fusion. Currently the \texttt{scanomap} construct supports fusion as a consumer with a producer \texttt{map} as well
  as horizontal fusion with another \texttt{scanomap}. However, as we can see in Listings \ref{lst:maposcanomap1} and \ref{lst:mos1}, it makes sense
  -- at least sequentially -- to think of fusing \texttt{scanomap} as producer into
- a consumer \texttt{map}. Futhermore, it should also be possible to exploit this fusion in parallel computation.
+ a consumer \texttt{map}. Furthermore, it should also be possible to exploit this fusion in parallel computation.
 
 \begin{lstlisting}[caption=$\mathtt{scanomap} \: g \: g_f \: ne \: a$ and $\mathtt{map} \: h \: b$ as sequential loops., label={lst:maposcanomap1}]
   a[n];
@@ -1179,13 +1179,12 @@ the \texttt{map} function. Implementation would be similar to what can be seen i
  \end{align*}
 The results of this project imply that we could experience similar speedups when performing \texttt{scanomap}-\texttt{map} fusion. Therefore, we think that exploring this possibility
  would be a worthwhile pursuit.
-\clearpage
 \section{Conclusion}
 Exploiting invariants inherent in \texttt{map} and \texttt{scan} as well creating the \texttt{scanomap} construct has allowed us
  to fairly simply define an algorithm for performing \texttt{map}-\texttt{scan} fusion. This algorithm allows for any two compatible
  producer-consumer, \texttt{map}s and \texttt{scan}s to be fused into a single \texttt{scanomap}. Moreover, we have shown
 how a \texttt{scanomap}  can
- be further fused as a consumer with a producer \texttt{map}, as well as horisontally with another \texttt{scanomap}.
+ be further fused as a consumer with a producer \texttt{map}, as well as horizontally with another \texttt{scanomap}.
 
 We have benchmarked Futhark programs with and without our additions to the Futhark compiler, and have documented a GPU speedup in the range 1.2-1.5 times faster for fused programs compared to their pre-\texttt{scanomap} implementation counterparts.
 
