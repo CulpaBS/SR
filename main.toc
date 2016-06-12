@@ -16,22 +16,22 @@
 \contentsline {section}{\numberline {5}Map-Scan Fusion}{10}{section.5}
 \contentsline {subsection}{\numberline {5.1}Scanomap}{11}{subsection.5.1}
 \contentsline {subsection}{\numberline {5.2}Necessary Conditions}{13}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{14}{subsection.5.3}
-\contentsline {paragraph}{Map-Scanomap Fusion}{14}{section*.6}
-\contentsline {paragraph}{Scanomap-Scanomap Fusion}{14}{section*.7}
+\contentsline {subsection}{\numberline {5.3}Fusing Scanomap}{13}{subsection.5.3}
+\contentsline {paragraph}{Map-Scanomap Fusion:}{13}{section*.6}
+\contentsline {paragraph}{Scanomap-Scanomap Fusion:}{14}{section*.7}
 \contentsline {section}{\numberline {6}Implementation}{14}{section.6}
 \contentsline {subsection}{\numberline {6.1}Program State}{14}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{16}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Map-Scanomap Fusion}{16}{subsection.6.3}
-\contentsline {paragraph}{Parameters}{17}{section*.11}
-\contentsline {paragraph}{Map-Out Arrays}{17}{section*.12}
-\contentsline {paragraph}{Function Composition}{17}{section*.13}
+\contentsline {subsection}{\numberline {6.2}Bottom Up Analysis}{15}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Map-Scanomap Fusion}{15}{subsection.6.3}
+\contentsline {paragraph}{Parameters:}{16}{section*.11}
+\contentsline {paragraph}{Map-Out Arrays:}{16}{section*.12}
+\contentsline {paragraph}{Function Composition:}{17}{section*.13}
 \contentsline {subsection}{\numberline {6.4}Scanomap-Scanomap Fusion}{19}{subsection.6.4}
-\contentsline {paragraph}{Parameters}{19}{section*.16}
-\contentsline {paragraph}{New folding function and associative operation}{19}{section*.17}
-\contentsline {paragraph}{Map-Out Arrays}{20}{section*.20}
+\contentsline {paragraph}{Parameters:}{19}{section*.16}
+\contentsline {paragraph}{New folding function and associative operation:}{19}{section*.17}
+\contentsline {paragraph}{Map-Out Arrays:}{20}{section*.20}
 \contentsline {section}{\numberline {7}Benchmarking}{21}{section.7}
-\contentsline {section}{\numberline {8}Future Works}{23}{section.8}
+\contentsline {section}{\numberline {8}Future Work}{23}{section.8}
 \contentsline {section}{\numberline {9}Conclusion}{26}{section.9}
 \contentsline {section}{\numberline {10}References}{27}{section.10}
 \contentsline {section}{\numberline {11}Appendix}{28}{section.11}
