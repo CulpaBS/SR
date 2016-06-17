@@ -26,11 +26,23 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Motivation}
+  \frametitle{Introduction}
+  \begin{itemize}
+  \item Performance increases on hardware increasingly comes from parallisation.
+  \item GPUs present an opportunity for massive parallelism.
+  \item GPGPU libraries can be low level and cumbersome.
+  \item Increasing need for high performance parallel languages.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Futhark}
+\large \textbf{Futhark is:}
+\begin{itemize}
+\item Functional language with GPU execution.
+\item Uses Second Order Array Combinators for bulk array operations.
+\item Aggressive optimisation strategy.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -38,7 +50,7 @@
   \begin{itemize}
   \item \texttt{map}, \texttt{reduce}, \texttt{scan}, \texttt{filter} etc.
   \item Equivalent to higher-order functions found in functional programming.
-  \item Useful in regards to parallelisation.
+  \item Can have strong invariants. Useful with regards to parallelisation, and optimisation.
   \end{itemize}
   \begin{align*}
     &\mathtt{map} \: f \: a \: :  \: (\alpha \to \beta) \to [\alpha] \to [\beta]\\
@@ -51,9 +63,21 @@
 \end{frame}
 
 \section[fus]{Fusion}
+
 \begin{frame}
 \frametitle{Table of Contents}
 \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Loop Fusion}
+\large \textbf{Why loop fusion?}
+\begin{itemize}
+\item Combining loops reduces overhead.
+\item Can optimize memory access patterns.
+\item Can do away with intermediate arrays.
+\end{itemize}
+\large \textbf{On GPU -- high penalties for global memory accesses.}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -236,11 +260,27 @@ fun [u32, n] radix_sort_step([u32, n] xs, i32 digit_n) =
 \end{frame}
 
 \begin{frame}
- \frametitle{Conclusion}
+ \frametitle{Future work}
+\large \textbf{Scanomap-Map fusion}
+\begin{itemize}
+\item Scanomap doesn't natively fuse as a producer.
+\item Extend Scanomap with a third function.
+\item Fuse with Map using the techniques from earlier.
+\end{itemize}
+\large \textbf{Should result in similar speedup.}
 \end{frame}
 \begin{frame}
- \frametitle{Scanomap-Map Fusion}
+ \frametitle{Conclusion}
+\large \textbf{What have we achieved?}
+ \begin{itemize}
+ \item Performed Map-Scan fusion using Scanomap.
+ \item Implemented further fusion for Scanomap.
+ \item Uncovered opportunities for further optimisations.
+ \item Demonstrated significant speedup.
+ \end{itemize}
 \end{frame}
-
+\begin{frame}
+\Large End of Presentation.
+\end{frame}
 
 \end{document}

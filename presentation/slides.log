@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2015.11.21)  17 JUN 2016 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2015.11.21)  17 JUN 2016 16:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1101,23 +1101,25 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./slides.toc) [2
 
 ]
-[3
+LaTeX Font Info:    Try loading font information for U+msa on input line 36.
 
-] [4
-
-]
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 36.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [5
+) [3
 
-] (./slides.toc)
-[6
+] [4
+
+] [5
+
+]
+(./slides.toc) [6
+
+] [7
 
 ]
 \openout4 = `slides.vrb'.
@@ -1138,88 +1140,90 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbraceleft' on input line 5.
 
-) [7
+) [8
 
 ]
 \openout4 = `slides.vrb'.
 
- (./slides.vrb) [8
-
-] [9
+ (./slides.vrb) [9
 
 ] [10
 
 ] [11
 
+] [12
+
 ]
-<image/monster.png, id=336, 869.2475pt x 643.40375pt>
+<image/monster.png, id=362, 869.2475pt x 643.40375pt>
 File: image/monster.png Graphic file (type png)
  <use image/monster.png>
-Package pdftex.def Info: image/monster.png used on input line 131.
+Package pdftex.def Info: image/monster.png used on input line 155.
 (pdftex.def)             Requested size: 254.52908pt x 188.40181pt.
 
-[12
+[13
 
- <./image/monster.png>] [13
+ <./image/monster.png>] [14
 
-] [14
+] [15
 
-] (./slides.toc) [15
+] (./slides.toc) [16
 
-] [16
+] [17
 
 ]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-[17
+[18
 
-] <../images/comparing.png, id=494, 803.0pt x 602.25pt>
+] <../images/comparing.png, id=519, 803.0pt x 602.25pt>
 File: ../images/comparing.png Graphic file (type png)
 
 <use ../images/comparing.png>
-Package pdftex.def Info: ../images/comparing.png used on input line 193.
+Package pdftex.def Info: ../images/comparing.png used on input line 217.
 (pdftex.def)             Requested size: 276.559pt x 207.41808pt.
- [18
+ [19
 
  <../images/comparing.png>]
 \openout4 = `slides.vrb'.
 
  (./slides.vrb)
-[19
+[20
 
-] <../images/horri-comparing.png, id=546, 803.0pt x 602.25pt>
+] <../images/horri-comparing.png, id=572, 803.0pt x 602.25pt>
 File: ../images/horri-comparing.png Graphic file (type png)
 
 <use ../images/horri-comparing.png>
-Package pdftex.def Info: ../images/horri-comparing.png used on input line 209.
+Package pdftex.def Info: ../images/horri-comparing.png used on input line 233.
 (pdftex.def)             Requested size: 276.559pt x 207.41808pt.
- [20
+ [21
 
  <../images/horri-comparing.png>]
 \openout4 = `slides.vrb'.
 
 
 (./slides.vrb)
-Overfull \vbox (0.72672pt too high) detected at line 226
+Overfull \vbox (0.72672pt too high) detected at line 250
  []
 
-[21
+[22
 
-] <../images/radix-comparing.png, id=596, 803.0pt x 602.25pt>
+] <../images/radix-comparing.png, id=622, 803.0pt x 602.25pt>
 File: ../images/radix-comparing.png Graphic file (type png)
 
 <use ../images/radix-comparing.png>
-Package pdftex.def Info: ../images/radix-comparing.png used on input line 230.
+Package pdftex.def Info: ../images/radix-comparing.png used on input line 254.
 (pdftex.def)             Requested size: 276.559pt x 207.41808pt.
- [22
+ [23
 
  <../images/radix-comparing.png>]
-(./slides.toc) [23
-
-] [24
+(./slides.toc) [24
 
 ] [25
+
+] [26
+
+] [27
 
 ]
 \tf@nav=\write6
@@ -1231,11 +1235,11 @@ Package pdftex.def Info: ../images/radix-comparing.png used on input line 230.
 \tf@snm=\write8
 \openout8 = `slides.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 246.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 246.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 286.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 286.
  (./slides.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 246.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 246.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 286.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 286.
 Package rerunfilecheck Info: File `slides.out' has not changed.
 (rerunfilecheck)             Checksum: 3ACE07ED7FF9B1AC4CF2A9E2612A6DDF;175.
 
@@ -1246,13 +1250,13 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 246.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 286.
  ) 
 Here is how much of TeX's memory you used:
- 24220 strings out of 494430
- 503011 string characters out of 6165636
- 760598 words of memory out of 5000000
- 26873 multiletter control sequences out of 15000+600000
+ 24232 strings out of 494430
+ 503113 string characters out of 6165636
+ 760737 words of memory out of 5000000
+ 26881 multiletter control sequences out of 15000+600000
  15478 words of font info for 59 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  48i,14n,71p,441b,1245s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1270,10 +1274,10 @@ nts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.
 pfb>
-Output written on slides.pdf (25 pages, 327764 bytes).
+Output written on slides.pdf (27 pages, 325802 bytes).
 PDF statistics:
- 762 PDF objects out of 1000 (max. 8388607)
- 703 compressed objects within 8 object streams
- 57 named destinations out of 1000 (max. 500000)
+ 813 PDF objects out of 1000 (max. 8388607)
+ 752 compressed objects within 8 object streams
+ 61 named destinations out of 1000 (max. 500000)
  95 words of extra memory for PDF output out of 10000 (max. 10000000)
 
