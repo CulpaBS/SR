@@ -1,4 +1,4 @@
- \documentclass[11pt,bibliography=totocnumbered]{article}
+\documentclass[11pt,bibliography=totocnumbered]{article}
 \usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
 \usepackage{eso-pic} % \AddToShipoutPicture
 \usepackage{graphicx} % \includegraphics
@@ -98,7 +98,7 @@ The Futhark language is a functional programming with which the main idea is to 
  computational power.
 
 Loop fusion is a method of identifying two or more loops in an iterative program which can be combined for potential speedup as a result of altering memory access patterns  or reducing loop overhead.
- The optimisation pipeline of the Futhark compiler already contains a fusion module; it futhermore supports a range of fusion optimisations by exploiting invariants in its Second Order Array Combinator (SOAC) constructs -- which are semantically identical
+ The optimisation pipeline of the Futhark compiler already contains a fusion module; it furthermore supports a range of fusion optimisations by exploiting invariants in its Second Order Array Combinator (SOAC) constructs -- which are semantically identical
  to higher order functions found in functional languages \cite{T2Fusion}. The fusion module is not complete, but supports a range of SOAC fusions for example fusing two \texttt{map} expressions together. However, it does not currently support fusion between \texttt{map} and \texttt{scan} expressions.
 
 For our project we will explore the possibility of implementing \texttt{map}-\texttt{scan} fusion into the Futhark compiler and will examine the performance benefits (if any) of performing such optimisations.
@@ -529,7 +529,9 @@ S4: d[i] = c[i + 1]
 With larger and more complicated loops, this kind of analysis can become very sophisticated and complicated. This is why we reason about fusion through SOACs as their shapes and dependencies as loops
  are well-known.
 \subsection{Fusion in Futhark}
-Futhark is centred around SOACs for doing operations on arrays, and generally loops aren't used to perform array computation. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided as producer consumer functions as shown below:
+Futhark is centred around SOACs for doing operations on arrays, and generally loops aren't used to perform array computation. Loop fusion for that reason is focused on SOAC fusion. The SOACs can currently be divided as producer consumer functions as shown in Table 1.
+\clearpage
+
 \begin{table}[hb!]
 \centering
 \caption{Producers and Consumers in Futhark}
@@ -814,7 +816,8 @@ $(b0, b1, .. ,bn) = \mathtt{map} \: f \: (a0, a1, ..., an)$, and not all members
  \end{itemize}
 This section will go through the algorithm for fusing a single \texttt{map} into a \texttt{scanomap} -- and, by extension the algorithm for fusing a \texttt{map} into a \texttt{scan}.
 
-The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. 
+The function inputs of SOACs in Futhark consist of a set of parameters, a set of \texttt{let} bindings, and a body which defines the function output. Figure \ref{fig:example1} shows an
+ example Futhark lambda function which has four parameters $a0, a1, a2, a3$, contains two bindings, and has a body of $(x1, x2, y1)$; i.e. it returns three values.
 \begin{figure}[h!]
   \centering
   \begin{align}
@@ -823,7 +826,7 @@ The function inputs of SOACs in Futhark consist of a set of parameters, a set of
     &\lett y1 = a2 + a3 \inn \\
     &(x1, x2, y1)
   \end{align}
-  \caption{Example of a SOAC lambda function.}
+  \caption{Example of a SOAC lambda function.}\label{fig:example1}
 \end{figure}
  Given a program, wherein a \texttt{map} is to be fused with a \texttt{scanomap} into a new \texttt{scanomap}:
 \begin{align*}
@@ -942,7 +945,7 @@ $$(d / m_{out}) \doubleplus m_{out} = \mathtt{scanomap} \: \odot \: \odot_{f \ci
 % - 
 % How is the new Scanomap construct formed.
 
-\clearpage
+\newpage
 \subsection{Scanomap-Scanomap Fusion}
 Having two \texttt{scanomap}s in a Futhark program with no dependencies between them, and input arrays of equal length, horizontal fusion can be performed.
 
@@ -1002,7 +1005,7 @@ $$\text{New-Params} = (a,b)$$
      \caption{The SOAC functions $\odot_f$ and $\odot_g$ from the two scanomaps}
      \label{fig:pre-fusion}
 \end{figure}
-\clearpage
+
 \begin{figure}[hb!]
 
    \begin{mdframed}
@@ -1076,7 +1079,7 @@ Figure \ref{fig:map-scan fusion speedup} shows the speedup with scanomap, and th
   \label{fig:map-scan fusion speedup}
 \end{figure}
 
-\paragraph*{CPU:} When running the same test on the CPU, we see that the \texttt{scanomap} is no longer consistantly faster. Below input size of 20,000, the computation time is faster without \texttt{scanomap} as seen in Figure \ref{fig:CPU-map-scan fusion speedup}. With input sizes higher than 20,000, and especially above 100,000, scanomap gives a significant speedup.
+\paragraph*{CPU:} When running the same test on the CPU, we see that the \texttt{scanomap} is no longer consistently faster. Below input size of 20,000, the computation time is faster without \texttt{scanomap} as seen in Figure \ref{fig:CPU-map-scan fusion speedup}. With input sizes higher than 20,000, and especially above 100,000, scanomap gives a significant speedup.
 
 \begin{figure}[h!]
   \centering
@@ -1124,11 +1127,13 @@ fun [int, n] main([int, n] inp) =
 
 The results in Figure \ref{fig:scanomap-scanomap} show a speedup of average 1.19 times faster by using scanomap fusion, illustrated by the red bars. However, by adding the \texttt{scanomap}-\texttt{scanomap} fusion illustrated by the blue bars, the results are an average of 1.56 times faster computation.
 
+\clearpage
+\newpage
 \section{Future Work}
 There is a potential to expand the \texttt{scanomap} construct to accommodate more fusion. Currently the \texttt{scanomap} construct supports fusion as a consumer with a producer \texttt{map} as well
  as horizontal fusion with another \texttt{scanomap}. However, as we can see in Listings \ref{lst:maposcanomap1} and \ref{lst:mos1}, it makes sense
  -- at least sequentially -- to think of fusing \texttt{scanomap} as producer into
- a consumer \texttt{map}. Futhermore, it should also be possible to exploit this fusion in parallel computation.
+ a consumer \texttt{map}. Furthermore, it should also be possible to exploit this fusion in parallel computation.
 
 \begin{lstlisting}[caption=$\mathtt{scanomap} \: g \: g_f \: ne \: a$ and $\mathtt{map} \: h \: b$ as sequential loops., label={lst:maposcanomap1}]
   a[n];
@@ -1174,13 +1179,12 @@ the \texttt{map} function. Implementation would be similar to what can be seen i
  \end{align*}
 The results of this project imply that we could experience similar speedups when performing \texttt{scanomap}-\texttt{map} fusion. Therefore, we think that exploring this possibility
  would be a worthwhile pursuit.
-\clearpage
 \section{Conclusion}
 Exploiting invariants inherent in \texttt{map} and \texttt{scan} as well creating the \texttt{scanomap} construct has allowed us
  to fairly simply define an algorithm for performing \texttt{map}-\texttt{scan} fusion. This algorithm allows for any two compatible
  producer-consumer, \texttt{map}s and \texttt{scan}s to be fused into a single \texttt{scanomap}. Moreover, we have shown
 how a \texttt{scanomap}  can
- be further fused as a consumer with a producer \texttt{map}, as well as horisontally with another \texttt{scanomap}.
+ be further fused as a consumer with a producer \texttt{map}, as well as horizontally with another \texttt{scanomap}.
 
 We have benchmarked Futhark programs with and without our additions to the Futhark compiler, and have documented a GPU speedup in the range 1.2-1.5 times faster for fused programs compared to their pre-\texttt{scanomap} implementation counterparts.
 

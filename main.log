@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2015.11.21)  12 JUN 2016 15:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.1.22)  12 JUN 2016 19:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1587,133 +1587,130 @@ Missing character: There is no t in font nullfont!
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 407.
 
-[7] [8] [9] [10] [11] <images/cases.png, id=430, 484.05844pt x 298.11375pt>
+[7] [8] [9] [10
+
+] [11] <images/cases.png, id=430, 484.05844pt x 298.11375pt>
 File: images/cases.png Graphic file (type png)
 
 <use images/cases.png>
-Package pdftex.def Info: images/cases.png used on input line 700.
+Package pdftex.def Info: images/cases.png used on input line 702.
 (pdftex.def)             Requested size: 262.90604pt x 161.92064pt.
  [12] [13 <./images/cases.png>]
 <images/pipeline.jpg, id=451, 248.42813pt x 255.95625pt>
 File: images/pipeline.jpg Graphic file (type jpg)
 
 <use images/pipeline.jpg>
-Package pdftex.def Info: images/pipeline.jpg used on input line 772.
+Package pdftex.def Info: images/pipeline.jpg used on input line 774.
 (pdftex.def)             Requested size: 219.08614pt x 225.72647pt.
  [14]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 788.
+(mdframed)              on input line 790.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 796.
+ mdframed uses option nobreak mdframed on input line 798.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 796.
+ mdframed uses option nobreak mdframed on input line 798.
  [15 <./images/pipeline.jpg>] [16]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 876.
+(mdframed)              on input line 879.
 
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 876--904
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 879--907
 []$[]$ $[]$ 
  []
 
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 905.
+ mdframed uses option nobreak mdframed on input line 908.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 905.
+ mdframed uses option nobreak mdframed on input line 908.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 915.
+(mdframed)              on input line 918.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 929.
+ mdframed uses option nobreak mdframed on input line 932.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 929.
+ mdframed uses option nobreak mdframed on input line 932.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[17] [18]
+[17]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 972.
+(mdframed)              on input line 975.
 
-Overfull \hbox (2.42162pt too wide) in paragraph at lines 972--1000
+Overfull \hbox (2.42162pt too wide) in paragraph at lines 975--1003
 []$[]$ $[]$ 
  []
 
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 1001.
+ mdframed uses option nobreak mdframed on input line 1004.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 1001.
-[19
-
-]
+ mdframed uses option nobreak mdframed on input line 1004.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1009.
+(mdframed)              on input line 1012.
 Package mdframed Info: mdframed inside float 
- mdframed uses option nobreak mdframed on input line 1023.
+ mdframed uses option nobreak mdframed on input line 1026.
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 1023.
- [20
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 1059--1060
+ mdframed uses option nobreak mdframed on input line 1026.
+[18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 1062--1063
 
  []
 
-<images/chart.png, id=515, 803.0pt x 602.25pt>
+<images/chart.png, id=512, 803.0pt x 602.25pt>
 File: images/chart.png Graphic file (type png)
  <use images/chart.png>
-Package pdftex.def Info: images/chart.png used on input line 1065.
+Package pdftex.def Info: images/chart.png used on input line 1068.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
- [21 <./images/chart.png>] <images/comparing.png, id=530, 803.0pt x 602.25pt>
+ [20 <./images/chart.png>] <images/comparing.png, id=527, 803.0pt x 602.25pt>
 File: images/comparing.png Graphic file (type png)
 
 <use images/comparing.png>
-Package pdftex.def Info: images/comparing.png used on input line 1074.
+Package pdftex.def Info: images/comparing.png used on input line 1077.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
 
-<images/futhark-c-comparing.png, id=532, 803.0pt x 602.25pt>
+<images/futhark-c-comparing.png, id=529, 803.0pt x 602.25pt>
 File: images/futhark-c-comparing.png Graphic file (type png)
 
 <use images/futhark-c-comparing.png>
-Package pdftex.def Info: images/futhark-c-comparing.png used on input line 1083
+Package pdftex.def Info: images/futhark-c-comparing.png used on input line 1086
 .
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/radix-comparing.png, id=534, 803.0pt x 602.25pt>
+<images/radix-comparing.png, id=531, 803.0pt x 602.25pt>
 File: images/radix-comparing.png Graphic file (type png)
 
 <use images/radix-comparing.png>
-Package pdftex.def Info: images/radix-comparing.png used on input line 1094.
+Package pdftex.def Info: images/radix-comparing.png used on input line 1097.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
- [22 <./images/comparing.png>]
-<images/horri-comparing.png, id=545, 803.0pt x 602.25pt>
+ [21 <./images/comparing.png>]
+<images/horri-comparing.png, id=542, 803.0pt x 602.25pt>
 File: images/horri-comparing.png Graphic file (type png)
 
 <use images/horri-comparing.png>
-Package pdftex.def Info: images/horri-comparing.png used on input line 1120.
+Package pdftex.def Info: images/horri-comparing.png used on input line 1123.
 (pdftex.def)             Requested size: 394.35236pt x 295.76672pt.
- [23 <./images/futhark-c-comparing.png>]
-[24] [25 <./images/radix-comparing.png> <./images/horri-comparing.png>]
-[26
+ [22 <./images/futhark-c-comparing.png>]
+[23 <./images/radix-comparing.png> <./images/horri-comparing.png>] [24
 
-] (./main.bbl) [27] [28]
+]
+[25] (./main.bbl) [26] [27]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2015/06/04 1.6 listings language file
-) [29] [30]
-[31] [32] [33]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1394.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1394.
+) [28] [29]
+[30] [31] [32]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1398.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1398.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1394.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1394.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1398.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1398.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: B0C064D4F058D18C81E34E73850505BD;2124.
@@ -1721,13 +1718,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1394.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1398.
  ) 
 Here is how much of TeX's memory you used:
  36358 strings out of 494430
- 683259 string characters out of 6165636
- 1024370 words of memory out of 5000000
- 38577 multiletter control sequences out of 15000+600000
+ 683266 string characters out of 6165637
+ 1024439 words of memory out of 5000000
+ 38578 multiletter control sequences out of 15000+600000
  25123 words of font info for 77 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  55i,17n,71p,10515b,2349s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1737,23 +1734,23 @@ Here is how much of TeX's memory you used:
 r/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/william/.texmf-var/fonts/p
 k/ljfour/jknappen/ec/ecrm1095.600pk> </home/william/.texmf-var/fonts/pk/ljfour/
 jknappen/ec/ecbx1095.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecbx1440.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/jknappen/ec/e
-crm1200.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/jknappen/ec/ectt1
-200.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk
-> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2488.600pk></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmtt10.pfb>
-Output written on main.pdf (33 pages, 638502 bytes).
+ec/ecbx1440.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm12
+00.600pk> </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>
+ </home/william/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/w
+illiam/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2488.600pk></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
+>
+Output written on main.pdf (32 pages, 624147 bytes).
 PDF statistics:
- 1356 PDF objects out of 1440 (max. 8388607)
- 900 compressed objects within 9 object streams
- 454 named destinations out of 1000 (max. 500000)
+ 1353 PDF objects out of 1440 (max. 8388607)
+ 898 compressed objects within 9 object streams
+ 453 named destinations out of 1000 (max. 500000)
  348 words of extra memory for PDF output out of 10000 (max. 10000000)
 
